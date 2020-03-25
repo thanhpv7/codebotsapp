@@ -1,0 +1,69 @@
+<!--
+@bot-written
+
+WARNING AND NOTICE
+Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+Full Software Licence as accepted by you before being granted access to this source code and other materials,
+the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+access, download, storage, and/or use of this source code.
+
+BOT WARNING
+This file is bot-written.
+Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+-->
+
+<!-- % protected region % [Add any additional HTML structure before the main body here] off begin -->
+<!-- % protected region % [Add any additional HTML structure before the main body here] end -->
+<section class="crud-component">
+	<!-- % protected region % [Customise your header] off begin -->
+	<h2>Admin</h2>
+	<!-- % protected region % [Customise your header] end -->
+	<!--Collection component-->
+	<!-- % protected region % [Customise your collection here] off begin -->
+	<cb-collection
+		*ngIf="!targetModel"
+		[models]="admins | async"
+		[pageIndex]="pageIndex"
+		[isLastPage]="isLastPage"
+		[headerOptions]="headerOptions"
+		[filterQuestions]="filterQuestions"
+		[itemActions]="itemActions"
+		[collectionActions]="collectionActions"
+		[multipleItemsActions]="multipleItemsActions"
+		[loadingType]="loadingType"
+		(itemActionClick)="onItemActionClicked($event)"
+		(collectionActionClick)="onCollectionActionClicked($event)"
+		(multipleItemsActionClick)="onMultipleItemsActionClicked($event)"
+		(sort)="onCollectionSort($event)"
+		(filter)="onCollectionFilter($event)"
+		(search)="onCollectionSearch($event)"
+		(first)="onFirstPageRequested()"
+		(prev)="onPrevPageRequested()"
+		(next)="onNextPageRequested()"
+		(last)="onLastPageRequested()">
+	</cb-collection>
+	<!-- % protected region % [Customise your collection here] end -->
+	<!--Middle resizeable bar-->
+	<div *ngIf="!targetModel" class="crud__resize-bar"></div>
+	<!--Create or edit component-->
+	<!-- % protected region % [Customise your crud tile here] off begin -->
+	<cb-crud-create-edit
+		*ngIf="targetModel"
+		[model]="targetModel"
+		[modelFormGroup]="modelFormGroup"
+		[modelProperties]="modelProperties"
+		[modelRelations] = "modelRelations"
+		(createOrSaveClick)="onCreateOrSaveClicked($event)"
+		(cancelClick)="onCancelClicked()"
+		(viewHistory)="onViewHistory()"
+		(switchEdit)="onSwitchEdit()"
+		[isDisabled]="isViewOnly"
+		[audits]="adminAudits$ | async">
+	</cb-crud-create-edit>
+	<!-- % protected region % [Customise your crud tile here] end -->
+</section>
+<!-- % protected region % [Add any additional HTML structure after the main body here] off begin -->
+<!-- % protected region % [Add any additional HTML structure after the main body here] end -->

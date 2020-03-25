@@ -1,0 +1,113 @@
+/*
+ * @bot-written
+ * 
+ * WARNING AND NOTICE
+ * Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+ * Full Software Licence as accepted by you before being granted access to this source code and other materials,
+ * the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+ * commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+ * licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+ * including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+ * access, download, storage, and/or use of this source code.
+ * 
+ * BOT WARNING
+ * This file is bot-written.
+ * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+ */
+
+plugins {
+	id 'java'
+	// % protected region % [Apply any additional plugins here] off begin
+	// % protected region % [Apply any additional plugins here] end
+}
+
+repositories {
+	jcenter()
+	mavenCentral()
+	mavenLocal()
+
+	// % protected region % [Apply any additional repositories here] off begin
+	// % protected region % [Apply any additional repositories here] end
+}
+
+dependencies {
+	// Dependency Injection
+	testImplementation group: 'com.google.inject', name: 'guice', version: '4.2.2'
+	testImplementation group: 'com.google.inject.extensions', name: 'guice-persist', version: '4.2.2'
+	testImplementation group: 'com.netflix.governator', name: 'governator', version: '1.17.8'
+
+	// JUnit
+	testImplementation group: 'org.testng', name: 'testng', version: '7.0.0'
+
+	// Cucumber
+	testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '4.8.0'
+	testImplementation group: 'io.cucumber', name: 'cucumber-guice', version: '4.8.0'
+	testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '4.8.0'
+
+	// Javax
+	testImplementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+
+	// Logging
+	testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+	// Code generation
+	testImplementation 'org.projectlombok:lombok:1.18.4'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+	// Utility
+	testImplementation 'com.google.guava:guava:28.0-jre'
+
+	// Selenium
+	testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+	testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-support', version: '3.141.59'
+
+	// WebDriverManager - manages web driver binaries
+	testImplementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.1'
+
+	// MockNeat - Mocking field values
+	testImplementation 'net.andreinc.mockneat:mockneat:0.3.6'
+
+	// Rest assured - silent login
+	testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
+
+	// GSON - Rest assured body content
+	testImplementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+
+	// XML JAXB - Rest assured dependency
+	testImplementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+
+	// https://mvnrepository.com/artifact/com.browserstack/browserstack-local-java
+	testImplementation group: 'com.browserstack', name: 'browserstack-local-java', version: '1.0.3'
+
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	testImplementation group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
+	// % protected region % [Apply any additional dependencies here] off begin
+	// % protected region % [Apply any additional dependencies here] end
+}
+
+configurations {
+	cucumberRuntime {
+		extendsFrom testImplementation
+	}
+
+	// % protected region % [Add any configurations  here] off begin
+	// % protected region % [Add any configurations  here] end
+
+	// % protected region % [here] off begin
+	// % protected region % [here] end
+}
+
+test {
+	systemProperty "cucumber.options", project.properties["cucumber.options"]
+	useTestNG() {
+		useDefaultListeners = true
+		suites 'src/test/resources/suites/all-suites.xml'
+	}
+	testLogging.showStandardStreams = true
+	scanForTestClasses = false
+	systemProperty "cucumber.options", project.properties["cucumber.options"]
+}
+
+// % protected region % [Add any additional Gradle tasks here] off begin
+// % protected region % [Add any additional Gradle tasks here] end

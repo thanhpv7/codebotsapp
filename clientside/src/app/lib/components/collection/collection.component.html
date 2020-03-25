@@ -1,0 +1,239 @@
+<!--
+@bot-written
+
+WARNING AND NOTICE
+Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+Full Software Licence as accepted by you before being granted access to this source code and other materials,
+the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+access, download, storage, and/or use of this source code.
+
+BOT WARNING
+This file is bot-written.
+Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+-->
+
+<ng-container *ngIf="isDisplaying">
+	<section class="collection-component">
+		<!--Menu section-->
+		<section *ngIf="!hideMenu" aria-label="collection menu" class="collection__menu">
+			<form cb-search [placeholder]="'Search'" [className]="'search search__collection'" [buttonVisible]="false" (search)="onSearch($event)"></form>
+			<section class="collection__actions">
+				<button cb-button *ngIf="filterQuestions.length > 0"
+								[classes]="'filter'"
+								[buttonStyle]="buttonStyle.OUTLINE"
+								[iconClasses]="'filter'"
+								(click)="displayFilter = !displayFilter"
+								[iconPos]="iconPos.TOP"
+								[isDisabled]="isDisabled">
+					Filter
+				</button>
+					<button *ngIf='!isGrid' cb-button
+								[classes]="'icon-grid grid'"
+								(click)="isGrid = true"
+								[buttonStyle]="buttonStyle.OUTLINE"
+								[iconPos]="iconPos.TOP"
+								[isDisabled]="isDisabled"
+								[isDisplaying]="allowViewToggle || isGrid">
+					Grid
+				</button>
+				<button *ngIf='isGrid' cb-button
+								[classes]="'icon-list list'"
+								(click)="isGrid = false"
+								[buttonStyle]="buttonStyle.OUTLINE"
+								[isDisabled]="isDisabled"
+								[iconPos]="iconPos.TOP"
+								[isDisplaying]="allowViewToggle || !isGrid">
+							List
+				</button>
+				<button cb-button *ngFor="let action of collectionActions"
+								[iconClasses]="action.icon"
+								[iconPos]="iconPos.TOP"
+								(click)="onCollectionActionClicked(action.label)"
+								[isDisabled]="action.disableOption ? action.disableOption(null) : isDisabled">
+							{{action.label}}
+				</button>
+			</section>
+		</section>
+		<!--Filter section-->
+		<section aria-label="collection__filter" class="collection__filters" *ngIf="displayFilter">
+			<cb-collection-filter (filterEmitter)="onFilter($event)" [filterQuestions]="filterQuestions"></cb-collection-filter>
+		</section>
+		<!--Select option-->
+		<section aria-label="select options" class="collection__select-options" [class.hide]="selectedModels.size == 0">
+			<section class="collection__selection-actions">
+				<cb-button-group>
+					<button cb-button *ngFor="let action of multipleItemsActions"
+							(click)="onMultipleItemsActionClicked(action.label)"
+							[iconClasses]="action.icon"
+							[iconPos]="action.iconPos"
+							[isDisabled]="isDisabled"
+							[buttonStyle]="buttonStyle.TEXT">
+						{{action.label}}
+					</button>
+				</cb-button-group>
+			</section>
+			<p class="crud__selection-count"><span class="selection-count">{{ selectedModels.size }}</span> selected</p>
+			<button cb-button
+					[classes]="'crud__selection-cancel'"
+					(click)="onSelectAllCancel()"
+					[buttonStyle]="buttonStyle.TEXT">
+				Cancel
+			</button>
+		</section>
+		<!--For list view-->
+		<ng-container *ngIf="!isGrid; else gridView" >
+			<section aria-label="collection list" class="collection__list collection__list--expandable">
+				<table>
+					<thead>
+					<tr class="list__header">
+						<th *ngIf="!hideCheckbox" class="select-box">
+							<cb-checkbox class="crud__list-select-all input-label-checkbox"
+													[id]="'select-all'"
+													[className]="'collection__list--select-all'"
+													[displayType]="inputComponentDisplayType.INLINE"
+													[ngModel]="selectedModels.size === models.length && models.length !== 0"
+													(check)="onSelectAllChange($event)"
+													[label]="'Select All'"
+													[isDisabled]="isDisabled">
+							</cb-checkbox>
+						</th>
+						<th	*ngFor="let opt of headerOptions"
+								[id]="opt.name"
+								scope="col"
+								[class.sortable]="opt.sortable"
+								(click)="opt.sortable ? onHeaderClicked(opt): null">{{ opt.displayName }}</th>
+						<th *ngIf="itemActions && itemActions.length > 0" scope="col" class="list__header--actions">Options</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let model of models" class="collection__item" [attr.data-id]="model.id">
+						<td *ngIf="!hideCheckbox">
+							<cb-checkbox class="input-label-checkbox"
+													[id]="model.id"
+													[ngModel]="(selectedModels.size === models.length && models.length !== 0) || selectedModels.has(model)"
+													[label]="'select-item'"
+													[labelVisible]="false"
+													(check)="$event ? onModelSelected(model) : onModelDeselected(model)">
+							</cb-checkbox>
+						</td>
+
+						<td *ngFor="let opt of headerOptions">
+							<span *ngIf="opt.type == modelPropertyType.OBSERVABLE; else value">
+								{{ getValue(opt, model) | async }}
+							</span>
+							<ng-template #value>
+								<span>{{ getValue(opt, model)}}</span>
+							</ng-template>
+						</td>
+
+						<td *ngIf="itemActions && itemActions.length > 0" class="list__items--actions">
+							<section class="collection__edit-actions">
+								<cb-button-group>
+									<button cb-button *ngFor="let action of itemActions"
+													(click)="onItemActionClicked(action.label, model)"
+													[iconClasses]="action.icon"
+													[iconPos]="action.iconPos"
+													[buttonStyle]="buttonStyle.TEXT"
+													[isDisabled]="action.disableOption ? action.disableOption(model) : isDisabled">
+											{{action.label}}
+									</button>
+								</cb-button-group>
+							</section>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+		</ng-container>
+		<ng-template #gridView>
+			<section aria-label="collection grid" class="collection__grid">
+				<ng-container *ngFor="let model of models">
+					<div class="collection__item">
+						<div class="grid-item__header">
+							<cb-checkbox *ngIf="!hideCheckbox"
+													 [id]="model.id"
+													 [labelVisible]="false"
+													 [label]="'select-item'"
+													 class="input-label-checkbox"
+													 [ngModel]="selectedModels.size === models.length || selectedModels.has(model)"
+													 (check)="$event ? onModelSelected(model) : onModelDeselected(model)">
+							</cb-checkbox>
+							<p>Content</p>
+							<button cb-button [labelVisible]='false' [iconClasses]="'chevron-down'" [iconName]="'chevron-down'" [buttonStyle]="buttonStyle.TEXT"></button>
+						</div>
+							<div class="grid-item__content">
+								<div *ngFor="let opt of headerOptions">
+										<p class="item-content__label">{{ opt.displayName }}</p>
+										<p class="item-content__value" *ngIf="opt.type == modelPropertyType.OBSERVABLE; else value">
+											{{ getValue(opt, model) | async }}
+										</p>
+										<ng-template #value>
+											<p class="item-content__value">{{ getValue(opt, model)}}</p>
+										</ng-template>
+								</div>
+						</div>
+						<section class="grid-item__footer">
+							<button cb-button *ngFor="let action of itemActions"
+									[iconPos]="iconPos.TOP"
+									[buttonStyle]="buttonStyle.TEXT"
+									(click)="onItemActionClicked(action.label, model)"
+									[iconClasses]="action.icon"
+									[isDisabled]="isDisabled">
+								{{action.label}}
+							</button>
+						</section>
+					</div>
+				</ng-container>
+			</section>
+		</ng-template>
+		<!-- LOAD SECTION -->
+		<section class="collection__load" *ngIf="(paginationType | as:loadingType) === loadingType.CONTINUOUS || (paginationType | typeof) === 'string' && !(isLastPage && pageIndex === 0)">
+			<button cb-button [classes]="'btn--text'">{{ (paginationType | typeof) === 'string' ? paginationType : 'Load More...'}}</button>
+		</section>
+		<nav aria-label="pagination"
+			*ngIf="(paginationType | as:loadingType) === loadingType.PAGINATION && !(isLastPage && pageIndex === 0)">
+			<ul class="collection__pagination">
+				<li>
+					<button cb-button
+									[iconClasses]="'chevrons-left'"
+									[iconPos]="iconPos.LEFT"
+									[buttonStyle]="buttonStyle.TEXT"
+									(click)="onFirstPage()"
+									[isDisabled]="pageIndex === 0">First
+					</button>
+				</li>
+				<li>
+					<button cb-button
+									[iconClasses]="'chevron-left'"
+									[iconPos]="iconPos.LEFT"
+									[buttonStyle]="buttonStyle.TEXT"
+									(click)="onPreviousPage()"
+									[isDisabled]="pageIndex === 0">Previous
+					</button>
+				</li>
+				<li><span class="pagination__page-number">{{ pageIndex + 1 }}</span></li>
+				<li>
+					<button cb-button
+									[iconClasses]="'chevron-right'"
+									[iconPos]="iconPos.RIGHT"
+									[buttonStyle]="buttonStyle.TEXT"
+									(click)="onNextPage()"
+									[isDisabled]="isLastPage">Next
+					</button>
+				</li>
+				<li>
+					<button cb-button
+									[iconClasses]="'chevrons-right'"
+									[iconPos]="iconPos.RIGHT"
+									[buttonStyle]="buttonStyle.TEXT"
+									(click)="onLastPage()"
+									[isDisabled]="isLastPage">Last
+					</button>
+				</li>
+			</ul>
+		</nav>
+	</section>
+</ng-container>

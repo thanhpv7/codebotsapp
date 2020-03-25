@@ -1,0 +1,139 @@
+<!--
+@bot-written
+
+WARNING AND NOTICE
+Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+Full Software Licence as accepted by you before being granted access to this source code and other materials,
+the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+access, download, storage, and/or use of this source code.
+
+BOT WARNING
+This file is bot-written.
+Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+-->
+<ng-container *ngIf="checkSingleLink() ; else singledatastructure">
+	<ng-container *ngFor="let collectionLink of collectionLinks; let groupIndex = index">
+		<!-- Redirect to processing single data structure for each link in the link list -->
+		<ng-container
+				[ngTemplateOutlet]='navdomstructuretemplate'
+				[ngTemplateOutletContext]="{
+							linkItems:collectionLink.links,
+							icon: displayIcons,
+							groupIndex: groupIndex
+						}">
+		</ng-container>
+	</ng-container>
+</ng-container>
+
+<!-- TEMPLATE FOR LIST OF LINK -->
+<ng-template #singledatastructure>
+	<ng-container
+			[ngTemplateOutlet]='navdomstructuretemplate'
+			[ngTemplateOutletContext]="{
+							linkItems:links,
+							icon: displayIcons
+						}">
+	</ng-container>
+</ng-template>
+
+<!-- CONDITIONAL RENDER OF THE UI ELEMENT FOR EXPANDING VERTICAL NAVIGATION -->
+<ng-container *ngIf="expandable">
+	<a class="{{ expand ? 'icon-arrow-left expanded' : 'icon-arrow-right collapsed' }} icon-left link-rm-txt-dec expand-icon"
+		(click)="onExpandNavigationClick($event) ">
+	</a>
+</ng-container>
+
+<ng-template #navdomstructuretemplate
+			let-linkss="linkItems"
+			let-groupIndex="groupIndex">
+	<!-- HAS TO BE REDITECTED TO SINGLE LINKS-->
+	<ul>
+		<li *ngFor="let link of linkss; let linkIndex = index">
+			<!-- SINGLE LINK WITH SUB LINKS-->
+			<ng-container *ngIf="link.subLinks.length > 0; else singleLink"
+						[ngTemplateOutlet]='listitemsublinks'
+						[ngTemplateOutletContext]="{
+							nodelink:link,
+							icon: displayIcons,
+							linkIndex: linkIndex,
+							groupIndex: groupIndex
+						}">
+			</ng-container>
+
+			<!-- SINGLE LINK WITHOUT SUB LINKS-->
+			<ng-template #singleLink>
+				<ng-container
+						[ngTemplateOutlet]='listitemnosublinks'
+						[ngTemplateOutletContext]="{
+								nodelink:link,
+								icon: displayIcons,
+								parent: true
+							}">
+				</ng-container>
+			</ng-template>
+		</li>
+	</ul>
+</ng-template>
+
+
+<!-- TEMPLATE FOR LINK ITEM THAT HAS SUB LINKS -->
+<ng-template #listitemsublinks
+			let-link="nodelink"
+			let-icon="displayIcons"
+			let-linkIndex="linkIndex"
+			let-groupIndex="groupIndex">
+
+	<!-- PARENT LINK -->
+	<a [attr.aria-label]="'accordion of sublinks'"
+		[attr.data-link-index]="linkIndex"
+		class="{{ displayIcons ? link.icon + ' ' + iconPosition : '' }} nav__parent-link {{ link.active ? 'nav__parent-link--active' : '' }}"
+		(click)="onExpandAccordionLinkClick($event, linkIndex, groupIndex)">
+
+		<!-- RENDER SPAN -->
+		<ng-container
+				[ngTemplateOutlet]='renderspan'
+				[ngTemplateOutletContext]="{text:link.label, parent: true}">
+		</ng-container>
+	</a>
+
+	<!-- SUB LINKS -->
+	<ul class="nav__sublinks {{ link.active ? 'nav__sublinks--visible' : '' }}"
+		(clickOutside)='onClickOutsideAccordion()'>
+		<li *ngFor="let subLink of link.subLinks">
+			<!-- REDIRECT TO NODE LINK TEMPLATE -->
+			<ng-container
+					[ngTemplateOutlet]='listitemnosublinks'
+					[ngTemplateOutletContext]="{nodelink:subLink, icon: displayIcons, parent: false}">
+			</ng-container>
+		</li>
+	</ul>
+</ng-template>
+
+
+<!-- TEMPLATE FOR NODE LINK ITEM - I.E., ITEM THAT GOES TO A ROUTE -->
+<ng-template #listitemnosublinks let-link="nodelink" let-icon="displayIcons" let-parent="parent">
+	<a [attr.aria-label]="'link to ' + link.label"
+		class="{{ displayIcons && parent ? link.icon + ' ' + iconPosition : '' }}"
+		[routerLink]="link.href">
+
+		<ng-container
+				[ngTemplateOutlet]='renderspan'
+				[ngTemplateOutletContext]="{text:link.label, parent: parent}">
+		</ng-container>
+	</a>
+</ng-template>
+
+
+<!-- CONDITIONAL SPAN TAG IN ORDER TO HIDE TEXT WHEN EXPANDED -->
+<ng-template #renderspan let-text="text" let-parent="parent">
+	<span *ngIf="expandable && parent; else label">
+		<span> {{ text }} </span>
+	</span>
+
+	<ng-template #label>
+		{{ text }}
+	</ng-template>
+</ng-template>

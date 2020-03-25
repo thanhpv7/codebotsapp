@@ -1,0 +1,187 @@
+<!--
+@bot-written
+
+WARNING AND NOTICE
+Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+Full Software Licence as accepted by you before being granted access to this source code and other materials,
+the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+access, download, storage, and/or use of this source code.
+
+BOT WARNING
+This file is bot-written.
+Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+-->
+
+<section
+	[class.crud__view]="model['id'] && isDisabled"
+	[class.crud__edit]="model['id'] && !isDisabled"
+	[class.crud__create]="!model['id']">
+	<section class="crud__header" *ngIf="showHeader">
+		<button cb-button [classes]="'crud__return'"
+						[buttonStyle]="buttonStyle.TEXT"
+						[iconClasses]="'chevron-left'"
+						[iconPos]="iconPos.LEFT"
+						(click)="onCancelClicked()">
+			Return to list
+		</button>
+		<button cb-button [classes]="'sidebar__btn'" *ngIf="model['id']" (click)="onViewHistory()">View History</button>
+	</section>
+	<div cb-sidebar *ngIf="displayViewHistory" [audits]="audits" [model]="model"
+			 (close)="displayViewHistory = false"></div>
+	<section class="crud__form-container" [formGroup]="modelFormGroup">
+		<!--No group-->
+		<ng-template [ngTemplateOutlet]="mainBody"
+								 [ngTemplateOutletContext]="{ properties: modelPropertiesWithNoGroup, relations: modelRelationsWithNoGroup, model: model }"></ng-template>
+		<!-- Groups -->
+		<ng-container *ngIf="(modelPropertiesWithGroup | keys).length > 0">
+			<section *ngFor="let group of (modelPropertiesWithGroup | values); let index = index" class="form-container__section" [attr.data-group-index]="index">
+				<h6>{{ group.displayName }}</h6>
+				<ng-template [ngTemplateOutlet]="mainBody"
+										 [ngTemplateOutletContext]="{ group: group, model: model }"></ng-template>
+			</section>
+		</ng-container>
+		<ng-template #mainBody let-group="group" let-model="model" let-properties="properties" let-relations="relations">
+			<ng-container *ngIf="group; else noGroup">
+				<ng-container *ngFor="let prop of group.combined">
+					<ng-template *ngIf="prop.isProp; else ref" [ngTemplateOutlet]="propElements"
+											 [ngTemplateOutletContext]="{ prop: prop, model: model }"></ng-template>
+					<ng-template #ref [ngTemplateOutlet]="refElements" [ngTemplateOutletContext]="{ prop: prop }"></ng-template>
+				</ng-container>
+			</ng-container>
+			<ng-template #noGroup>
+				<ng-template *ngFor="let prop of (properties | ignoreBasicProperties)" [ngTemplateOutlet]="propElements"
+										 [ngTemplateOutletContext]="{ prop: prop, model: model }"></ng-template>
+				<ng-template *ngFor="let prop of relations" [ngTemplateOutlet]="refElements"
+										 [ngTemplateOutletContext]="{ prop: prop }"></ng-template>
+			</ng-template>
+		</ng-template>
+		<ng-template #propElements let-prop="prop">
+			<ng-container *ngIf="prop.hideElement !== true">
+				<ng-container [ngSwitch]="prop.elementType">
+					<cb-textfield
+						*ngSwitchDefault
+						[label]="prop.displayName"
+						[inputType]="prop.isSensitive ? textFieldType.PASSWORD : getInputType(prop.elementType)"
+						[name]="prop.displayName"
+						[formControlName]="prop.name"
+						[id]="prop.name">
+					</cb-textfield>
+					<div
+						cb-file-upload
+						*ngSwitchCase="elementType.FILE"
+						[label]="prop.displayName"
+						[formControlName]="prop.name"
+						[model]="model"
+						[id]="prop.name"
+						[fileField]="prop.name">
+					</div>
+					<cb-textarea
+						*ngSwitchCase="elementType.TEXTAREA"
+						[label]="prop.displayName"
+						[name]="prop.displayName"
+						[formControlName]="prop.name"
+						[id]="prop.name">
+					</cb-textarea>
+					<cb-datepicker
+						*ngSwitchCase="elementType.DATE"
+						[label]="prop.displayName"
+						[name]="prop.displayName"
+						[type]="'calendar'"
+						[formControlName]="prop.name"
+						[id]="prop.name">
+					</cb-datepicker>
+					<cb-datepicker
+						*ngSwitchCase="elementType.TIME"
+						[label]="prop.displayName"
+						[name]="prop.displayName"
+						[type]="'timer'"
+						[formControlName]="prop.name"
+						[id]="prop.name">
+					</cb-datepicker>
+					<cb-datepicker
+						*ngSwitchCase="elementType.DATETIME"
+						[label]="prop.displayName"
+						[name]="prop.displayName"
+						[type]="'both'"
+						[formControlName]="prop.name"
+						[id]="prop.name">
+					</cb-datepicker>
+					<cb-dropdown
+						*ngSwitchCase="elementType.ENUM"
+						[options]="prop.enumLiterals"
+						[name]="prop.displayName"
+						[labelField]="'value'"
+						[valueField]="'value'"
+						[label]="prop.displayName"
+						[id]="prop.name"
+						[formControlName]="prop.name">
+					</cb-dropdown>
+					<cb-dropdown
+						*ngSwitchCase="elementType.DROPDOWN"
+						[options]="prop.options"
+						[name]="prop.displayName"
+						[labelField]="prop.labelField"
+						[valueField]="prop.valueField"
+						[label]="prop.displayName"
+						[id]="prop.name"
+						[formControlName]="prop.name">
+					</cb-dropdown>
+					<cb-checkbox
+						*ngSwitchCase="elementType.CHECKBOX"
+						[id]="prop.name"
+						[name]="prop.displayName"
+						[label]="prop.displayName"
+						[formControlName]="prop.name">
+					</cb-checkbox>
+					<cb-radio-button-group
+						*ngSwitchCase="elementType.RADIO_GROUP"
+						[options]="prop.enumLiterals"
+						[name]="prop.displayName"
+						[labelField]="'value'"
+						[valueField]="'value'"
+						[label]="prop.displayName"
+						[id]="prop.name"
+						[formControlName]="prop.name">
+					</cb-radio-button-group>
+					<!-- % protected region % [Add any additional logic here for custom component] off begin -->
+					<!-- % protected region % [Add any additional logic here for custom component] end -->
+				</ng-container>
+			</ng-container>
+		</ng-template>
+		<ng-template #refElements let-prop="prop">
+			<ng-container *ngIf="!prop.hideElement">
+				<ng-container [ngSwitch]="prop.type">
+					<cb-dropdown
+						*ngSwitchCase="modelRelationType.ONE"
+						[labelField]="prop.displayName"
+						[valueField]="'id'"
+						[options$]="prop.collection"
+						[searchable]="true"
+						[label]="prop.label"
+						[typeAhead]="prop.searchFunction"
+						[id]="prop.name"
+						[name]="prop.label"
+						[formControlName]="prop.name">
+					</cb-dropdown>
+					<cb-dropdown
+						*ngSwitchCase="modelRelationType.MANY"
+						[labelField]="prop.displayName"
+						[valueField]="'id'"
+						[options$]="prop.collection"
+						[searchable]="true"
+						[multiple]="true"
+						[name]="prop.label"
+						[label]="prop.label"
+						[typeAhead]="prop.searchFunction"
+						[id]="prop.name"
+						[formControlName]="prop.name">
+					</cb-dropdown>
+				</ng-container>
+			</ng-container>
+		</ng-template>
+	</section>
+	<section cb-action-bar [groups]="actionBarGroups" *ngIf="showActionBar"></section>
+</section>

@@ -1,0 +1,328 @@
+/*
+ * @bot-written
+ * 
+ * WARNING AND NOTICE
+ * Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+ * Full Software Licence as accepted by you before being granted access to this source code and other materials,
+ * the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+ * commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+ * licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+ * including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+ * access, download, storage, and/or use of this source code.
+ * 
+ * BOT WARNING
+ * This file is bot-written.
+ * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+ */
+
+
+/*******Dropdown*******/
+.input-group__dropdown {
+	display: flex;
+	flex-direction: column;
+
+	.ng-select-container {
+		border-radius: $admin-input-radius;
+		height: unset !important;
+		padding: $admin-space-xs;
+		margin: $admin-space-xs 0 0 0;
+		border: 1px solid $admin-grey-4 !important;
+	}
+
+	&[disabled],
+	&[readonly] {
+		pointer-events: none;
+		opacity: 0.6;
+		background-color: $admin-grey-2;
+
+		&:hover,
+		&:focus,
+		&:active {
+			border: 1px solid $admin-grey-4;
+			background-color: $admin-grey-2;
+			color: $admin-grey-8;
+		}
+	}
+
+	&[disabled] {
+		cursor: not-allowed;
+	}
+
+	.ng-select {
+		width: 100%;
+
+		&.ng-select-focused {
+			outline: none;
+			border-color: $admin-grey-4 !important;
+			box-shadow: none;
+
+			.ng-select-container {
+				outline: none;
+				border-color: $admin-grey-4 !important;
+				box-shadow: none;
+			}
+		}
+	}
+
+	.ng-dropdown-panel {
+
+		&.ng-select-bottom {
+			border-bottom-right-radius: $admin-input-radius;
+			border-bottom-left-radius: $admin-input-radius;
+
+			.ng-dropdown-panel-items {
+				.ng-option {
+					&:last-child {
+						border-bottom-right-radius: $admin-input-radius;
+						border-bottom-left-radius: $admin-input-radius;
+					}
+
+					&.ng-marked,
+					&.ng-option-marked {
+						background-color: rgba($admin-grey-4, 0.2);
+					}
+
+					&.ng-option-selected {
+						background-color: transparent;
+						display: flex;
+						justify-content: space-between;
+
+						&:after {
+							content: '\e9a2';
+							font-family: 'lightning-icons';
+							margin-left: auto;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//Single search select
+	.ng-select-single {
+		.ng-value-container {
+			.ng-input {
+				padding: 0 !important;
+				//remove this if dom can be fixed
+				position: absolute;
+				top: 15px !important;
+
+				&:first-of-type {
+					margin-left: 0;
+				}
+
+				input {
+					padding-left: $admin-space-sm;
+					&:active {
+						background-color: $admin-white;
+					}
+				}
+
+			}
+		}
+	}
+
+	//Multi select
+	.ng-select-multiple {
+
+		.ng-select-container {
+			align-items: flex-start;
+
+			&.ng-has-value {
+				.ng-value-container {
+					margin: 2rem 0 0;
+					&:after {
+						width: 100%;
+						border-top: 1px solid $admin-grey-2;
+						content: '';
+						display: block;
+						position: absolute;
+						left: 0;
+						top: 2.4rem;
+					}
+				}
+			}
+		}
+
+		.ng-value-container {
+			padding: 0 !important;
+			display: inline-block;
+			//remove this if dom can be fixed
+			margin: 1.22rem 0 0rem;
+			max-height: 3.5rem;
+			overflow: auto;
+
+			.ng-value {
+				top: 0;
+				margin: $admin-space-xxs 0.3rem 0;
+				background-color: transparent !important;
+				display: inline-block;
+				white-space: unset !important;
+				@include fadeIn($admin-animation-time);
+				position: relative;
+
+				span {
+					font-size: $admin-base-font-size;
+					background: $admin-grey-4;
+					color: $admin-white;
+
+					&:first-of-type {
+						border-right: 1px solid $admin-white !important;
+					}
+
+					&.ng-value-icon {
+						&:hover {
+							background-color: rgba($admin-color-primary, 0.8);
+						}
+					}
+				}
+			}
+
+			.ng-input {
+				padding: 0 !important;
+				//remove this if dom can be fixed
+				position: absolute;
+				top: 15px !important;
+
+				&:first-of-type {
+					margin-left: 0;
+				}
+
+				input[role="combobox"] {
+					padding: 0;
+				}
+			}
+		}
+
+		.ng-arrow-wrapper,
+		.ng-clear-wrapper {
+			position: absolute;
+		}
+
+		.ng-clear-wrapper {
+			right: $admin-space-lg;
+		}
+
+		.ng-arrow-wrapper {
+			right: $admin-space-sm;
+			padding-right: 0;
+		}
+	}
+
+
+	&.input-group--static {
+		pointer-events: none;
+
+		.ng-select-container {
+			background: transparent;
+			border: none !important;
+			color: $admin-grey-8;
+			opacity: 1;
+			padding: $admin-space-xxs 0;
+
+			&:hover {
+				background: transparent;
+				border: none;
+			}
+
+			.ng-value-container {
+				padding: 0;
+			}
+
+			.ng-clear-wrapper,
+			.ng-arrow-wrapper {
+				display: none;
+			}
+		}
+
+		.ng-select {
+			width: 100%;
+
+			&.ng-select-focused {
+				outline: none;
+				border: none !important;
+
+				.ng-select-container {
+					outline: none;
+					border: none !important;
+				}
+			}
+		}
+
+		//Static multi select
+		.ng-select-multiple {
+			.ng-select-container {
+				.ng-value-container {
+					margin: 0;
+					&:after {
+						display: none !important;
+					}
+
+					.ng-value {
+						top: 0;
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+.input-group__datepicker {
+	input {
+		display: inline-flex;
+		position: relative;
+		white-space: nowrap;
+		line-height: 1;
+		padding: $admin-space-xs;
+		font-size: $admin-input-font-size;
+		vertical-align: top;
+		border-radius: $admin-input-radius;
+		margin: $admin-space-xs 0;
+		width: auto;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: $admin-grey-8;
+		font-weight: $admin-text-regular;
+		border: 1px solid rgba($admin-grey-4, 1);
+
+		&::placeholder {
+			color: $admin-grey-4;
+			font-weight: $admin-text-light;
+			opacity: 1;
+		}
+
+		&:focus {
+			outline: none;
+		}
+
+		&:hover,
+		&:active,
+		&:focus {
+			color: $admin-grey-1;
+			border: 1px solid $admin-grey-1;
+			background-color: rgba($admin-grey-1, 0.02);
+			@include transform-timing($admin-animation-time);
+		}
+	}
+
+	&.input-group--static {
+		pointer-events: none;
+		
+		input {
+			background: transparent;
+			border: none;
+			color: $admin-grey-8;
+			opacity: 1;
+			padding-left: 0;
+			padding-top: $admin-space-xxs;
+
+			&:hover {
+				background: transparent;
+				border: none;
+			}
+		}
+		
+	}
+}

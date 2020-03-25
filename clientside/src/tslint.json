@@ -1,17 +1,24 @@
 {
-  "extends": "../tslint.json",
-  "rules": {
-    "directive-selector": [
-      true,
-      "attribute",
-      "app",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "app",
-      "kebab-case"
-    ]
-  }
+	"extends": "../tslint.json",
+	"rules": {
+		"directive-selector": [
+			true,
+			"attribute",
+			"app",
+			"camelCase",
+			"cb"
+		],
+		"component-selector": [
+			true,
+			"element",
+			"app",
+			"kebab-case",
+			"cb"
+		],
+		"no-input-rename": false,
+		"no-output-rename": false,
+		"no-string-literal": false,
+		"object-literal-shorthand": false,
+		"no-inferrable-types": false
+	}
 }

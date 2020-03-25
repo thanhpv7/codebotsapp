@@ -1,0 +1,60 @@
+<!--
+@bot-written
+
+WARNING AND NOTICE
+Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+Full Software Licence as accepted by you before being granted access to this source code and other materials,
+the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+access, download, storage, and/or use of this source code.
+
+BOT WARNING
+This file is bot-written.
+Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+-->
+
+<!-- % protected region % [Add additional content here above the login form] off begin -->
+<!-- % protected region % [Add additional content here above the login form] end -->
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" [className]="'login'">
+	<h2>Login</h2>
+
+	<p *ngIf="loginFailed" class="form--error">Your email or password was incorrect, please try again.</p>
+
+	<div cb-textfield
+			 [isRequired]="true"
+			 [name]="'username'"
+			 [label]="'Username'"
+			 [formControlName]="'email'"
+			 [id]="'username'"
+			 [placeholder]="'Enter your email address here'"
+			 [className]="loginFailed || !loginForm.valid ? 'input-group--error' : ''"
+			 [inputType]="TextfieldType.EMAIL">
+	</div>
+
+	<div cb-textfield
+			 [isRequired]="true"
+			 [name]="'password'"
+			 [label]="'Password'"
+			 [formControlName]="'password'"
+			 [id]="'password'"
+			 [placeholder]="'Enter your password here'"
+			 [className]="!loginForm.valid ? 'input-group--error' : ''"
+			 [inputType]="TextfieldType.PASSWORD">
+	</div>
+
+	<section cb-button-group>
+		<button cb-button [type]="'submit'" [isDisabled]="!loginForm.valid">Login</button>
+		<a cb-button [buttonAccentColour]="buttonAccentColour.SECONDARY" [routerLink]="['/register']">Register</a>
+	</section>
+
+	<!-- % protected region % [Add any additional form buttons here] off begin -->
+	<!-- % protected region % [Add any additional form buttons here] end -->
+</form>
+
+<a cb-button [classes]="'login__forgot-password'" [buttonStyle]="ButtonStyle.TEXT" [routerLink]="['/forgotten-password']">Forgot your password?</a>
+
+<!-- % protected region % [Add additional content here after the form] off begin -->
+<!-- % protected region % [Add additional content here after the form] end -->

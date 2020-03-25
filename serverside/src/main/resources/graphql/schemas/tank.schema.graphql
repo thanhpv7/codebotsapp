@@ -1,0 +1,79 @@
+###
+# @bot-written
+# 
+# WARNING AND NOTICE
+# Any access, download, storage, and/or use of this source code is subject to the terms and conditions of the
+# Full Software Licence as accepted by you before being granted access to this source code and other materials,
+# the terms of which can be accessed on the Codebots website at https://codebots.com/full-software-licence. Any
+# commercial use in contravention of the terms of the Full Software Licence may be pursued by Codebots through
+# licence termination and further legal action, and be required to indemnify Codebots for any loss or damage,
+# including interest and costs. You are deemed to have accepted the terms of the Full Software Licence on any
+# access, download, storage, and/or use of this source code.
+# 
+# BOT WARNING
+# This file is bot-written.
+# Any changes out side of "protected regions" will be lost next time the bot makes any changes.
+###
+
+type Tank {
+	id: ID
+	created: String
+	modified: String
+	name: String
+	width: Float
+	length: Float
+	height: Float
+	
+	fishTank: [Fish]
+	# % protected region % [Add any additional field definition here] off begin
+	# % protected region % [Add any additional field definition here] end
+}
+
+type TankAudit {
+	entity: Tank
+	timestamp: String
+	type: AuditQueryType
+	authorId: ID
+	authorFirstName: String
+	authorLastName: String
+}
+
+input TankInput {
+	id: ID
+	created: String
+	modified: String
+	name: String
+	width: Float
+	length: Float
+	height: Float
+	
+	fishTank: [FishInput]
+	fishTankIds: [ID!]
+	# % protected region % [Add any additional field definition for input type here] off begin
+	# % protected region % [Add any additional field definition for input type here] end
+}
+
+extend type Query {
+	countTanks(where: [[Where!]!]): Int!
+	lastTanks(pageIndex: Int = 0, pageSize: Int = 10, orderBy: [OrderBy!]! = [], where: [[Where!]!] = []): [Tank!]!
+	tanks(pageIndex: Int = 0, pageSize: Int = 10, orderBy: [OrderBy!] = [], where: [[Where!]!] = []): [Tank!]!
+	tankById(id: ID!): Tank
+	tankAudits: [TankAudit!]!
+	tankAuditsByEntityId(tankId: ID!): [TankAudit!]!
+	# % protected region % [Add any additional query definition here] off begin
+	# % protected region % [Add any additional query definition here] end
+}
+
+extend type Mutation {
+	createTank(tank: TankInput!): Tank!
+	createAllTank(tanks: [TankInput!]!): [Tank!]!
+	updateTank(tank: TankInput!): Tank!
+	updateAllTank(tanks: [TankInput!]!): [Tank!]!
+	deleteTankById(tankId: ID!): ID!
+	deleteAllTankByIds(tankIds: [ID!]!): [ID!]!
+	# % protected region % [Add any additional mutation definition here] off begin
+	# % protected region % [Add any additional mutation definition here] end
+}
+
+# % protected region % [Add additional schema definition here] off begin
+# % protected region % [Add additional schema definition here] end
