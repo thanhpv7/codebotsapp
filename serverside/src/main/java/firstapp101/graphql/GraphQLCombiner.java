@@ -33,12 +33,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GraphQLCombiner {
 
-	private final AdminResolver adminResolver;
-	private final AdminQueryResolver adminQueryResolver;
-	private final AdminMutationResolver adminMutationResolver;
-	private final FishnaticResolver fishnaticResolver;
-	private final FishnaticQueryResolver fishnaticQueryResolver;
-	private final FishnaticMutationResolver fishnaticMutationResolver;
 	private final TankResolver tankResolver;
 	private final TankQueryResolver tankQueryResolver;
 	private final TankMutationResolver tankMutationResolver;
@@ -48,6 +42,12 @@ public class GraphQLCombiner {
 	private final FishResolver fishResolver;
 	private final FishQueryResolver fishQueryResolver;
 	private final FishMutationResolver fishMutationResolver;
+	private final AdminResolver adminResolver;
+	private final AdminQueryResolver adminQueryResolver;
+	private final AdminMutationResolver adminMutationResolver;
+	private final FishnaticResolver fishnaticResolver;
+	private final FishnaticQueryResolver fishnaticQueryResolver;
+	private final FishnaticMutationResolver fishnaticMutationResolver;
 	private final RoleResolver roleResolver;
 	private final RoleQueryResolver roleQueryResolver;
 	private final RoleMutationResolver roleMutationResolver;
@@ -60,12 +60,6 @@ public class GraphQLCombiner {
 
 	@Autowired
 	public GraphQLCombiner(
-			AdminResolver adminResolver,
-			AdminQueryResolver adminQueryResolver,
-			AdminMutationResolver adminMutationResolver,
-			FishnaticResolver fishnaticResolver,
-			FishnaticQueryResolver fishnaticQueryResolver,
-			FishnaticMutationResolver fishnaticMutationResolver,
 			TankResolver tankResolver,
 			TankQueryResolver tankQueryResolver,
 			TankMutationResolver tankMutationResolver,
@@ -75,6 +69,12 @@ public class GraphQLCombiner {
 			FishResolver fishResolver,
 			FishQueryResolver fishQueryResolver,
 			FishMutationResolver fishMutationResolver,
+			AdminResolver adminResolver,
+			AdminQueryResolver adminQueryResolver,
+			AdminMutationResolver adminMutationResolver,
+			FishnaticResolver fishnaticResolver,
+			FishnaticQueryResolver fishnaticQueryResolver,
+			FishnaticMutationResolver fishnaticMutationResolver,
 			RoleResolver roleResolver,
 			RoleQueryResolver roleQueryResolver,
 			RoleMutationResolver roleMutationResolver,
@@ -82,12 +82,6 @@ public class GraphQLCombiner {
 			PrivilegeQueryResolver privilegeQueryResolver,
 			PrivilegeMutationResolver privilegeMutationResolver
 	) {
-		this.adminResolver = adminResolver;
-		this.adminQueryResolver = adminQueryResolver;
-		this.adminMutationResolver = adminMutationResolver;
-		this.fishnaticResolver = fishnaticResolver;
-		this.fishnaticQueryResolver = fishnaticQueryResolver;
-		this.fishnaticMutationResolver = fishnaticMutationResolver;
 		this.tankResolver = tankResolver;
 		this.tankQueryResolver = tankQueryResolver;
 		this.tankMutationResolver = tankMutationResolver;
@@ -97,6 +91,12 @@ public class GraphQLCombiner {
 		this.fishResolver = fishResolver;
 		this.fishQueryResolver = fishQueryResolver;
 		this.fishMutationResolver = fishMutationResolver;
+		this.adminResolver = adminResolver;
+		this.adminQueryResolver = adminQueryResolver;
+		this.adminMutationResolver = adminMutationResolver;
+		this.fishnaticResolver = fishnaticResolver;
+		this.fishnaticQueryResolver = fishnaticQueryResolver;
+		this.fishnaticMutationResolver = fishnaticMutationResolver;
 		this.roleResolver = roleResolver;
 		this.roleQueryResolver = roleQueryResolver;
 		this.roleMutationResolver = roleMutationResolver;
@@ -109,19 +109,13 @@ public class GraphQLCombiner {
 	public SchemaParser schemaParser() {
 		return SchemaParser.newParser()
 				.file("graphql/schemas/schema.graphql")
-				.file("graphql/schemas/admin.schema.graphql")
-				.file("graphql/schemas/fishnatic.schema.graphql")
 				.file("graphql/schemas/tank.schema.graphql")
 				.file("graphql/schemas/species.schema.graphql")
 				.file("graphql/schemas/fish.schema.graphql")
+				.file("graphql/schemas/admin.schema.graphql")
+				.file("graphql/schemas/fishnatic.schema.graphql")
 				.file("graphql/schemas/role.schema.graphql")
 				.file("graphql/schemas/privilege.schema.graphql")
-				.resolvers(adminResolver)
-				.resolvers(adminQueryResolver)
-				.resolvers(adminMutationResolver)
-				.resolvers(fishnaticResolver)
-				.resolvers(fishnaticQueryResolver)
-				.resolvers(fishnaticMutationResolver)
 				.resolvers(tankResolver)
 				.resolvers(tankQueryResolver)
 				.resolvers(tankMutationResolver)
@@ -131,6 +125,12 @@ public class GraphQLCombiner {
 				.resolvers(fishResolver)
 				.resolvers(fishQueryResolver)
 				.resolvers(fishMutationResolver)
+				.resolvers(adminResolver)
+				.resolvers(adminQueryResolver)
+				.resolvers(adminMutationResolver)
+				.resolvers(fishnaticResolver)
+				.resolvers(fishnaticQueryResolver)
+				.resolvers(fishnaticMutationResolver)
 				.resolvers(roleResolver)
 				.resolvers(roleQueryResolver)
 				.resolvers(roleMutationResolver)

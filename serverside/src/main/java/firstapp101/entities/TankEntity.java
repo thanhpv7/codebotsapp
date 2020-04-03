@@ -16,11 +16,14 @@
  */
 package firstapp101.entities;
 
+import firstapp101.entities.enums.*;
 import firstapp101.entities.listeners.TankEntityListener;
 import firstapp101.serializers.TankSerializer;
+import firstapp101.deserializers.DateTimeDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -29,6 +32,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.hibernate.envers.Audited;
 
 import java.util.*;
+import java.time.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.UUID;
@@ -88,6 +92,24 @@ public class TankEntity extends AbstractEntity {
 	@ToString.Include
 	// % protected region % [Modify attribute annotation for Height here] end
 	private Double height;
+
+	// % protected region % [Modify attribute annotation for Last Cleaned here] off begin
+	@Nullable
+	@Column(name = "last_cleaned")
+	@JsonDeserialize(using = DateTimeDeserializer.class)
+	@ApiModelProperty(notes = "The Last Cleaned of this entity.")
+	@ToString.Include
+	// % protected region % [Modify attribute annotation for Last Cleaned here] end
+	private OffsetDateTime lastCleaned;
+
+	// % protected region % [Modify attribute annotation for Clean here] off begin
+	@Nullable
+	@Column(name = "clean")
+	@ApiModelProperty(notes = "The Clean of this entity.")
+	@ToString.Include
+	@Enumerated
+	// % protected region % [Modify attribute annotation for Clean here] end
+	private CleanEnum clean;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//

@@ -178,7 +178,7 @@ export class FishTileCrudComponent implements OnInit {
 	 * But this must to be unique to avoid mess up the data
 	 */
 	@Input()
-	collectionId: string = '8da8f69e-4060-4c7a-afb9-a598f7704e68';
+	collectionId: string = 'a623e09f-5ccc-45fe-a1c7-e860b58f5c3e';
 	// % protected region % [Change your collection id if required here] end
 
 	/**
@@ -907,19 +907,6 @@ export class FishTileCrudComponent implements OnInit {
 		// % protected region % [Add any additional code here before the main logic of prepareReferenceCollections] end
 
 		// Set the observable for incoming references
-		this.modelRelations.species.stateConfig = {
-			pageIndex: 0,
-			pageSize: this.pageSize,
-			collectionId: this.collectionId
-		} as PassableStateConfig<SpeciesModel>;
-
-		this.store.dispatch(new speciesModelAction.InitialiseSpeciesCollectionState(this.modelRelations.species.stateConfig));
-		this.modelRelations.species.collection = this.store.select(getSpeciesCollectionModels, this.collectionId);
-		this.addSearchFunction(this.modelRelations.species, getSpeciesCollectionModels, speciesModelAction.FetchSpeciesModelsWithQuery);
-
-		this.store.dispatch(new speciesModelAction.FetchAllSpeciesModels(this.modelRelations.species.stateConfig));
-
-		// Set the observable for incoming references
 		this.modelRelations.tank.stateConfig = {
 			pageIndex: 0,
 			pageSize: this.pageSize,
@@ -931,6 +918,19 @@ export class FishTileCrudComponent implements OnInit {
 		this.addSearchFunction(this.modelRelations.tank, getTankCollectionModels, tankModelAction.FetchTankModelsWithQuery);
 
 		this.store.dispatch(new tankModelAction.FetchAllTankModels(this.modelRelations.tank.stateConfig));
+
+		// Set the observable for incoming references
+		this.modelRelations.species.stateConfig = {
+			pageIndex: 0,
+			pageSize: this.pageSize,
+			collectionId: this.collectionId
+		} as PassableStateConfig<SpeciesModel>;
+
+		this.store.dispatch(new speciesModelAction.InitialiseSpeciesCollectionState(this.modelRelations.species.stateConfig));
+		this.modelRelations.species.collection = this.store.select(getSpeciesCollectionModels, this.collectionId);
+		this.addSearchFunction(this.modelRelations.species, getSpeciesCollectionModels, speciesModelAction.FetchSpeciesModelsWithQuery);
+
+		this.store.dispatch(new speciesModelAction.FetchAllSpeciesModels(this.modelRelations.species.stateConfig));
 
 
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] off begin

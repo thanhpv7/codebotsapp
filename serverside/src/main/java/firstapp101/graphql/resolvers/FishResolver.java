@@ -34,14 +34,14 @@ public class FishResolver implements GraphQLResolver<FishEntity> {
 	// % protected region % [Import any additional class fields here] off begin
 	// % protected region % [Import any additional class fields here] end
 
-	@PreAuthorize("hasPermission('SpeciesEntity', 'read')")
-	public SpeciesEntity species(FishEntity fish) {
-		return fish.getSpecies();
-	}
-
 	@PreAuthorize("hasPermission('TankEntity', 'read')")
 	public TankEntity tank(FishEntity fish) {
 		return fish.getTank();
+	}
+
+	@PreAuthorize("hasPermission('SpeciesEntity', 'read')")
+	public SpeciesEntity species(FishEntity fish) {
+		return fish.getSpecies();
 	}
 
 

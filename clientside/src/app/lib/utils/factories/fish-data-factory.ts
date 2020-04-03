@@ -17,6 +17,7 @@
 
 import {AbstractDataFactory} from './abstract-data-factory';
 import {FishModel} from '../../../models/fish/fish.model';
+import {BornEnum, bornEnumArray} from '../../../enums/born.enum';
 import * as faker from 'faker';
 
 export class FishDataFactory extends AbstractDataFactory<FishModel> {
@@ -77,6 +78,11 @@ export class FishDataFactory extends AbstractDataFactory<FishModel> {
 		model.name = faker.random.words();
 		model.dateOfBirth = new Date();
 		model.alive = faker.random.boolean();
+		// % protected region % [Add custom enum randomisation here] off begin
+		// Always initialise to the first enum literal. Turn on the protected region and put in your own custom enum
+		// initialisation logic.
+		model.born = BornEnum.INHOUSE;
+		// % protected region % [Add custom enum randomisation here] end
 
 		// % protected region % [Add any additional populate logic after the main body here] off begin
 		// % protected region % [Add any additional populate logic after the main body here] end

@@ -16,6 +16,7 @@
  */
 package firstapp101.entities;
 
+import firstapp101.entities.enums.*;
 import firstapp101.entities.listeners.FishEntityListener;
 import firstapp101.serializers.FishSerializer;
 import firstapp101.deserializers.DateTimeDeserializer;
@@ -84,6 +85,15 @@ public class FishEntity extends AbstractEntity {
 	// % protected region % [Modify attribute annotation for Alive here] end
 	private Boolean alive;
 
+	// % protected region % [Modify attribute annotation for Born here] off begin
+	@Nullable
+	@Column(name = "born")
+	@ApiModelProperty(notes = "The Born of this entity.")
+	@ToString.Include
+	@Enumerated
+	// % protected region % [Modify attribute annotation for Born here] end
+	private BornEnum born;
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
 	// Outgoing references
@@ -96,15 +106,6 @@ public class FishEntity extends AbstractEntity {
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// % protected region % [Update the annotation for Species here] off begin
-	@ApiModelProperty(notes = "The Species entities that are related to this entity.")
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	// % protected region % [Update the annotation for Species here] end
-	private SpeciesEntity species;
-
-	@Transient
-	private UUID speciesId;
-
 	// % protected region % [Update the annotation for Tank here] off begin
 	@ApiModelProperty(notes = "The Tank entities that are related to this entity.")
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
@@ -113,6 +114,15 @@ public class FishEntity extends AbstractEntity {
 
 	@Transient
 	private UUID tankId;
+
+	// % protected region % [Update the annotation for Species here] off begin
+	@ApiModelProperty(notes = "The Species entities that are related to this entity.")
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	// % protected region % [Update the annotation for Species here] end
+	private SpeciesEntity species;
+
+	@Transient
+	private UUID speciesId;
 
 	// % protected region % [Add any additional class fields here] off begin
 	// % protected region % [Add any additional class fields here] end
@@ -130,60 +140,6 @@ public class FishEntity extends AbstractEntity {
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Similar to {@link this#setSpecies(SpeciesEntity, boolean)} but
-	 * default to true for reverse add.
-	 *
-	 * @param entity the given SpeciesEntity to be set to this entity
-	 */
-	public void setSpecies(@NotNull SpeciesEntity entity) {
-		setSpecies(entity, true);
-	}
-
-	/**
-	 * Set or update the species in this entity with single SpeciesEntity.
-	 *
-	 * @param entity the given SpeciesEntity to be set or updated to species
-	 * @param reverseAdd whether this entity should be set or updated to the given entity
-	 */
-	public void setSpecies(@NotNull SpeciesEntity entity, boolean reverseAdd) {
-		// % protected region % [Add any additional logic here before the main logic for setSpecies here] off begin
-		// % protected region % [Add any additional logic here before the main logic for setSpecies here] end
-
-		if (sameAsFormer(this.species, entity)) {
-			return;
-		}
-
-		if (this.species != null) {
-			this.species.removeFishSpecies(this, false);
-		}
-		this.species = entity;
-		if (reverseAdd) {
-			this.species.addFishSpecies(this, false);
-		}
-
-		// % protected region % [Add any additional logic here after the main logic for setSpecies here] off begin
-		// % protected region % [Add any additional logic here after the main logic for setSpecies here] end
-	}
-
-	/**
-	 * Similar to {@link this#unsetSpecies(boolean)} but default to true.
-	 */
-	public void unsetSpecies() {
-		this.unsetSpecies(true);
-	}
-
-	/**
-	 * Remove Species in this entity.
-	 *
-	 * @param reverse whether this entity should be removed from the given entity
-	 */
-	public void unsetSpecies(boolean reverse) {
-		if (reverse && this.species != null) {
-			this.species.removeFishSpecies(this, false);
-		}
-		this.species = null;
-	}
 	/**
 	 * Similar to {@link this#setTank(TankEntity, boolean)} but
 	 * default to true for reverse add.
@@ -237,6 +193,60 @@ public class FishEntity extends AbstractEntity {
 			this.tank.removeFishTank(this, false);
 		}
 		this.tank = null;
+	}
+	/**
+	 * Similar to {@link this#setSpecies(SpeciesEntity, boolean)} but
+	 * default to true for reverse add.
+	 *
+	 * @param entity the given SpeciesEntity to be set to this entity
+	 */
+	public void setSpecies(@NotNull SpeciesEntity entity) {
+		setSpecies(entity, true);
+	}
+
+	/**
+	 * Set or update the species in this entity with single SpeciesEntity.
+	 *
+	 * @param entity the given SpeciesEntity to be set or updated to species
+	 * @param reverseAdd whether this entity should be set or updated to the given entity
+	 */
+	public void setSpecies(@NotNull SpeciesEntity entity, boolean reverseAdd) {
+		// % protected region % [Add any additional logic here before the main logic for setSpecies here] off begin
+		// % protected region % [Add any additional logic here before the main logic for setSpecies here] end
+
+		if (sameAsFormer(this.species, entity)) {
+			return;
+		}
+
+		if (this.species != null) {
+			this.species.removeFishSpecies(this, false);
+		}
+		this.species = entity;
+		if (reverseAdd) {
+			this.species.addFishSpecies(this, false);
+		}
+
+		// % protected region % [Add any additional logic here after the main logic for setSpecies here] off begin
+		// % protected region % [Add any additional logic here after the main logic for setSpecies here] end
+	}
+
+	/**
+	 * Similar to {@link this#unsetSpecies(boolean)} but default to true.
+	 */
+	public void unsetSpecies() {
+		this.unsetSpecies(true);
+	}
+
+	/**
+	 * Remove Species in this entity.
+	 *
+	 * @param reverse whether this entity should be removed from the given entity
+	 */
+	public void unsetSpecies(boolean reverse) {
+		if (reverse && this.species != null) {
+			this.species.removeFishSpecies(this, false);
+		}
+		this.species = null;
 	}
 	// % protected region % [Add any additional class methods  here] off begin
 	// % protected region % [Add any additional class methods  here] end

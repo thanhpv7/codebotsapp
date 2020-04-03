@@ -893,19 +893,6 @@ export class AdminFishTileCrudComponent implements OnInit {
 		// % protected region % [Add any additional code here before the main logic of prepareReferenceCollections] end
 
 		// Set the observable for incoming references
-		this.modelRelations.species.stateConfig = {
-			pageIndex: 0,
-			pageSize: this.pageSize,
-			collectionId: this.collectionId
-		} as PassableStateConfig<SpeciesModel>;
-
-		this.store.dispatch(new speciesModelAction.InitialiseSpeciesCollectionState(this.modelRelations.species.stateConfig));
-		this.modelRelations.species.collection = this.store.select(getSpeciesCollectionModels, this.collectionId);
-		this.addSearchFunction(this.modelRelations.species, speciesModelAction.FetchSpeciesModelsWithQuery);
-
-		this.store.dispatch(new speciesModelAction.FetchAllSpeciesModels(this.modelRelations.species.stateConfig));
-
-		// Set the observable for incoming references
 		this.modelRelations.tank.stateConfig = {
 			pageIndex: 0,
 			pageSize: this.pageSize,
@@ -917,6 +904,19 @@ export class AdminFishTileCrudComponent implements OnInit {
 		this.addSearchFunction(this.modelRelations.tank, tankModelAction.FetchTankModelsWithQuery);
 
 		this.store.dispatch(new tankModelAction.FetchAllTankModels(this.modelRelations.tank.stateConfig));
+
+		// Set the observable for incoming references
+		this.modelRelations.species.stateConfig = {
+			pageIndex: 0,
+			pageSize: this.pageSize,
+			collectionId: this.collectionId
+		} as PassableStateConfig<SpeciesModel>;
+
+		this.store.dispatch(new speciesModelAction.InitialiseSpeciesCollectionState(this.modelRelations.species.stateConfig));
+		this.modelRelations.species.collection = this.store.select(getSpeciesCollectionModels, this.collectionId);
+		this.addSearchFunction(this.modelRelations.species, speciesModelAction.FetchSpeciesModelsWithQuery);
+
+		this.store.dispatch(new speciesModelAction.FetchAllSpeciesModels(this.modelRelations.species.stateConfig));
 
 
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] off begin

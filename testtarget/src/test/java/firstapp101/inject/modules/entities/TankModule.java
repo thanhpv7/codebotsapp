@@ -116,6 +116,12 @@ public class TankModule extends AbstractModule {
 		// % protected region % [Add customisation for Height here] off begin
 		newEntity.setHeight(mock.doubles().get());
 		// % protected region % [Add customisation for Height here] end
+		// % protected region % [Add customisation for Last Cleaned here] off begin
+		newEntity.setLastCleaned(OffsetDateTime.now());
+		// % protected region % [Add customisation for Last Cleaned here] end
+		// % protected region % [Add customisation for Clean here] off begin
+		newEntity.setClean(CleanEnum.CLEANED);
+		// % protected region % [Add customisation for Clean here] end
 
 		// % protected region % [Apply any additional logic for tankWithNoRef after the main body here] off begin
 		// % protected region % [Apply any additional logic for tankWithNoRef after the main body here] end

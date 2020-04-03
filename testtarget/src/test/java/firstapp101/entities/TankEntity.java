@@ -16,9 +16,11 @@
  */
 package firstapp101.entities;
 
+import firstapp101.entities.enums.*;
 import lombok.*;
 
 import java.util.*;
+import java.time.*;
 
 // % protected region % [Import any additional imports here] off begin
 // % protected region % [Import any additional imports here] end
@@ -70,6 +72,16 @@ public class TankEntity extends AbstractEntity {
 	@ToString.Include
 	// % protected region % [Modify attribute annotation for Height here] end
 	private Double height;
+
+	// % protected region % [Modify attribute annotation for Last Cleaned here] off begin
+	@ToString.Include
+	// % protected region % [Modify attribute annotation for Last Cleaned here] end
+	private OffsetDateTime lastCleaned;
+
+	// % protected region % [Modify attribute annotation for Clean here] off begin
+	@ToString.Include
+	// % protected region % [Modify attribute annotation for Clean here] end
+	private CleanEnum clean;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//

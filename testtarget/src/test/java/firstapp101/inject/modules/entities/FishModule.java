@@ -113,6 +113,9 @@ public class FishModule extends AbstractModule {
 		// % protected region % [Add customisation for Alive here] off begin
 		newEntity.setAlive(mock.bools().get());
 		// % protected region % [Add customisation for Alive here] end
+		// % protected region % [Add customisation for Born here] off begin
+		newEntity.setBorn(BornEnum.INHOUSE);
+		// % protected region % [Add customisation for Born here] end
 
 		// % protected region % [Apply any additional logic for fishWithNoRef after the main body here] off begin
 		// % protected region % [Apply any additional logic for fishWithNoRef after the main body here] end

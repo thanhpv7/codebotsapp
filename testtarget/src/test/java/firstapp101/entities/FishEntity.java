@@ -16,6 +16,7 @@
  */
 package firstapp101.entities;
 
+import firstapp101.entities.enums.*;
 import lombok.*;
 
 import java.time.*;
@@ -35,16 +36,6 @@ public class FishEntity extends AbstractEntity {
 	private void initialiseReferences() {
 
 
-		var SpeciesFishSpeciesOneMany = new EntityReference();
-			SpeciesFishSpeciesOneMany.entityName = "Species";
-			SpeciesFishSpeciesOneMany.oppositeName = "Species";
-			SpeciesFishSpeciesOneMany.name = "FishSpecies";
-			SpeciesFishSpeciesOneMany.optional = true;
-			SpeciesFishSpeciesOneMany.type = "One";
-			SpeciesFishSpeciesOneMany.oppositeType = "Many";
-
-		References.add(SpeciesFishSpeciesOneMany);
-
 		var TankFishTankOneMany = new EntityReference();
 			TankFishTankOneMany.entityName = "Tank";
 			TankFishTankOneMany.oppositeName = "Tank";
@@ -54,6 +45,16 @@ public class FishEntity extends AbstractEntity {
 			TankFishTankOneMany.oppositeType = "Many";
 
 		References.add(TankFishTankOneMany);
+
+		var SpeciesFishSpeciesOneMany = new EntityReference();
+			SpeciesFishSpeciesOneMany.entityName = "Species";
+			SpeciesFishSpeciesOneMany.oppositeName = "Species";
+			SpeciesFishSpeciesOneMany.name = "FishSpecies";
+			SpeciesFishSpeciesOneMany.optional = true;
+			SpeciesFishSpeciesOneMany.type = "One";
+			SpeciesFishSpeciesOneMany.oppositeType = "Many";
+
+		References.add(SpeciesFishSpeciesOneMany);
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
@@ -75,6 +76,11 @@ public class FishEntity extends AbstractEntity {
 	@ToString.Include
 	// % protected region % [Modify attribute annotation for Alive here] end
 	private Boolean alive;
+
+	// % protected region % [Modify attribute annotation for Born here] off begin
+	@ToString.Include
+	// % protected region % [Modify attribute annotation for Born here] end
+	private BornEnum born;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
@@ -100,9 +106,9 @@ public class FishEntity extends AbstractEntity {
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	private SpeciesEntity species;
-
 	private TankEntity tank;
+
+	private SpeciesEntity species;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
@@ -132,60 +138,6 @@ public class FishEntity extends AbstractEntity {
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Similar to {@link this#setSpecies(SpeciesEntity, boolean)} but
-	 * default to true for reverse add.
-	 *
-	 * @param entity the given SpeciesEntity to be set to this entity
-	 */
-	public void setSpecies(@NonNull SpeciesEntity entity) {
-		setSpecies(entity, true);
-	}
-
-	/**
-	 * Set or update the species in this entity with single SpeciesEntity.
-	 *
-	 * @param entity the given SpeciesEntity to be set or updated to species
-	 * @param reverseAdd whether this entity should be set or updated to the given entity
-	 */
-	public void setSpecies(@NonNull SpeciesEntity entity, boolean reverseAdd) {
-		// % protected region % [Add any additional logic here before the main logic for setSpecies here] off begin
-		// % protected region % [Add any additional logic here before the main logic for setSpecies here] end
-
-		if (sameAsFormer(this.species, entity)) {
-			return;
-		}
-
-		if (this.species != null) {
-			this.species.removeFishSpecies(this, false);
-		}
-		this.species = entity;
-		if (reverseAdd) {
-			this.species.addFishSpecies(this, false);
-		}
-
-		// % protected region % [Add any additional logic here after the main logic for setSpecies here] off begin
-		// % protected region % [Add any additional logic here after the main logic for setSpecies here] end
-	}
-
-	/**
-	 * Similar to {@link this#unsetSpecies(boolean)} but default to true.
-	 */
-	public void unsetSpecies() {
-		this.unsetSpecies(true);
-	}
-
-	/**
-	 * Remove Species in this entity.
-	 *
-	 * @param reverse whether this entity should be removed from the given entity
-	 */
-	public void unsetSpecies(boolean reverse) {
-		if (reverse && this.species != null) {
-			this.species.removeFishSpecies(this, false);
-		}
-		this.species = null;
-	}
 	/**
 	 * Similar to {@link this#setTank(TankEntity, boolean)} but
 	 * default to true for reverse add.
@@ -239,6 +191,60 @@ public class FishEntity extends AbstractEntity {
 			this.tank.removeFishTank(this, false);
 		}
 		this.tank = null;
+	}
+	/**
+	 * Similar to {@link this#setSpecies(SpeciesEntity, boolean)} but
+	 * default to true for reverse add.
+	 *
+	 * @param entity the given SpeciesEntity to be set to this entity
+	 */
+	public void setSpecies(@NonNull SpeciesEntity entity) {
+		setSpecies(entity, true);
+	}
+
+	/**
+	 * Set or update the species in this entity with single SpeciesEntity.
+	 *
+	 * @param entity the given SpeciesEntity to be set or updated to species
+	 * @param reverseAdd whether this entity should be set or updated to the given entity
+	 */
+	public void setSpecies(@NonNull SpeciesEntity entity, boolean reverseAdd) {
+		// % protected region % [Add any additional logic here before the main logic for setSpecies here] off begin
+		// % protected region % [Add any additional logic here before the main logic for setSpecies here] end
+
+		if (sameAsFormer(this.species, entity)) {
+			return;
+		}
+
+		if (this.species != null) {
+			this.species.removeFishSpecies(this, false);
+		}
+		this.species = entity;
+		if (reverseAdd) {
+			this.species.addFishSpecies(this, false);
+		}
+
+		// % protected region % [Add any additional logic here after the main logic for setSpecies here] off begin
+		// % protected region % [Add any additional logic here after the main logic for setSpecies here] end
+	}
+
+	/**
+	 * Similar to {@link this#unsetSpecies(boolean)} but default to true.
+	 */
+	public void unsetSpecies() {
+		this.unsetSpecies(true);
+	}
+
+	/**
+	 * Remove Species in this entity.
+	 *
+	 * @param reverse whether this entity should be removed from the given entity
+	 */
+	public void unsetSpecies(boolean reverse) {
+		if (reverse && this.species != null) {
+			this.species.removeFishSpecies(this, false);
+		}
+		this.species = null;
 	}
 
 	// % protected region % [Add any additional class methods  here] off begin

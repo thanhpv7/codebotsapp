@@ -20,6 +20,7 @@ import firstapp101.entities.FishEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
+import firstapp101.entities.enums.*;
 import java.time.*;
 import java.util.Optional;
 import java.util.List;
@@ -55,6 +56,14 @@ public interface FishRepository extends AbstractRepository<FishEntity> {
 	 * @return a list of entities that have the given attribute Alive
 	 */
 	List<FishEntity> findByAlive(@NotNull Boolean alive);
+
+	/**
+	 * Return an entity or a list of entities that have the given attribute Born.
+	 *
+	 * @param born the attribute against which the entities will be retrieved
+	 * @return a list of entities that have the given attribute Born
+	 */
+	List<FishEntity> findByBorn(@NotNull BornEnum born);
 
 	// % protected region % [Add any additional class methods here] off begin
 	// % protected region % [Add any additional class methods here] end

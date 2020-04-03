@@ -14,49 +14,22 @@
  * This file is bot-written.
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
-/* --------------------------------
-Pagination
--------------------------------- */
-/*
-Found under collection list 
-*/
+import {enumToArray} from '../lib/models/model-utils';
 
-// % protected region % [Change pagination styles here] off begin
-.pagination {
-	display: flex;
-	justify-content: flex-end;
+// % protected region % [Add any additional imports here] off begin
+// % protected region % [Add any additional imports here] end
 
-	ul {
-		list-style: none;
-		display: flex;
-		align-content: center;
-		align-items: center;
-
-		li {
-			.btn {
-				padding: $space-xs $space-sm;
-				font-size: $text-sm;
-
-				&:hover,
-				&:active {
-					text-decoration: none;
-					text-shadow: convert-rem(0px) convert-rem(0px) convert-rem(1px) $color-primary;
-				}
-
-				&:before,
-				&:after {
-					margin: 0 $space-xs;
-				}
-			}
-
-			.pagination__page-number {
-				margin: 0 $space-md;
-				font-size: $text-sm;
-			}
-		}
-	}
+/**
+ * Enumeration for Clean.
+ */
+export enum CleanEnum {
+	CLEANED = 'Cleaned',
+	DIRTY = 'Dirty',
+	// % protected region % [Add any additional enum cases for Clean here] off begin
+	// % protected region % [Add any additional enum cases for Clean here] end
 }
-// % protected region % [Change pagination styles here] end
 
-// % protected region % [Add additional paginations styles here] off begin
-// % protected region % [Add additional paginations styles here] end
+/**
+ * The array format of the enum, used in the dropdown etc
+ */
+export const cleanEnumArray: { key: string, value: any }[] = enumToArray(CleanEnum);

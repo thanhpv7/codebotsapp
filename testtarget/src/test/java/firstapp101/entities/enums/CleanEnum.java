@@ -14,49 +14,27 @@
  * This file is bot-written.
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
-/* --------------------------------
-Pagination
--------------------------------- */
-/*
-Found under collection list 
-*/
+package firstapp101.entities.enums;
 
-// % protected region % [Change pagination styles here] off begin
-.pagination {
-	display: flex;
-	justify-content: flex-end;
+import lombok.*;
 
-	ul {
-		list-style: none;
-		display: flex;
-		align-content: center;
-		align-items: center;
+// % protected region % [Add any additional imports here] off begin
+// % protected region % [Add any additional imports here] end
 
-		li {
-			.btn {
-				padding: $space-xs $space-sm;
-				font-size: $text-sm;
+@AllArgsConstructor
+@ToString
+public enum CleanEnum {
+	// % protected region % [Add any additional enum literals here] off begin
+	// % protected region % [Add any additional enum literals here] end
+	CLEANED("Cleaned"),
+	DIRTY("Dirty");
 
-				&:hover,
-				&:active {
-					text-decoration: none;
-					text-shadow: convert-rem(0px) convert-rem(0px) convert-rem(1px) $color-primary;
-				}
+	@Getter
+	private String literalValue;
 
-				&:before,
-				&:after {
-					margin: 0 $space-xs;
-				}
-			}
+	// % protected region % [Add any additional class fields here] off begin
+	// % protected region % [Add any additional class fields here] end
 
-			.pagination__page-number {
-				margin: 0 $space-md;
-				font-size: $text-sm;
-			}
-		}
-	}
+	// % protected region % [Add any additional class methods here] off begin
+	// % protected region % [Add any additional class methods here] end
 }
-// % protected region % [Change pagination styles here] end
-
-// % protected region % [Add additional paginations styles here] off begin
-// % protected region % [Add additional paginations styles here] end

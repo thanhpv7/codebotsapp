@@ -46,11 +46,11 @@ import {FrontendModule} from './frontend/frontend.module';
 import {AdminModule} from './admin/admin.module';
 import {AdminHomePageModule} from './admin/pages/adminHome/home.admin.page.module';
 // TODO change to relative path and  lazy loading
-import {AdminAdminPageModule} from './admin/pages/admin/admin.admin.page.module';
-import {FishnaticAdminPageModule} from './admin/pages/fishnatic/fishnatic.admin.page.module';
 import {TankAdminPageModule} from './admin/pages/tank/tank.admin.page.module';
 import {SpeciesAdminPageModule} from './admin/pages/species/species.admin.page.module';
 import {FishAdminPageModule} from './admin/pages/fish/fish.admin.page.module';
+import {AdminAdminPageModule} from './admin/pages/admin/admin.admin.page.module';
+import {FishnaticAdminPageModule} from './admin/pages/fishnatic/fishnatic.admin.page.module';
 
 import {TankPageModule} from './pages/tank/tank.page.module';
 import {SpeciesPageModule} from './pages/species/species.page.module';
@@ -144,11 +144,11 @@ if (environment.production) {
 		TankPageModule,
 		SpeciesPageModule,
 		FishPageModule,
-		AdminAdminPageModule,
-		FishnaticAdminPageModule,
 		TankAdminPageModule,
 		SpeciesAdminPageModule,
 		FishAdminPageModule,
+		AdminAdminPageModule,
+		FishnaticAdminPageModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end
 		FrontendModule,

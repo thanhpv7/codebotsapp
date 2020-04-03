@@ -22,8 +22,9 @@ type Fish {
 	name: String
 	dateOfBirth: String
 	alive: Boolean
-	species: Species
+	born: String
 	tank: Tank
+	species: Species
 	# % protected region % [Add any additional field definition here] off begin
 	# % protected region % [Add any additional field definition here] end
 }
@@ -44,10 +45,11 @@ input FishInput {
 	name: String
 	dateOfBirth: String
 	alive: Boolean
-	species: SpeciesInput
-	speciesId: ID
+	born: String
 	tank: TankInput
 	tankId: ID
+	species: SpeciesInput
+	speciesId: ID
 	# % protected region % [Add any additional field definition for input type here] off begin
 	# % protected region % [Add any additional field definition for input type here] end
 }

@@ -17,6 +17,7 @@
 
 import {AbstractDataFactory} from './abstract-data-factory';
 import {TankModel} from '../../../models/tank/tank.model';
+import {CleanEnum, cleanEnumArray} from '../../../enums/clean.enum';
 import * as faker from 'faker';
 
 export class TankDataFactory extends AbstractDataFactory<TankModel> {
@@ -78,6 +79,12 @@ export class TankDataFactory extends AbstractDataFactory<TankModel> {
 		model.width = faker.random.number();
 		model.length = faker.random.number();
 		model.height = faker.random.number();
+		model.lastCleaned = new Date();
+		// % protected region % [Add custom enum randomisation here] off begin
+		// Always initialise to the first enum literal. Turn on the protected region and put in your own custom enum
+		// initialisation logic.
+		model.clean = CleanEnum.CLEANED;
+		// % protected region % [Add custom enum randomisation here] end
 
 		// % protected region % [Add any additional populate logic after the main body here] off begin
 		// % protected region % [Add any additional populate logic after the main body here] end

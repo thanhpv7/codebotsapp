@@ -17,16 +17,16 @@
 
 import {Action, ActionReducerMap} from '@ngrx/store';
 import {routerReducer} from '@ngrx/router-store';
-import {modelReducer as adminReducer} from './admin/admin.model.reducer';
-import {isAdminModelAction} from './admin/admin.model.action';
-import {modelReducer as fishnaticReducer} from './fishnatic/fishnatic.model.reducer';
-import {isFishnaticModelAction} from './fishnatic/fishnatic.model.action';
 import {modelReducer as tankReducer} from './tank/tank.model.reducer';
 import {isTankModelAction} from './tank/tank.model.action';
 import {modelReducer as speciesReducer} from './species/species.model.reducer';
 import {isSpeciesModelAction} from './species/species.model.action';
 import {modelReducer as fishReducer} from './fish/fish.model.reducer';
 import {isFishModelAction} from './fish/fish.model.action';
+import {modelReducer as adminReducer} from './admin/admin.model.reducer';
+import {isAdminModelAction} from './admin/admin.model.action';
+import {modelReducer as fishnaticReducer} from './fishnatic/fishnatic.model.reducer';
+import {isFishnaticModelAction} from './fishnatic/fishnatic.model.action';
 import {modelReducer as roleReducer} from './role/role.model.reducer';
 import {isRoleModelAction} from './role/role.model.action';
 import {modelReducer as privilegeReducer} from './privilege/privilege.model.reducer';
@@ -41,12 +41,6 @@ import {ActionTypes} from './model.action';
  * Main reducer for the model state.
  */
 export function modelReducer(modelState: ModelState, action: Action): ModelState {
-	if (isAdminModelAction(action.type)) {
-		return adminReducer(modelState, action);
-	}
-	if (isFishnaticModelAction(action.type)) {
-		return fishnaticReducer(modelState, action);
-	}
 	if (isTankModelAction(action.type)) {
 		return tankReducer(modelState, action);
 	}
@@ -55,6 +49,12 @@ export function modelReducer(modelState: ModelState, action: Action): ModelState
 	}
 	if (isFishModelAction(action.type)) {
 		return fishReducer(modelState, action);
+	}
+	if (isAdminModelAction(action.type)) {
+		return adminReducer(modelState, action);
+	}
+	if (isFishnaticModelAction(action.type)) {
+		return fishnaticReducer(modelState, action);
 	}
 	if (isRoleModelAction(action.type)) {
 		return roleReducer(modelState, action);

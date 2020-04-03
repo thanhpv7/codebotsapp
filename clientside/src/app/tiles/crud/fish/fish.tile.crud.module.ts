@@ -51,7 +51,6 @@ const rolesAllowedToCreate = [
 
 const appRoutes: Routes = [
 	// % protected region % [Configure routing for crud tile here] off begin
-	
 	{
 		path: 'fish-crud',
 		children: [

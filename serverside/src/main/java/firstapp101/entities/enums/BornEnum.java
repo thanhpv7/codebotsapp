@@ -14,49 +14,30 @@
  * This file is bot-written.
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
-/* --------------------------------
-Pagination
--------------------------------- */
-/*
-Found under collection list 
-*/
+package firstapp101.entities.enums;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-// % protected region % [Change pagination styles here] off begin
-.pagination {
-	display: flex;
-	justify-content: flex-end;
+public enum BornEnum {
+	@JsonProperty("InHouse")
+	INHOUSE("InHouse"),
+	@JsonProperty("Purchased")
+	PURCHASED("Purchased"),
+	// % protected region % [Add any additional ENUM literals here] off begin
+	// % protected region % [Add any additional ENUM literals here] end
+	;
 
-	ul {
-		list-style: none;
-		display: flex;
-		align-content: center;
-		align-items: center;
+	private final String literalValue;
 
-		li {
-			.btn {
-				padding: $space-xs $space-sm;
-				font-size: $text-sm;
+	BornEnum(String literalValue) {
+		this.literalValue = literalValue;
+	}
 
-				&:hover,
-				&:active {
-					text-decoration: none;
-					text-shadow: convert-rem(0px) convert-rem(0px) convert-rem(1px) $color-primary;
-				}
+	public boolean equalsName(String name) {
+		return this.literalValue.equals(name);
+	}
 
-				&:before,
-				&:after {
-					margin: 0 $space-xs;
-				}
-			}
-
-			.pagination__page-number {
-				margin: 0 $space-md;
-				font-size: $text-sm;
-			}
-		}
+	@Override
+	public String toString() {
+		return this.literalValue;
 	}
 }
-// % protected region % [Change pagination styles here] end
-
-// % protected region % [Add additional paginations styles here] off begin
-// % protected region % [Add additional paginations styles here] end

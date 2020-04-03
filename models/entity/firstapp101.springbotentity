@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <springbotEntity:EntityModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:springbotEntity="http://codebots.com/emf/springbot/entity" Uuid="aae8a8fe-6e6f-11ea-999d-6d6f75736579" TargetProject="firstapp101">
-  <Entities xsi:type="springbotEntity:Entity" Uuid="ab4a35ba-1877-4575-be03-ac84f63de73f" Name="Admin" DocoDescription="The admin user.">
-    <Behaviours xsi:type="springbotEntity:BehaviourUser" Uuid="be0f51e7-629c-4e17-a592-443778fa2fdd"/>
-  </Entities>
-  <Entities xsi:type="springbotEntity:Entity" Uuid="8e56f0f0-d0a6-491a-8e2b-5ce788d9259d" Name="Fishnatic" DocoDescription="The fishnatic users.">
-    <Behaviours xsi:type="springbotEntity:BehaviourUser" Uuid="4ae3b88b-5cb9-4124-88ee-e6d96d489f9a"/>
-  </Entities>
   <Entities xsi:type="springbotEntity:Entity" Uuid="f34b35d9-32f1-47dd-80f8-e2308a95900b" Name="Tank" DocoDescription="Fish tank." OrderBy="97ef147c-d3b0-4ae5-bc30-0bd30ed0d0ec">
     <Attributes xsi:type="springbotEntity:AttributeString" Uuid="97ef147c-d3b0-4ae5-bc30-0bd30ed0d0ec" Name="Name" DocoDescription="Name of tank." Searchable="true">
       <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="c14004d7-9a80-4275-87f2-e7793311cb03"/>
@@ -13,6 +7,8 @@
     <Attributes xsi:type="springbotEntity:AttributeDecimal" Uuid="b78f6b60-29d5-457f-b2a3-73343683fd6c" Name="Width" DocoDescription="Width of tank"/>
     <Attributes xsi:type="springbotEntity:AttributeDecimal" Uuid="c821894e-1caa-42ea-96f5-d855301585ec" Name="Length" DocoDescription="Length of tank"/>
     <Attributes xsi:type="springbotEntity:AttributeDecimal" Uuid="4e03d869-674f-4217-b7c9-c9a63913aa9a" Name="Height" DocoDescription="Height of tank"/>
+    <Attributes xsi:type="springbotEntity:AttributeDateTime" Uuid="9a1b95f9-258f-4848-b189-61d790d1b82b" Name="Last Cleaned" DocoDescription="Last Cleaned"/>
+    <Attributes xsi:type="springbotEntity:AttributeEnum" Uuid="bfdeb0df-a816-405e-a35e-c7b1f46ead33" Name="Clean" DocoDescription="Clean"/>
   </Entities>
   <Entities xsi:type="springbotEntity:Entity" Uuid="d86d2129-4ff2-49d3-afb6-a23c1ae24a0e" Name="Species" DocoDescription="A Species of fish." OrderBy="dddfe7e1-4d71-413a-a591-c43664ed4412">
     <Attributes xsi:type="springbotEntity:AttributeString" Uuid="dddfe7e1-4d71-413a-a591-c43664ed4412" Name="Name" DocoDescription="The species' name." Searchable="true" Unique="true">
@@ -25,7 +21,24 @@
     </Attributes>
     <Attributes xsi:type="springbotEntity:AttributeDateTime" Uuid="65f1a62b-f13f-4d52-bd24-772f1b201c2d" Name="Date of Birth" DocoDescription="The fish's birthday."/>
     <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="aeb5aa43-7b4a-4e22-a406-677f4a67dfef" Name="Alive" DocoDescription="Is the fish alive?"/>
+    <Attributes xsi:type="springbotEntity:AttributeEnum" Uuid="48f32cb9-adf9-4cb4-a513-3bcd7f763238" Name="Born" DocoDescription="How to get fish."/>
   </Entities>
-  <ReferenceEntityEntities xsi:type="springbotEntity:ReferenceOneToMany" Uuid="112edbc1-1a2d-4248-9ade-ab67ad8371d7" Name="Fish Species" DocoDescription="The Fish's Species" OppositeName="Species" SourceOptional="true" Source="d86d2129-4ff2-49d3-afb6-a23c1ae24a0e" Target="c5e677ef-f470-4ca5-94f4-c818d1e02727"/>
+  <Entities xsi:type="springbotEntity:Entity" Uuid="ab4a35ba-1877-4575-be03-ac84f63de73f" Name="Admin" DocoDescription="The admin user.">
+    <Behaviours xsi:type="springbotEntity:BehaviourUser" Uuid="be0f51e7-629c-4e17-a592-443778fa2fdd"/>
+  </Entities>
+  <Entities xsi:type="springbotEntity:Entity" Uuid="8e56f0f0-d0a6-491a-8e2b-5ce788d9259d" Name="Fishnatic" DocoDescription="The fishnatic users.">
+    <Behaviours xsi:type="springbotEntity:BehaviourUser" Uuid="4ae3b88b-5cb9-4124-88ee-e6d96d489f9a"/>
+  </Entities>
+  <Enumerations xsi:type="springbotEntity:Enumeration" Uuid="614c9bf3-534e-4203-b449-70c5f005b69b" Name="Born">
+    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="e53caf88-794c-499e-8531-7ea37ff3326f" Name="InHouse"/>
+    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="506808c3-3d18-486e-9483-349665baeb60" Name="Purchased"/>
+  </Enumerations>
+  <Enumerations xsi:type="springbotEntity:Enumeration" Uuid="10a1e53f-39b4-417d-a06e-23daba92714a" Name="Clean">
+    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="8bf5e3d0-9129-4717-8a0c-5411b55bd09d" Name="Cleaned"/>
+    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="3ceb6d4c-9fe6-4541-baa3-97b6804255b0" Name="Dirty"/>
+  </Enumerations>
   <ReferenceEntityEntities xsi:type="springbotEntity:ReferenceOneToMany" Uuid="cdc781c7-3bd1-47eb-bd2e-47d365c07a09" Name="Fish Tank" DocoDescription="The tank which the fish lives in." OppositeName="Tank" SourceOptional="true" Source="f34b35d9-32f1-47dd-80f8-e2308a95900b" Target="c5e677ef-f470-4ca5-94f4-c818d1e02727"/>
+  <ReferenceEntityEntities xsi:type="springbotEntity:ReferenceOneToMany" Uuid="112edbc1-1a2d-4248-9ade-ab67ad8371d7" Name="Fish Species" DocoDescription="The Fish's Species" OppositeName="Species" SourceOptional="true" Source="d86d2129-4ff2-49d3-afb6-a23c1ae24a0e" Target="c5e677ef-f470-4ca5-94f4-c818d1e02727"/>
+  <ReferenceEnums xsi:type="springbotEntity:ReferenceEnum" Source="bfdeb0df-a816-405e-a35e-c7b1f46ead33" Target="10a1e53f-39b4-417d-a06e-23daba92714a"/>
+  <ReferenceEnums xsi:type="springbotEntity:ReferenceEnum" Source="48f32cb9-adf9-4cb4-a513-3bcd7f763238" Target="614c9bf3-534e-4203-b449-70c5f005b69b"/>
 </springbotEntity:EntityModel>

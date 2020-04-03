@@ -18,30 +18,30 @@ public class AdminPageFactory {
 	protected Properties properties;
 
 	@Inject
-	UsersAdminListPage usersAdminListPage;
-	@Inject
-	UsersFishnaticListPage usersFishnaticListPage;
-	@Inject
 	EntitiesTankListPage entitiesTankListPage;
 	@Inject
 	EntitiesSpeciesListPage entitiesSpeciesListPage;
 	@Inject
 	EntitiesFishListPage entitiesFishListPage;
+	@Inject
+	UsersAdminListPage usersAdminListPage;
+	@Inject
+	UsersFishnaticListPage usersFishnaticListPage;
 
 
 	public CrudListPage createCrudPage(String name) throws Exception {
 		switch (name) {
 
-			case "Admin":
-				return usersAdminListPage;
-			case "Fishnatic":
-				return usersFishnaticListPage;
 			case "Tank":
 				return entitiesTankListPage;
 			case "Species":
 				return entitiesSpeciesListPage;
 			case "Fish":
 				return entitiesFishListPage;
+			case "Admin":
+				return usersAdminListPage;
+			case "Fishnatic":
+				return usersFishnaticListPage;
 			default :
 				throw new Exception(String.format("Unexpected Crud list Page: %s", name));
 		}
