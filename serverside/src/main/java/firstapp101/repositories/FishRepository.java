@@ -26,6 +26,9 @@ import java.util.Optional;
 import java.util.List;
 
 // % protected region % [Import any additional imports here] off begin
+import firstapp101.entities.QFishEntity;
+import com.google.common.collect.Lists;
+import com.querydsl.core.types.Predicate;
 // % protected region % [Import any additional imports here] end
 
 /**
@@ -66,5 +69,15 @@ public interface FishRepository extends AbstractRepository<FishEntity> {
 	List<FishEntity> findByBorn(@NotNull BornEnum born);
 
 	// % protected region % [Add any additional class methods here] off begin
+	/**
+	 * Return an fish or a list of fish that have are alive and have been bought
+	 *
+	 * @return a list of fish with that have are alive and have been bought
+	 */
+	default List findByAliveAndPurchased() {
+		QFishEntity fishEntity = QFishEntity.fishEntity;
+		Predicate predicate = fishEntity.alive.eq(true).and(fishEntity.born.eq(BornEnum.PURCHASED));
+		return Lists.newArrayList(this.findAll(predicate));
+	}
 	// % protected region % [Add any additional class methods here] end
 }

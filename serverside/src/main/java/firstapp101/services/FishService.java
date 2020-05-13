@@ -697,5 +697,15 @@ public class FishService extends AbstractService<FishEntity, FishRepository, Fis
 
 
 	// % protected region % [Add any additional class methods here] off begin
+	/**
+	 * Return all the fish entities that are alive and were purchased
+	 *
+	 * @return all the fish entities that are alive and were purchased
+	 */
+	@PreAuthorize("hasPermission('FishEntity', 'read')")
+	public List getFishByAliveAndPurchased() {
+		List entities = Lists.newArrayList(repository.findByAliveAndPurchased());
+		return entities;
+	}
 	// % protected region % [Add any additional class methods here] end
 }
