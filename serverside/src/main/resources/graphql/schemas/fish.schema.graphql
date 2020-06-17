@@ -61,7 +61,8 @@ extend type Query {
 	fishById(id: ID!): Fish
 	fishAudits: [FishAudit!]!
 	fishAuditsByEntityId(fishId: ID!): [FishAudit!]!
-	# % protected region % [Add any additional query definition here] off begin
+	# % protected region % [Add any additional query definition here] on begin
+	getFishByAliveAndPurchased: [Fish!]!
 	# % protected region % [Add any additional query definition here] end
 }
 

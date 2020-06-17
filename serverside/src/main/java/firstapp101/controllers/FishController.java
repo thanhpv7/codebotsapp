@@ -194,7 +194,7 @@ public class FishController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	// % protected region % [Add any additional endpoints here] off begin
+	// % protected region % [Add any additional endpoints here] on begin
 	/**
 	 * Return all the fish entities that are alive and were purchased
 	 *
