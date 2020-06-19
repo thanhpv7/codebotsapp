@@ -146,9 +146,9 @@ describe('Testing Frontend Component for logged in user', () => {
 
 		fixture.detectChanges();
 
-		const homePageLinks = fixture.debugElement.queryAll(By.css('a[href$="/fish"]'));
+		const homePageLinks = fixture.debugElement.queryAll(By.css('a[href$="/welcome"]'));
 
-		// The route of the page marked as home should be '/' not the fully qualified route '/fish'
+		// The route of the page marked as home should be '/' not the fully qualified route '/welcome'
 		expect(homePageLinks.length).toBe(0);
 
 		// % protected region % [Add custom logic for Should not display home page link in page sub links for login user] off begin

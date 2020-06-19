@@ -31,7 +31,7 @@ export const frontendRoutes: Routes = [
 			{
 				path: '',
 				pathMatch: 'full',
-				redirectTo: 'fish',
+				redirectTo: 'welcome',
 			},
 			{
 				path: 'fish',
@@ -44,6 +44,14 @@ export const frontendRoutes: Routes = [
 			{
 				path: 'tank',
 				loadChildren: () => import('../pages/tank/tank.page.module').then(m => m.TankPageModule),
+			},
+			{
+				path: 'stats',
+				loadChildren: () => import('../pages/stats/stats.page.module').then(m => m.StatsPageModule),
+			},
+			{
+				path: 'welcome',
+				loadChildren: () => import('../pages/welcome/welcome.page.module').then(m => m.WelcomePageModule),
 			},
 		]
 	}

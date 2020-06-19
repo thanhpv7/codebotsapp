@@ -396,6 +396,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+
+
 			roleRepository.save(adminEntity);
 			savedRoles.put("ADMIN", adminEntity);
 
@@ -417,6 +419,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 			createOrUpdatePrivilege(fishnaticEntity, "TankEntity",
 			"ROLE_FISHNATIC_TANK_ENTITY_TANK", true, true, true, true);
+
+
 
 
 

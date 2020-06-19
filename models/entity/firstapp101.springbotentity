@@ -30,47 +30,47 @@
     <Behaviours xsi:type="springbotEntity:BehaviourUser" Uuid="4ae3b88b-5cb9-4124-88ee-e6d96d489f9a"/>
   </Entities>
   <Entities xsi:type="springbotEntity:Entity" Uuid="d576f252-2636-4589-bbd8-b4194349c625" Name="Role" DocoDescription="Role of a user type" Creatable="false" Readable="false" Updatable="false" Deletable="false">
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="2aa11797-1d24-420b-ab45-5ab7b2cf7101" Name="name" DocoDescription="Name of the role" Searchable="true" Unique="true">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="2b4cb798-2665-4fa0-9a73-9857d9e036e9"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="3376000d-0afc-4f17-b987-5248a17041c2" Name="name" DocoDescription="Name of the role" Searchable="true" Unique="true">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="08580624-c5e8-41e8-aa38-de6d6a4c43c8"/>
     </Attributes>
   </Entities>
   <Entities xsi:type="springbotEntity:Entity" Uuid="a5666895-65dc-44b4-8ac7-207c41bafff6" Name="Privilege" DocoDescription="Privilege of a role" Creatable="false" Readable="false" Updatable="false" Deletable="false">
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="c4ce103e-a698-4495-ac24-1555301bab14" Name="name" Unique="true">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="a22d147b-2e8b-465c-9d53-1381406db859"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="d0155736-deea-4206-a2c9-ef8172ecbf0f" Name="name" Unique="true">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="d5fb5022-9970-48aa-935c-96ccae3747b2"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="73dedf04-e78a-43d8-b2de-36d511c5b52e" Name="target entity">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="7ebefbbc-a9ad-4c8e-939f-c44f9a29a8eb"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="739a0fdc-b9f8-425b-a7cd-407fc9c77064" Name="target entity">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="f71189e2-99d4-4b26-b371-cb15a0596356"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="e8e5f1ef-93bc-4aa2-9776-4a0cbea00439" Name="allow create">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="f4f7b175-b06f-4591-974a-c646938dff8c"/>
+    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="90166914-e6b7-418a-8778-e3ec6e9d945c" Name="allow create">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="c248aeab-3057-4970-b809-46f47adececc"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="9f584d65-6e6a-4e46-8d5e-73da5c0e5d52" Name="allow read">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="aa761bae-28c2-4982-826a-ed16c2e11951"/>
+    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="91aa23f3-b2a5-458b-a008-eb22b904915a" Name="allow read">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="bcba21bb-16ae-497f-9c7e-5216abaa836f"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="cf6476ec-3d95-4a4c-b34b-75b8294e8ab6" Name="allow update">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="f494dc85-1df9-4fbc-872e-0c7f631ecb52"/>
+    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="d7f72cd3-c428-4a8a-bf4a-cb246b5083d8" Name="allow update">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="bfd5dea1-91bd-4d51-a499-6beb360ab947"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="4640bd91-fda6-4f04-8127-e474d837005c" Name="allow delete">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="14d63622-6067-4e59-ba13-0c938e14e473"/>
+    <Attributes xsi:type="springbotEntity:AttributeBoolean" Uuid="16b6136a-e121-472b-a39f-eda7f9688b7f" Name="allow delete">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="09875d53-ca03-480f-baa5-33ea94968e48"/>
     </Attributes>
   </Entities>
   <Entities xsi:type="springbotEntity:PartialEntity" Uuid="7ec35f82-1672-4f5e-b584-5f22925704a8" Name="User" DocoDescription="Entity for User Behaviour. Contains common attributes of user." InheritanceType="JOINED">
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="9973cacf-dc77-4156-b59b-f55b2ddbe148" Name="first name" Searchable="true">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="851d350e-9e98-48d9-9390-3538cab4286f"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="69055121-8ce9-408f-aafc-28210f389b0f" Name="first name" Searchable="true">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="7724df7e-7c7a-4503-9199-c86429293bea"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="345df0ec-aef5-404b-b1df-f226bd91298a" Name="last name" Searchable="true">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="8f451342-513f-48c8-9cd8-1a0c84922803"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="26967fb5-f0d5-4c31-8cb8-e2da7b332b80" Name="last name" Searchable="true">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="1145cbc1-7508-4c79-b54d-635e69e830de"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="0ce20c0d-553d-4631-beda-c2e6460bb763" Name="username" Searchable="true" Unique="true">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="2a0dfbe7-05d7-447f-baf0-00957f7e24d5"/>
-      <Validators xsi:type="springbotEntity:ValidatorEmail" Uuid="743625b2-7e49-4a00-95b2-57206a0d7884"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="39de163c-e31f-4aac-8461-74cc28be45ed" Name="username" Searchable="true" Unique="true">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="74a4cacb-ebff-4c4f-a3d1-cde05a94ccbc"/>
+      <Validators xsi:type="springbotEntity:ValidatorEmail" Uuid="59bbb3fb-a532-4bbc-a45a-5cf5bf0488ea"/>
     </Attributes>
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="4188a8e9-8a15-4dea-a74d-d73c246dcd97" Name="password" AvailableBy="SERVER" Protected="true">
-      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="c0a56d52-d34b-460e-9df0-25a834744101"/>
-      <Validators xsi:type="springbotEntity:ValidatorRange" Uuid="e9392c48-936c-401b-8e77-3ed8f9404e51" Lower="10" Upper="255"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="e1028b83-4384-4048-a2de-46e77f86f051" Name="password" AvailableBy="SERVER" Protected="true">
+      <Validators xsi:type="springbotEntity:ValidatorRequired" Uuid="bf3b2841-0bc7-406d-858b-49a330bddf12"/>
+      <Validators xsi:type="springbotEntity:ValidatorRange" Uuid="6f107a25-86a1-4beb-87ac-1a7187ef69dc" Lower="10" Upper="255"/>
     </Attributes>
     <Attributes xsi:type="springbotEntity:AttributeEnum" Uuid="0f1b90ca-149a-4116-b7c2-d651ce7ac3ff" Name="Gender"/>
-    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="90c3ad92-bca2-4fab-95ab-0e2ce10f29f6" Name="Email" DocoDescription="Email of the user" Unique="true"/>
+    <Attributes xsi:type="springbotEntity:AttributeString" Uuid="42c3842f-2604-439a-93f5-5311fe19edbd" Name="Email" DocoDescription="Email of the user" Unique="true"/>
     <Behaviours xsi:type="springbotEntity:BehaviourArchivable" Uuid="8a383ddc-d3af-4ee3-a886-3cae47b06298"/>
   </Entities>
   <Enumerations xsi:type="springbotEntity:Enumeration" Uuid="614c9bf3-534e-4203-b449-70c5f005b69b" Name="Born">
@@ -81,10 +81,10 @@
     <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="8bf5e3d0-9129-4717-8a0c-5411b55bd09d" Name="Cleaned"/>
     <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="3ceb6d4c-9fe6-4541-baa3-97b6804255b0" Name="Dirty"/>
   </Enumerations>
-  <Enumerations xsi:type="springbotEntity:Enumeration" Uuid="de452bac-f0f7-4404-a6e0-66072e0d61b8" Name="Gender">
-    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="42aae4a2-640e-44db-b92e-8bf938686bd7" Name="Male"/>
-    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="e919fe95-0fe7-4a21-9d3e-611f83e7ac42" Name="Female"/>
-    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="7cf5a3b0-b693-49a4-8350-5fbfd8e7f5cb" Name="Other"/>
+  <Enumerations xsi:type="springbotEntity:Enumeration" Uuid="67edda73-05f4-4084-86ff-2c0fbb88db14" Name="Gender">
+    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="40563111-1108-46a3-b8ee-43fd8777798d" Name="Male"/>
+    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="0a5b281f-7a8e-47e7-8a15-76f76b6164b7" Name="Female"/>
+    <EnumLiterals xsi:type="springbotEntity:EnumLiteral" Uuid="90b4298a-5c1b-4c96-86f7-b744806bf3b5" Name="Other"/>
   </Enumerations>
   <ReferenceEntityEntities xsi:type="springbotEntity:ReferenceOneToMany" Uuid="112edbc1-1a2d-4248-9ade-ab67ad8371d7" Name="Fish Species" DocoDescription="The Fish's Species" OppositeName="Species" SourceOptional="true" Source="d86d2129-4ff2-49d3-afb6-a23c1ae24a0e" Target="c5e677ef-f470-4ca5-94f4-c818d1e02727"/>
   <ReferenceEntityEntities xsi:type="springbotEntity:ReferenceOneToMany" Uuid="cdc781c7-3bd1-47eb-bd2e-47d365c07a09" Name="Fish Tank" DocoDescription="The tank which the fish lives in." OppositeName="Tank" SourceOptional="true" Source="f34b35d9-32f1-47dd-80f8-e2308a95900b" Target="c5e677ef-f470-4ca5-94f4-c818d1e02727"/>
@@ -92,5 +92,5 @@
   <ReferenceEntityEntities xsi:type="springbotEntity:ReferenceManyToMany" Uuid="a93cb18f-12aa-437a-b442-d070a3296e54" Name="privileges" DocoDescription="The privileges of the role" OppositeName="roles" SourceOptional="true" Source="d576f252-2636-4589-bbd8-b4194349c625" Target="a5666895-65dc-44b4-8ac7-207c41bafff6"/>
   <ReferenceEnums xsi:type="springbotEntity:ReferenceEnum" Source="48f32cb9-adf9-4cb4-a513-3bcd7f763238" Target="614c9bf3-534e-4203-b449-70c5f005b69b"/>
   <ReferenceEnums xsi:type="springbotEntity:ReferenceEnum" Source="bfdeb0df-a816-405e-a35e-c7b1f46ead33" Target="10a1e53f-39b4-417d-a06e-23daba92714a"/>
-  <ReferenceEnums xsi:type="springbotEntity:ReferenceEnum" Source="0f1b90ca-149a-4116-b7c2-d651ce7ac3ff" Target="de452bac-f0f7-4404-a6e0-66072e0d61b8"/>
+  <ReferenceEnums xsi:type="springbotEntity:ReferenceEnum" Source="0f1b90ca-149a-4116-b7c2-d651ce7ac3ff" Target="67edda73-05f4-4084-86ff-2c0fbb88db14"/>
 </springbotEntity:EntityModel>

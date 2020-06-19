@@ -16,10 +16,7 @@
  */
 package firstapp101.repositories;
 
-import com.google.common.collect.Lists;
-import com.querydsl.core.types.Predicate;
 import firstapp101.entities.FishEntity;
-import firstapp101.entities.QFishEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;

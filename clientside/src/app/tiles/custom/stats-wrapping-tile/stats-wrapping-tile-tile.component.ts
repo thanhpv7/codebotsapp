@@ -15,4 +15,20 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-rootProject.name = 'firstapp101sql'
+import {Component} from '@angular/core';
+
+// % protected region % [Add any additional imports here] off begin
+// % protected region % [Add any additional imports here] end
+
+@Component({
+	selector: 'cb-stats-wrapping-tile-tile',
+	templateUrl: './stats-wrapping-tile-tile.component.html',
+	styleUrls: ['./stats-wrapping-tile-tile.component.scss']
+})
+export class StatsWrappingTileTileComponent {
+	// % protected region % [Add any additional class fields here] off begin
+	// % protected region % [Add any additional class fields here] end
+
+	// % protected region % [Add any additional class methods here] off begin
+	// % protected region % [Add any additional class methods here] end
+}
