@@ -29,10 +29,11 @@ import {AdminFishTileCrudComponent} from '../../tiles/crud/fish/fish.admin.tile.
  */
 export const appRoutes: Routes = [
 	{
-		path: 'admin/entities/fish',
+		path: '',
 		children: [
 			{
 				path: '',
+				pathMatch: 'full',
 				component: AdminFishTileCrudComponent,
 			},
 			{

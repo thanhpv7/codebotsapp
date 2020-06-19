@@ -32,12 +32,11 @@ export class TankModel extends AbstractModel {
 	/**
 	 * The fields which are set as searchable in the entity model
 	 * The fields could be used in search in the server side
-	 * The fields would be by default used as search in the crud tile. You could also use this in other tiles for searching
-	 *
-	 * @type {string[]} The name of the fields that are searchable
+	 * The fields would be by default used as search in the crud tile.
+	 * You could also use this in other tiles for searching.
 	 */
-	// TODO add the searchable in the Metamodel
 	static searchFields: string[] = [
+		'name',
 		// % protected region % [Add any additional searchable field names here] off begin
 		// % protected region % [Add any additional searchable field names here] end
 	];
@@ -63,27 +62,27 @@ export class TankModel extends AbstractModel {
 	}
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=2, example=Sally}.
+	 * Name of tank..
 	 */
 	name: string;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=3, example=1.41}.
+	 * Width of tank.
 	 */
 	width: number;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=4, example=1.41}.
+	 * Length of tank.
 	 */
 	length: number;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=5, example=1.41}.
+	 * Height of tank.
 	 */
 	height: number;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, dataType = "string", position=6, example=Timestamp}.
+	 * Last Cleaned.
 	 */
 	lastCleaned: Date;
 

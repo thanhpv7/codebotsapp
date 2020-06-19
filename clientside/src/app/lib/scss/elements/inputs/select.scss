@@ -45,7 +45,7 @@ Styling for select inputs - your bot is most likely to have specific styles for 
 		right: 1.4rem;
 	}
 
-	@include icon(after, chevron-down);
+	@include lightning-icon(after, chevron-down);
 
 }
 // % protected region % [Change select styles here] end

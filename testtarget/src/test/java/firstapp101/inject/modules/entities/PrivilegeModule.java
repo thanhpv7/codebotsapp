@@ -105,10 +105,12 @@ public class PrivilegeModule extends AbstractModule {
 		newEntity.setCreated(OffsetDateTime.now());
 		newEntity.setModified(OffsetDateTime.now());
 		// % protected region % [Add customisation for name here] off begin
-		newEntity.setName(mock.strings().get());
+		String randomStringforName = mock.strings().get().substring(0,10);
+		newEntity.setName(randomStringforName);
 		// % protected region % [Add customisation for name here] end
 		// % protected region % [Add customisation for target entity here] off begin
-		newEntity.setTargetEntity(mock.strings().get());
+		String randomStringforTargetEntity = mock.strings().get().substring(0,10);
+		newEntity.setTargetEntity(randomStringforTargetEntity);
 		// % protected region % [Add customisation for target entity here] end
 		// % protected region % [Add customisation for allow create here] off begin
 		newEntity.setAllowCreate(mock.bools().get());

@@ -29,10 +29,11 @@ import {AdminSpeciesTileCrudComponent} from '../../tiles/crud/species/species.ad
  */
 export const appRoutes: Routes = [
 	{
-		path: 'admin/entities/species',
+		path: '',
 		children: [
 			{
 				path: '',
+				pathMatch: 'full',
 				component: AdminSpeciesTileCrudComponent,
 			},
 			{

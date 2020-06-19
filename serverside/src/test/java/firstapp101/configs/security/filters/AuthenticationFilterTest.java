@@ -246,9 +246,6 @@ public class AuthenticationFilterTest {
 			// % protected region % [Add any additional logic for unsuccessfulAuthentication before the main assertions here] off begin
 			// % protected region % [Add any additional logic for unsuccessfulAuthentication before the main assertions here] end
 
-			// Check that authentication details were purged.
-			verify(authService, times(1)).removeAuthentication(request);
-
 			// Check that exception handling is correct.
 			assertEquals(401, response.getStatus());
 			assertEquals("application/json", response.getContentType());

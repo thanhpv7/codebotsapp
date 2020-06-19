@@ -31,12 +31,11 @@ export class SpeciesModel extends AbstractModel {
 	/**
 	 * The fields which are set as searchable in the entity model
 	 * The fields could be used in search in the server side
-	 * The fields would be by default used as search in the crud tile. You could also use this in other tiles for searching
-	 *
-	 * @type {string[]} The name of the fields that are searchable
+	 * The fields would be by default used as search in the crud tile.
+	 * You could also use this in other tiles for searching.
 	 */
-	// TODO add the searchable in the Metamodel
 	static searchFields: string[] = [
+		'name',
 		// % protected region % [Add any additional searchable field names here] off begin
 		// % protected region % [Add any additional searchable field names here] end
 	];
@@ -62,7 +61,7 @@ export class SpeciesModel extends AbstractModel {
 	}
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=2, example=Sally}.
+	 * The species' name..
 	 */
 	name: string;
 

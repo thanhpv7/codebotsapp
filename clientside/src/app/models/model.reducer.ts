@@ -17,10 +17,10 @@
 
 import {Action, ActionReducerMap} from '@ngrx/store';
 import {routerReducer} from '@ngrx/router-store';
-import {modelReducer as tankReducer} from './tank/tank.model.reducer';
-import {isTankModelAction} from './tank/tank.model.action';
 import {modelReducer as speciesReducer} from './species/species.model.reducer';
 import {isSpeciesModelAction} from './species/species.model.action';
+import {modelReducer as tankReducer} from './tank/tank.model.reducer';
+import {isTankModelAction} from './tank/tank.model.action';
 import {modelReducer as fishReducer} from './fish/fish.model.reducer';
 import {isFishModelAction} from './fish/fish.model.action';
 import {modelReducer as adminReducer} from './admin/admin.model.reducer';
@@ -41,11 +41,11 @@ import {ActionTypes} from './model.action';
  * Main reducer for the model state.
  */
 export function modelReducer(modelState: ModelState, action: Action): ModelState {
-	if (isTankModelAction(action.type)) {
-		return tankReducer(modelState, action);
-	}
 	if (isSpeciesModelAction(action.type)) {
 		return speciesReducer(modelState, action);
+	}
+	if (isTankModelAction(action.type)) {
+		return tankReducer(modelState, action);
 	}
 	if (isFishModelAction(action.type)) {
 		return fishReducer(modelState, action);

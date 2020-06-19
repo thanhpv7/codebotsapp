@@ -465,7 +465,7 @@ export class CollectionComponent<E extends AbstractModel> extends AbstractCompon
 					return moment(value).format('DD MMM YYYY HH:mm');
 				} else if (opt.type === ModelPropertyType.ENUM) {
 					// FIXME: Tidy up how enum values are passed to this point so we don't have to find them
-					const result = (value) ? (opt as ModelProperty).enumLiterals.find(item => item.key === value) : null;
+					const result = (value) ? (opt as ModelProperty).enumLiterals.find(item => item.value === value) : null;
 					return (result && result.value) ? result.value : '';
 				} else {
 					return value;

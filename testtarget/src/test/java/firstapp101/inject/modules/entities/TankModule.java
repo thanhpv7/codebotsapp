@@ -105,7 +105,8 @@ public class TankModule extends AbstractModule {
 		newEntity.setCreated(OffsetDateTime.now());
 		newEntity.setModified(OffsetDateTime.now());
 		// % protected region % [Add customisation for Name here] off begin
-		newEntity.setName(mock.strings().get());
+		String randomStringforName = mock.strings().get().substring(0,10);
+		newEntity.setName(randomStringforName);
 		// % protected region % [Add customisation for Name here] end
 		// % protected region % [Add customisation for Width here] off begin
 		newEntity.setWidth(mock.doubles().get());

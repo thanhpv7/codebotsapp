@@ -55,6 +55,21 @@ Login, register and reset password pages
 		label {
 			font-weight: $text-regular;
 		}
+
+		.icon-look {
+			position: absolute;
+			right: 0;
+			bottom: 1.2rem;
+
+			&:hover {
+				text-decoration: none;
+				color: $color-secondary;
+				@include transform-timing($animation-time);
+			}
+			&:before {
+				margin-right: 0;
+			}
+		}
 	}
 
 	.btn-group {

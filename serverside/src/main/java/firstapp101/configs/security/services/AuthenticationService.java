@@ -52,6 +52,7 @@ import java.util.UUID;
 @Slf4j
 public class AuthenticationService {
 	private static final String ERROR_INVALID_TOKEN = "Invalid Token";
+	private static final String ERROR_TOKEN_EXPIRED = "Token Expired";
 
 	/**
 	 * JWT expiration time duration in seconds. Default to 1 hour.
@@ -202,6 +203,9 @@ public class AuthenticationService {
 		} catch (InsufficientAuthenticationException e) {
 			log.error(ERROR_INVALID_TOKEN);
 			return null;
+		} catch (ExpiredJwtException e) {
+			log.error(ERROR_TOKEN_EXPIRED);
+			throw e;
 		}
 	}
 
@@ -248,13 +252,19 @@ public class AuthenticationService {
 					.parseClaimsJws(token)
 					.getBody()
 					.getSubject();
-		} catch (SignatureException | MalformedJwtException | ExpiredJwtException e) {
+		} catch (SignatureException | MalformedJwtException e) {
 			log.error(e.getMessage());
 
 			loggedInUsers.remove(token);
 			csrfLookup.remove(token);
 
 			throw new InsufficientAuthenticationException(ERROR_INVALID_TOKEN);
+		} catch (ExpiredJwtException e){
+			log.error(e.getMessage());
+
+			loggedInUsers.remove(token);
+			csrfLookup.remove(token);
+			throw new ExpiredJwtException(null,null,"Token expired");
 		}
 	}
 

@@ -18,6 +18,7 @@
 import {Component} from '@angular/core';
 
 // % protected region % [Add any additional imports here] off begin
+import {ButtonStyle} from '../../../lib/components/button/button.component';
 // % protected region % [Add any additional imports here] end
 
 @Component({
@@ -30,7 +31,9 @@ import {Component} from '@angular/core';
 	]
 })
 export class AdminDashboardTileComponent {
+
 	// % protected region % [Add any additional class fields here] off begin
+	buttonStyle = ButtonStyle;
 	// % protected region % [Add any additional class fields here] end
 
 	// % protected region % [Add any additional class methods here] off begin

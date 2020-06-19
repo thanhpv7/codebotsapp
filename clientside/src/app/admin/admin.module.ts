@@ -21,7 +21,7 @@ import {ToastContainerModule} from 'ngx-toastr';
 import {AdminComponent} from './admin.component';
 import {RouterModule} from '@angular/router';
 import {CommonComponentModule} from '../lib/components/common.component.module';
-import {appRoutes} from './admin.routes';
+import {AdminRoutingModule} from './admin-routing.module';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -40,9 +40,9 @@ import {appRoutes} from './admin.routes';
 	imports: [
 		CommonModule,
 		ToastContainerModule,
-		RouterModule.forChild(appRoutes),
 		CommonComponentModule,
 		// Modules of Pages in Admin
+		AdminRoutingModule,
 		// % protected region % [Add any additional imports here] off begin
 		// % protected region % [Add any additional imports here] end
 	],

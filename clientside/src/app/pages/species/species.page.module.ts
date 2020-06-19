@@ -17,8 +17,8 @@
 
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {appRoutes} from './species.page.routes';
-import {SpeciesWrappingTileTileModule} from '../../tiles/custom/speciesWrappingTile/species_wrapping_tile.tile.module';
+import {SpeciesPageRoutingModule} from './species.page.routes';
+import {SpeciesWrappingTileTileModule} from '../../tiles/custom/species-wrapping-tile/species-wrapping-tile-tile.module';
 
 
 // % protected region % [Add any additional imports here] off begin
@@ -30,7 +30,7 @@ import {SpeciesWrappingTileTileModule} from '../../tiles/custom/speciesWrappingT
 		// % protected region % [Add any additional declaration here] end
 	],
 	imports: [
-		RouterModule.forChild(appRoutes),
+		SpeciesPageRoutingModule,
 		SpeciesWrappingTileTileModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end

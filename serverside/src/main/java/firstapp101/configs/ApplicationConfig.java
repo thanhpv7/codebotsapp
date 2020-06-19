@@ -16,6 +16,10 @@
  */
 package firstapp101.configs;
 
+import graphql.analysis.MaxQueryComplexityInstrumentation;
+import graphql.analysis.MaxQueryDepthInstrumentation;
+import graphql.execution.instrumentation.Instrumentation;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -29,6 +33,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -36,7 +42,6 @@ import java.io.IOException;
 /**
  * Application-wide configuration to be applied only in beta and production environment.
  */
-//@Profile("!test & !dev")
 @Configuration
 @EnableJpaAuditing
 public class ApplicationConfig implements WebMvcConfigurer {
@@ -107,6 +112,38 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		// % protected region % [Add any custom configuration for multipart resolver here] end
 
 		return multipartResolver;
+	}
+
+	/**
+	 * Create a new list of instrumentations so that GraphQL can auto-configure itself. By default this is needed for
+	 * security measures.
+	 */
+	@Bean
+	@ConditionalOnBean({
+			// % protected region % [Add any additional bean here] off begin
+			// % protected region % [Add any additional bean here] end
+			MaxQueryComplexityInstrumentation.class,
+			MaxQueryDepthInstrumentation.class
+	})
+	public List<Instrumentation> instrumentations(
+			// % protected region % [Add any additional dependencies here] off begin
+			// % protected region % [Add any additional dependencies here] end
+			// Ensure that each GraphQL has a certain complexity score. Calculated by recursively going down the child
+			// expansion. This is used to make sure that it doesn't have large complexity score which can take a lot of
+			// resources.
+			MaxQueryComplexityInstrumentation maxQueryComplexityInstrumentation,
+			// Ensure that each GraphQL query has a certain depth.
+			MaxQueryDepthInstrumentation maxQueryDepthInstrumentation
+	) {
+		// % protected region % [Add any additional logic before the main body here] off begin
+		// % protected region % [Add any additional logic before the main body here] end
+
+		return Arrays.asList(
+			// % protected region % [Add any additional instrumentation here] off begin
+			// % protected region % [Add any additional instrumentation here] end
+			maxQueryComplexityInstrumentation,
+			maxQueryDepthInstrumentation
+		).stream().filter(Objects::nonNull).collect(Collectors.toList());
 	}
 
 	// % protected region % [Add any additional application configurations here] off begin

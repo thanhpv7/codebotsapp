@@ -27,7 +27,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {ToastrModule} from 'ngx-toastr';
-import {ModalDialogModule} from 'ngx-modal-dialog';
+import {ModalDialogModule} from '@preeco-privacy/ngx-modal-dialog';
 import {AlertComponent} from './lib/components/alert/alert.component';
 import {GraphQLModule} from './graphql.module';
 import {AppComponent} from './app.component';
@@ -37,25 +37,9 @@ import {environment} from '../environments/environment';
 import {HTTP_INTERCEPTORS_PROVIDER} from './lib/interceptors/http.interceptors';
 import {appRoutes} from './app.routes';
 
-import {RegisterTileModule} from './lib/tiles/register/register.tile.module';
-import {LoginTileModule} from './lib/tiles/login/login.tile.module';
-import {LogoutTileModule} from './lib/tiles/logout/logout.tile.module';
 import {CommonInvalidTileModule} from './lib/tiles/invalid/common.invalid.tile.module';
 import {CommonComponentModule} from './lib/components/common.component.module';
 import {FrontendModule} from './frontend/frontend.module';
-import {AdminModule} from './admin/admin.module';
-import {AdminHomePageModule} from './admin/pages/adminHome/home.admin.page.module';
-// TODO change to relative path and  lazy loading
-import {TankAdminPageModule} from './admin/pages/tank/tank.admin.page.module';
-import {SpeciesAdminPageModule} from './admin/pages/species/species.admin.page.module';
-import {FishAdminPageModule} from './admin/pages/fish/fish.admin.page.module';
-import {AdminAdminPageModule} from './admin/pages/admin/admin.admin.page.module';
-import {FishnaticAdminPageModule} from './admin/pages/fishnatic/fishnatic.admin.page.module';
-
-import {TankPageModule} from './pages/tank/tank.page.module';
-import {SpeciesPageModule} from './pages/species/species.page.module';
-import {FishPageModule} from './pages/fish/fish.page.module';
-
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
 
@@ -109,14 +93,6 @@ if (environment.production) {
 			// % protected region % [Add any additional NGRX configs here] end
 		}),
 		EffectsModule.forRoot(effects),
-		RouterModule.forRoot(
-			appRoutes,
-			{
-				enableTracing: !environment.production
-			},
-			// % protected region % [Add any additional routing configuration here] off begin
-			// % protected region % [Add any additional routing configuration here] end
-		),
 		StoreRouterConnectingModule.forRoot({
 			serializer: CustomSerializer
 		}),
@@ -136,23 +112,18 @@ if (environment.production) {
 		}),
 		ModalDialogModule.forRoot(),
 		GraphQLModule,
-		RegisterTileModule,
-		LoginTileModule,
-		LogoutTileModule,
 		CommonComponentModule,
-		AdminHomePageModule,
-		TankPageModule,
-		SpeciesPageModule,
-		FishPageModule,
-		TankAdminPageModule,
-		SpeciesAdminPageModule,
-		FishAdminPageModule,
-		AdminAdminPageModule,
-		FishnaticAdminPageModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end
 		FrontendModule,
-		AdminModule,
+		RouterModule.forRoot(
+			appRoutes,
+			{
+				enableTracing: !environment.production
+			},
+			// % protected region % [Add any additional routing configuration here] off begin
+			// % protected region % [Add any additional routing configuration here] end
+		),
 		CommonInvalidTileModule,
 		...developmentImports
 	],

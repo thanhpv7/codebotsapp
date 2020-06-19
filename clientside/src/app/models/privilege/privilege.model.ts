@@ -31,11 +31,9 @@ export class PrivilegeModel extends AbstractModel {
 	/**
 	 * The fields which are set as searchable in the entity model
 	 * The fields could be used in search in the server side
-	 * The fields would be by default used as search in the crud tile. You could also use this in other tiles for searching
-	 *
-	 * @type {string[]} The name of the fields that are searchable
+	 * The fields would be by default used as search in the crud tile.
+	 * You could also use this in other tiles for searching.
 	 */
-	// TODO add the searchable in the Metamodel
 	static searchFields: string[] = [
 		// % protected region % [Add any additional searchable field names here] off begin
 		// % protected region % [Add any additional searchable field names here] end
@@ -62,32 +60,32 @@ export class PrivilegeModel extends AbstractModel {
 	}
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=2, example=Sally}.
+	 * .
 	 */
 	name: string;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=3, example=Sally}.
+	 * .
 	 */
 	targetEntity: string;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=4, example=true}.
+	 * .
 	 */
 	allowCreate: boolean = false;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=5, example=true}.
+	 * .
 	 */
 	allowRead: boolean = false;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=6, example=true}.
+	 * .
 	 */
 	allowUpdate: boolean = false;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=7, example=true}.
+	 * .
 	 */
 	allowDelete: boolean = false;
 

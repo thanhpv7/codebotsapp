@@ -15,9 +15,9 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from "@angular/core";
 import {RoleGuard} from '../../lib/guards/role.guard';
-import {TankWrappingTileTileComponent} from '../../tiles/custom/tankWrappingTile/tank_wrapping_tile.tile.component';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -27,7 +27,7 @@ import {TankWrappingTileTileComponent} from '../../tiles/custom/tankWrappingTile
  */
 export const appRoutes: Routes = [
 	{
-		path: 'tank',
+		path: '',
 		children: [
 			{
 				path: '',
@@ -37,7 +37,7 @@ export const appRoutes: Routes = [
 			{
 				path: 'tank-wrapping-tile',
 				// % protected region % [Configure component or redirect for Tank Wrapping Tile here] off begin
-				component: TankWrappingTileTileComponent,
+				loadChildren: () => import('../../tiles/custom/tank-wrapping-tile/tank-wrapping-tile-tile.module').then(m => m.TankWrappingTileTileModule),
 				// % protected region % [Configure component or redirect for Tank Wrapping Tile here] end
 				canActivate: [
 					RoleGuard,
@@ -62,3 +62,13 @@ export const appRoutes: Routes = [
 	// % protected region % [Add any additional routes here] off begin
 	// % protected region % [Add any additional routes here] end
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(appRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class TankPageRoutingModule { }

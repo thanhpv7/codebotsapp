@@ -38,33 +38,33 @@ make it into a mixin.
 	}
 }
 
-@mixin breakpoint($class) {
+@mixin breakpoint($class, $orientation:portrait) {
 	@if $class==xs {
-		@media (max-width: map-get($breakpoints, xs)) {
+		@media (max-width: map-get($breakpoints, xs)) and (orientation:$orientation) {
 			@content;
 		}
 	}
 
 	@else if $class==sm {
-		@media (max-width: map-get($breakpoints, sm)) {
+		@media (max-width: map-get($breakpoints, sm)) and (orientation:$orientation) {
 			@content;
 		}
 	}
 
 	@else if $class==md {
-		@media (max-width: map-get($breakpoints, md)) {
+		@media (max-width: map-get($breakpoints, md)) and (orientation:$orientation) {
 			@content;
 		}
 	}
 
 	@else if $class==lg {
-		@media (max-width: map-get($breakpoints, lg)) {
+		@media (max-width: map-get($breakpoints, lg)) and (orientation:$orientation) {
 			@content;
 		}
 	}
 
 	@else if $class==xl {
-		@media (max-width: map-get($breakpoints, xl)) {
+		@media (max-width: map-get($breakpoints, xl)) and (orientation:$orientation) {
 			@content;
 		}
 	}
@@ -73,7 +73,7 @@ make it into a mixin.
 	// % protected region % [Add additional breakpoints here] end
 
 	@else {
-		@error "Breakpoint mixin supports: xs, sm, md, lg, xl";
+		@error "Breakpoint mixin supports: xs, sm, md, lg, xl or your custom breakpoint in the map";
 	}
 }
 //****************-------END MEDIA QUERIES--------****************

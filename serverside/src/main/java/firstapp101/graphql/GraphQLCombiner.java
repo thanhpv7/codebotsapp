@@ -33,12 +33,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class GraphQLCombiner {
 
-	private final TankResolver tankResolver;
-	private final TankQueryResolver tankQueryResolver;
-	private final TankMutationResolver tankMutationResolver;
 	private final SpeciesResolver speciesResolver;
 	private final SpeciesQueryResolver speciesQueryResolver;
 	private final SpeciesMutationResolver speciesMutationResolver;
+	private final TankResolver tankResolver;
+	private final TankQueryResolver tankQueryResolver;
+	private final TankMutationResolver tankMutationResolver;
 	private final FishResolver fishResolver;
 	private final FishQueryResolver fishQueryResolver;
 	private final FishMutationResolver fishMutationResolver;
@@ -60,12 +60,12 @@ public class GraphQLCombiner {
 
 	@Autowired
 	public GraphQLCombiner(
-			TankResolver tankResolver,
-			TankQueryResolver tankQueryResolver,
-			TankMutationResolver tankMutationResolver,
 			SpeciesResolver speciesResolver,
 			SpeciesQueryResolver speciesQueryResolver,
 			SpeciesMutationResolver speciesMutationResolver,
+			TankResolver tankResolver,
+			TankQueryResolver tankQueryResolver,
+			TankMutationResolver tankMutationResolver,
 			FishResolver fishResolver,
 			FishQueryResolver fishQueryResolver,
 			FishMutationResolver fishMutationResolver,
@@ -82,12 +82,12 @@ public class GraphQLCombiner {
 			PrivilegeQueryResolver privilegeQueryResolver,
 			PrivilegeMutationResolver privilegeMutationResolver
 	) {
-		this.tankResolver = tankResolver;
-		this.tankQueryResolver = tankQueryResolver;
-		this.tankMutationResolver = tankMutationResolver;
 		this.speciesResolver = speciesResolver;
 		this.speciesQueryResolver = speciesQueryResolver;
 		this.speciesMutationResolver = speciesMutationResolver;
+		this.tankResolver = tankResolver;
+		this.tankQueryResolver = tankQueryResolver;
+		this.tankMutationResolver = tankMutationResolver;
 		this.fishResolver = fishResolver;
 		this.fishQueryResolver = fishQueryResolver;
 		this.fishMutationResolver = fishMutationResolver;
@@ -109,19 +109,19 @@ public class GraphQLCombiner {
 	public SchemaParser schemaParser() {
 		return SchemaParser.newParser()
 				.file("graphql/schemas/schema.graphql")
-				.file("graphql/schemas/tank.schema.graphql")
 				.file("graphql/schemas/species.schema.graphql")
+				.file("graphql/schemas/tank.schema.graphql")
 				.file("graphql/schemas/fish.schema.graphql")
 				.file("graphql/schemas/admin.schema.graphql")
 				.file("graphql/schemas/fishnatic.schema.graphql")
 				.file("graphql/schemas/role.schema.graphql")
 				.file("graphql/schemas/privilege.schema.graphql")
-				.resolvers(tankResolver)
-				.resolvers(tankQueryResolver)
-				.resolvers(tankMutationResolver)
 				.resolvers(speciesResolver)
 				.resolvers(speciesQueryResolver)
 				.resolvers(speciesMutationResolver)
+				.resolvers(tankResolver)
+				.resolvers(tankQueryResolver)
+				.resolvers(tankMutationResolver)
 				.resolvers(fishResolver)
 				.resolvers(fishQueryResolver)
 				.resolvers(fishMutationResolver)

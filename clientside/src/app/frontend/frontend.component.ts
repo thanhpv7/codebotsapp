@@ -15,7 +15,7 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {HostBinding, Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {ToastContainerDirective, ToastrService} from 'ngx-toastr';
 import {RouterState} from '../models/model.state';
@@ -40,6 +40,9 @@ export class FrontendComponent implements OnInit {
 
 	@ViewChild(ToastContainerDirective, { static: true })
 	toastContainer: ToastContainerDirective;
+
+	@HostBinding('class')
+	className = 'frontend';
 
 	// % protected region % [Customise or remove the default navigation bar variables] off begin
 	/**
@@ -75,8 +78,8 @@ export class FrontendComponent implements OnInit {
 
 		// % protected region % [Customise or remove the default navigation bar links for entities] off begin
 		let entityLinks = [
-				new Link('Tank', [], 'icon-book', 'tank'),
-				new Link('Species', [], 'icon-book', 'species'),
+				new Link('Species', [], 'icon-book', '/species'),
+				new Link('Tank', [], 'icon-book', '/tank'),
 		];
 		// % protected region % [Customise or remove the default navigation bar links for entities] end
 		// % protected region % [Customise or remove the default navigation bar links] off begin
@@ -86,8 +89,8 @@ export class FrontendComponent implements OnInit {
 			]),
 			new LinkList(entityLinks),
 			new LinkList([
-				new Link('Help', [], 'icon-help', 'docs'),
-				new Link('Logout', [], 'icon-logout', 'logout')
+				new Link('Help', [], 'icon-help', '/docs'),
+				new Link('Logout', [], 'icon-logout', '/logout')
 			])
 		);
 		// % protected region % [Customise or remove the default navigation bar links] end

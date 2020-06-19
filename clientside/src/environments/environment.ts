@@ -23,8 +23,15 @@
 // % protected region % [Add any additional stuffs here] end
 
 export const environment = {
+	// % protected region % [Customize environment properties here] off begin
 	production: false,
 	API_URL: 'http://localhost:8080',
+	/**
+	 * Minumum length for password for registeration
+	 */
+	PASSWORD_MIN_LENGTH: 12,
+	// % protected region % [Customize environment properties here] end
+
 	// % protected region % [Add any additional environment properties here] off begin
 	// % protected region % [Add any additional environment properties here] end
 };

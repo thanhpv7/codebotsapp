@@ -29,8 +29,11 @@ Animations are used from animation/motion.scss.
 	opacity: 1;
 	display: flex;
 	@include fadeIn(0.7s);
-	left: 50%;
-	top: 50%;
+	align-items: center;
+	justify-content: center;
+	align-content: center;
+	width: 100%;
+	height: 100%;
 
 	//Positions all loaders in the middle
 	>div {

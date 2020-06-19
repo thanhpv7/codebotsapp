@@ -17,11 +17,9 @@
 package firstapp101.cucumber.utils;
 
 import lombok.NonNull;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import java.util.List;
 
@@ -99,6 +97,7 @@ public class DropdownUtils {
 		if (!DropdownUtils.isOptionSelected(option)) {
 			option.click();
 		}
+		closeDropdown(driver);
 	}
 
 	/**
@@ -113,6 +112,7 @@ public class DropdownUtils {
 		if (DropdownUtils.isOptionSelected(option)) {
 			option.click();
 		}
+		closeDropdown(driver);
 	}
 
 	/**
@@ -125,5 +125,14 @@ public class DropdownUtils {
 
 		Assert.assertEquals(selectedOptions.size(), values.size());
 		selectedOptions.containsAll(values);
+	}
+
+	/**
+	 * Press Escape key to close the browser
+	 * @param driver The web driver to apply with
+	 */
+	public static void closeDropdown(@NonNull WebDriver driver) {
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ESCAPE).perform();
 	}
 }

@@ -122,6 +122,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * User management services.
 	 */
 	private final UserService userService;
+	/*
+	 * Base user repository
+	 */
+	private final UserRepository userRepository;
 	private final FishnaticRepository fishnaticRepository;
 	private final AdminRepository adminRepository;
 	private final RoleRepository roleRepository;
@@ -144,6 +148,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			AuthenticationService authService,
 			RestAuthenticationEntryPoint restAuthenticationEntryPoint,
 			UserService userService,
+			UserRepository userRepository,
 			FishnaticRepository fishnaticRepository,
 			AdminRepository adminRepository,
 			RoleRepository roleRepository,
@@ -170,6 +175,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		this.userService = userService;
 		this.fishnaticRepository = fishnaticRepository;
 		this.adminRepository = adminRepository;
+		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.authSuccessHandler = authSuccessHandler;
 		this.authFailureHandler = authFailureHandler;
@@ -363,112 +369,61 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			Map<String, RoleEntity> savedRoles = new HashMap<>();
 
 			Optional<RoleEntity> adminOpt = roleRepository.findByName("ADMIN");
+			RoleEntity adminEntity;
 			if (adminOpt.isPresent()) {
-				savedRoles.put("ADMIN", adminOpt.get());
+				adminEntity = adminOpt.get();
 			} else {
-				RoleEntity admin = new RoleEntity();
-				admin.setId(UUID.randomUUID());
-				admin.setName("ADMIN");
-				Set<PrivilegeEntity> adminPrivileges = new HashSet<>();
-				PrivilegeEntity admin_TankEntity_Tank = new PrivilegeEntity();
-				admin_TankEntity_Tank.setId(UUID.randomUUID());
-				admin_TankEntity_Tank.setName("ROLE_ADMIN_TANK_ENTITY_TANK");
-				admin_TankEntity_Tank.setTargetEntity("TankEntity");
-				admin_TankEntity_Tank.setAllowCreate(true);
-				admin_TankEntity_Tank.setAllowDelete(true);
-				admin_TankEntity_Tank.setAllowUpdate(true);
-				admin_TankEntity_Tank.setAllowRead(true);
-				adminPrivileges.add(admin_TankEntity_Tank);
-
-				PrivilegeEntity admin_SpeciesEntity_Species = new PrivilegeEntity();
-				admin_SpeciesEntity_Species.setId(UUID.randomUUID());
-				admin_SpeciesEntity_Species.setName("ROLE_ADMIN_SPECIES_ENTITY_SPECIES");
-				admin_SpeciesEntity_Species.setTargetEntity("SpeciesEntity");
-				admin_SpeciesEntity_Species.setAllowCreate(true);
-				admin_SpeciesEntity_Species.setAllowDelete(true);
-				admin_SpeciesEntity_Species.setAllowUpdate(true);
-				admin_SpeciesEntity_Species.setAllowRead(true);
-				adminPrivileges.add(admin_SpeciesEntity_Species);
-
-				PrivilegeEntity admin_FishnaticEntity_Fishnatic = new PrivilegeEntity();
-				admin_FishnaticEntity_Fishnatic.setId(UUID.randomUUID());
-				admin_FishnaticEntity_Fishnatic.setName("ROLE_ADMIN_FISHNATIC_ENTITY_FISHNATIC");
-				admin_FishnaticEntity_Fishnatic.setTargetEntity("FishnaticEntity");
-				admin_FishnaticEntity_Fishnatic.setAllowCreate(true);
-				admin_FishnaticEntity_Fishnatic.setAllowDelete(true);
-				admin_FishnaticEntity_Fishnatic.setAllowUpdate(true);
-				admin_FishnaticEntity_Fishnatic.setAllowRead(true);
-				adminPrivileges.add(admin_FishnaticEntity_Fishnatic);
-
-				PrivilegeEntity admin_FishEntity_Fish = new PrivilegeEntity();
-				admin_FishEntity_Fish.setId(UUID.randomUUID());
-				admin_FishEntity_Fish.setName("ROLE_ADMIN_FISH_ENTITY_FISH");
-				admin_FishEntity_Fish.setTargetEntity("FishEntity");
-				admin_FishEntity_Fish.setAllowCreate(true);
-				admin_FishEntity_Fish.setAllowDelete(true);
-				admin_FishEntity_Fish.setAllowUpdate(true);
-				admin_FishEntity_Fish.setAllowRead(true);
-				adminPrivileges.add(admin_FishEntity_Fish);
-
-				PrivilegeEntity admin_AdminEntity_Admin = new PrivilegeEntity();
-				admin_AdminEntity_Admin.setId(UUID.randomUUID());
-				admin_AdminEntity_Admin.setName("ROLE_ADMIN_ADMIN_ENTITY_ADMIN");
-				admin_AdminEntity_Admin.setTargetEntity("AdminEntity");
-				admin_AdminEntity_Admin.setAllowCreate(true);
-				admin_AdminEntity_Admin.setAllowDelete(true);
-				admin_AdminEntity_Admin.setAllowUpdate(true);
-				admin_AdminEntity_Admin.setAllowRead(true);
-				adminPrivileges.add(admin_AdminEntity_Admin);
-
-
-				admin.setPrivileges(adminPrivileges);
-				unsavedRoles.put("ADMIN", admin);
+				adminEntity = new RoleEntity();
+				adminEntity.setName("ADMIN");
+				adminEntity = this.roleRepository.save(adminEntity);
 			}
+
+			createOrUpdatePrivilege(adminEntity, "TankEntity",
+			"ROLE_ADMIN_TANK_ENTITY_TANK", true, true, true, true);
+
+			createOrUpdatePrivilege(adminEntity, "SpeciesEntity",
+			"ROLE_ADMIN_SPECIES_ENTITY_SPECIES", true, true, true, true);
+
+			createOrUpdatePrivilege(adminEntity, "FishnaticEntity",
+			"ROLE_ADMIN_FISHNATIC_ENTITY_FISHNATIC", true, true, true, true);
+
+			createOrUpdatePrivilege(adminEntity, "FishEntity",
+			"ROLE_ADMIN_FISH_ENTITY_FISH", true, true, true, true);
+
+			createOrUpdatePrivilege(adminEntity, "AdminEntity",
+			"ROLE_ADMIN_ADMIN_ENTITY_ADMIN", true, true, true, true);
+
+
+
+
+			roleRepository.save(adminEntity);
+			savedRoles.put("ADMIN", adminEntity);
 
 			Optional<RoleEntity> fishnaticOpt = roleRepository.findByName("FISHNATIC");
+			RoleEntity fishnaticEntity;
 			if (fishnaticOpt.isPresent()) {
-				savedRoles.put("FISHNATIC", fishnaticOpt.get());
+				fishnaticEntity = fishnaticOpt.get();
 			} else {
-				RoleEntity fishnatic = new RoleEntity();
-				fishnatic.setId(UUID.randomUUID());
-				fishnatic.setName("FISHNATIC");
-				Set<PrivilegeEntity> fishnaticPrivileges = new HashSet<>();
-				PrivilegeEntity fishnatic_FishEntity_Fish = new PrivilegeEntity();
-				fishnatic_FishEntity_Fish.setId(UUID.randomUUID());
-				fishnatic_FishEntity_Fish.setName("ROLE_FISHNATIC_FISH_ENTITY_FISH");
-				fishnatic_FishEntity_Fish.setTargetEntity("FishEntity");
-				fishnatic_FishEntity_Fish.setAllowCreate(true);
-				fishnatic_FishEntity_Fish.setAllowDelete(true);
-				fishnatic_FishEntity_Fish.setAllowUpdate(true);
-				fishnatic_FishEntity_Fish.setAllowRead(true);
-				fishnaticPrivileges.add(fishnatic_FishEntity_Fish);
-
-				PrivilegeEntity fishnatic_SpeciesEntity_Species = new PrivilegeEntity();
-				fishnatic_SpeciesEntity_Species.setId(UUID.randomUUID());
-				fishnatic_SpeciesEntity_Species.setName("ROLE_FISHNATIC_SPECIES_ENTITY_SPECIES");
-				fishnatic_SpeciesEntity_Species.setTargetEntity("SpeciesEntity");
-				fishnatic_SpeciesEntity_Species.setAllowCreate(true);
-				fishnatic_SpeciesEntity_Species.setAllowDelete(true);
-				fishnatic_SpeciesEntity_Species.setAllowUpdate(true);
-				fishnatic_SpeciesEntity_Species.setAllowRead(true);
-				fishnaticPrivileges.add(fishnatic_SpeciesEntity_Species);
-
-				PrivilegeEntity fishnatic_TankEntity_Tank = new PrivilegeEntity();
-				fishnatic_TankEntity_Tank.setId(UUID.randomUUID());
-				fishnatic_TankEntity_Tank.setName("ROLE_FISHNATIC_TANK_ENTITY_TANK");
-				fishnatic_TankEntity_Tank.setTargetEntity("TankEntity");
-				fishnatic_TankEntity_Tank.setAllowCreate(true);
-				fishnatic_TankEntity_Tank.setAllowDelete(true);
-				fishnatic_TankEntity_Tank.setAllowUpdate(true);
-				fishnatic_TankEntity_Tank.setAllowRead(true);
-				fishnaticPrivileges.add(fishnatic_TankEntity_Tank);
-
-
-				fishnatic.setPrivileges(fishnaticPrivileges);
-				unsavedRoles.put("FISHNATIC", fishnatic);
+				fishnaticEntity = new RoleEntity();
+				fishnaticEntity.setName("FISHNATIC");
+				fishnaticEntity = this.roleRepository.save(fishnaticEntity);
 			}
 
-			roleRepository.saveAll(unsavedRoles.values()).forEach(savedRole -> savedRoles.put(savedRole.getName(), savedRole));
+			createOrUpdatePrivilege(fishnaticEntity, "FishEntity",
+			"ROLE_FISHNATIC_FISH_ENTITY_FISH", true, true, true, true);
+
+			createOrUpdatePrivilege(fishnaticEntity, "SpeciesEntity",
+			"ROLE_FISHNATIC_SPECIES_ENTITY_SPECIES", true, true, true, true);
+
+			createOrUpdatePrivilege(fishnaticEntity, "TankEntity",
+			"ROLE_FISHNATIC_TANK_ENTITY_TANK", true, true, true, true);
+
+
+
+
+			roleRepository.save(fishnaticEntity);
+			savedRoles.put("FISHNATIC", fishnaticEntity);
+
 
 			if (isDevEnvironment || isTestEnvironment) {
 				setupTestAccounts(savedRoles);
@@ -476,6 +431,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// % protected region % [Add any additional dev and test setup here] end
 			}
 		});
+	}
+
+	/**
+	 * Create a privilege for the role
+	 * If privilege is already exists, create a new one
+	 * @param roleEntity Related role entity
+	 * @param entityName Name of target entity
+	 * @param privilegeName Name of the privliege entity
+	 * @param allowCreate whether allow to create
+	 * @param allowRead whether allow to read
+	 * @param allowUpdate whether allow to update
+	 * @param allowDelete whether allow to delete
+	 */
+	private void createOrUpdatePrivilege(RoleEntity roleEntity, String entityName, String privilegeName,
+										 Boolean allowCreate, Boolean allowRead, Boolean allowUpdate, Boolean allowDelete) {
+
+		PrivilegeEntity privilegeEntity = roleEntity.getPrivileges().stream()
+				.filter(privilege ->  privilege.getName().equals(privilegeName))
+				.findFirst().orElse(null);
+
+		if (privilegeEntity == null) {
+			privilegeEntity = new PrivilegeEntity();
+			privilegeEntity.setId(UUID.randomUUID());
+			privilegeEntity.setName(privilegeName);
+			privilegeEntity.setTargetEntity(entityName);
+			roleEntity.getPrivileges().add(privilegeEntity);
+		}
+
+		privilegeEntity.setAllowCreate(allowCreate);
+		privilegeEntity.setAllowRead(allowRead);
+		privilegeEntity.setAllowUpdate(allowUpdate);
+		privilegeEntity.setAllowDelete(allowDelete);
 	}
 
 	/**
@@ -506,6 +493,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			adminRepository.save(admin);
 		}
 
+		// Create a super user. A super user has all the roles in application
+		UserEntity superUser;
+		if (userRepository.findByEmail("super@example.com").isEmpty()) {
+			superUser = new UserEntity();
+			superUser.setEmail("super@example.com");
+			superUser.setUsername("super@example.com");
+			superUser.setPassword(passwordEncoder().encode("password"));
+			superUser.setFirstName("Super");
+			superUser.setLastName("Administor");
+			superUser.setIsArchived(false);
+
+		} else {
+			superUser = (UserEntity)  userRepository.findByEmail("super@example.com").get();
+		}
+
+		savedRoles.forEach((roleName, role) -> {
+			superUser.addRoles(role);
+		});
+
+		userRepository.save(superUser);
 	}
 
 	// % protected region % [Add any additional class methods here] off begin

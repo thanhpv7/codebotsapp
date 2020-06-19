@@ -19,23 +19,48 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 	<div *ngIf="tooltip && isLabelVisible" class="tooltip icon-tooltip" id="{{ tooltipId }}">
 		<span class="tooltip__content">{{ tooltip }}</span>
 	</div>
-	<input [type]="type"
-				 id="{{ fieldId }}"
-				 [value]="value ? value : null"
-				 (input)="textFieldInputChange($event)"
-				 (keyup)="onKeyUp()"
-				 [disabled]="isDisabled"
-				 [required]="isRequired"
-				 [readOnly]="isReadOnly"
-				 [placeholder]="placeholder"
-				 [attr.aria-label]="isLabelVisible ? null : label"
-				 [name]="name">
-
-	<ng-container *ngIf="validationErrors && dirty">
-		<p cb-input-errorMessage
-			 *ngFor="let error of validationErrors | keyvalue;"
-			 [errorType]="error.key"
-			 [errorValue]="error.value"
-			 [name]="name"></p>
+	<ng-container *ngIf="type !== TextfieldType.PASSWORD else passwordInput">
+		<input [type]="type"
+			   id="{{ fieldId }}"
+			   [value]="value ? value : null"
+			   (input)="textFieldInputChange($event)"
+			   (keyup)="onKeyUp()"
+			   [disabled]="isDisabled"
+			   [required]="isRequired"
+			   [readOnly]="isReadOnly"
+			   [placeholder]="placeholder"
+			   [attr.aria-label]="isLabelVisible ? null : label"
+			   [name]="name">
+		<div *ngIf="validationErrors && dirty" class="input-group__error-text">
+			<p cb-input-errorMessage
+			   *ngFor="let error of validationErrors | keyvalue;"
+			   [errorType]="error.key"
+			   [errorValue]="error.value"
+			   [name]="name">
+			</p>
+		</div>
 	</ng-container>
 </ng-container>
+
+<ng-template #passwordInput>
+	<input [type]="type"
+		   id="{{ fieldId }}"
+		   [value]="value ? value : null"
+		   (input)="textFieldInputChange($event)"
+		   (keyup)="onKeyUp()"
+		   [disabled]="isDisabled"
+		   [required]="isRequired"
+		   [readOnly]="isReadOnly"
+		   [placeholder]="placeholder"
+		   [attr.aria-label]="isLabelVisible ? null : label"
+		   [name]="name" />
+	<password-strength-meter *ngIf="showPasswordStrengthMeter" [password]="value"></password-strength-meter>
+	<div *ngIf="validationErrors && dirty" class="input-group__error-text">
+		<p cb-input-errorMessage
+		   *ngFor="let error of validationErrors | keyvalue;"
+		   [errorType]="error.key"
+		   [errorValue]="error.value"
+		   [name]="name">
+		</p>
+	</div>
+</ng-template>

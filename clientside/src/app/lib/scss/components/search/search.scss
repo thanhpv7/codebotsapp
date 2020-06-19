@@ -30,7 +30,7 @@ Found above collection list
 	height: auto;
 
 	@include input-placeholder {
-		@include icon(before, search);
+		@include lightning-icon(before, search);
 	}
 
 	input[type="text"] {

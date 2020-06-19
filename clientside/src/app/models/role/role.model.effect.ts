@@ -442,7 +442,7 @@ export class RoleEffect {
 
 		concatMap((action) => {
 			const modelToBeUpdated = action.stateConfig.targetModel as RoleModel;
-			const updates = action.stateConfig.updates;
+			const updates = action.stateConfig.updates as object;
 			const collectionId = action.stateConfig.collectionId;
 			const queryParams = action.stateConfig.queryParams;
 
@@ -503,7 +503,7 @@ export class RoleEffect {
 
 		concatMap((action) => {
 			const modelsToUpdate = action.stateConfig.targetModels as RoleModel[];
-			const updates = action.stateConfig.updates;
+			const updates = action.stateConfig.updates as object[];
 			const updatedModels = _.zipWith(modelsToUpdate, updates, (targetModel, update) => new RoleModel({
 				...targetModel,
 				...update

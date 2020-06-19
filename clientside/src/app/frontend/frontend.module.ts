@@ -21,8 +21,11 @@ import {RouterModule} from '@angular/router';
 import {ToastContainerModule} from 'ngx-toastr';
 import {FrontendComponent} from './frontend.component';
 import {CommonComponentModule} from '../lib/components/common.component.module';
-import {appRoutes} from '../app.routes';
 import {environment} from '../../environments/environment';
+import {FrontendRoutingModule} from './frontend-routing.module';
+import {RegisterTileModule} from '../lib/tiles/register/register.tile.module';
+import {LoginTileModule} from '../lib/tiles/login/login.tile.module';
+import {LogoutTileModule} from '../lib/tiles/logout/logout.tile.module';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -41,7 +44,10 @@ import {environment} from '../../environments/environment';
 	imports: [
 		CommonModule,
 		ToastContainerModule,
-		RouterModule.forChild(appRoutes),
+		RegisterTileModule,
+		LoginTileModule,
+		LogoutTileModule,
+		FrontendRoutingModule,
 		CommonComponentModule,
 		// % protected region % [Add any additional imports] off begin
 		// % protected region % [Add any additional imports] end

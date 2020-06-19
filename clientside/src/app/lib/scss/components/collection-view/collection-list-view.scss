@@ -101,16 +101,16 @@ List view of the collection list.
 					padding: $space-sm;
 
 					&.sortable--des {
-						@include icon(after, arrow-down);
+						@include lightning-icon(after, arrow-down);
 					}
 
 					&.sortable--asc {
-						@include icon(after, arrow-up);
+						@include lightning-icon(after, arrow-up);
 					}
 
 					//Sortable arrow styling
 					&.sortable {
-						@include icon(after, order);
+						@include lightning-icon(after, order);
 
 						&:hover {
 							cursor: pointer;

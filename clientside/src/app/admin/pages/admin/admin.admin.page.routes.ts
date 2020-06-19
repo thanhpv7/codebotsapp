@@ -29,10 +29,11 @@ import {AdminAdminTileCrudComponent} from '../../tiles/crud/admin/admin.admin.ti
  */
 export const appRoutes: Routes = [
 	{
-		path: 'admin/users/admin',
+		path: '',
 		children: [
 			{
 				path: '',
+				pathMatch: 'full',
 				component: AdminAdminTileCrudComponent,
 			},
 			{

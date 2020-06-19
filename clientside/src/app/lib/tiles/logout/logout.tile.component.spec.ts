@@ -27,6 +27,10 @@ class MockAuthenticationService {
 	get isLoggedIn() {
 		return true;
 	}
+
+	logout() {
+
+	}
 }
 
 describe('Testing Logout Tile Component for logged in user', () => {
@@ -66,15 +70,4 @@ describe('Testing Logout Tile Component for logged in user', () => {
 			(fixture.nativeElement as HTMLElement).remove();
 		}
 	});
-
-	it('Frontend page should have button to logout in side bar', () => {
-
-		// Stimulate User logged in
-		spyOnProperty(authenticationService, 'isLoggedIn').and.returnValue(true);
-		fixture.detectChanges();
-
-		const logoutButton = fixture.debugElement.query(By.css('a.icon-logout'));
-		expect(logoutButton.nativeElement.attributes.href.value).toBe('/logout');
-	});
-
 });

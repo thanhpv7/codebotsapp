@@ -442,7 +442,7 @@ export class FishEffect {
 
 		concatMap((action) => {
 			const modelToBeUpdated = action.stateConfig.targetModel as FishModel;
-			const updates = action.stateConfig.updates;
+			const updates = action.stateConfig.updates as object;
 			const collectionId = action.stateConfig.collectionId;
 			const queryParams = action.stateConfig.queryParams;
 
@@ -503,7 +503,7 @@ export class FishEffect {
 
 		concatMap((action) => {
 			const modelsToUpdate = action.stateConfig.targetModels as FishModel[];
-			const updates = action.stateConfig.updates;
+			const updates = action.stateConfig.updates as object[];
 			const updatedModels = _.zipWith(modelsToUpdate, updates, (targetModel, update) => new FishModel({
 				...targetModel,
 				...update

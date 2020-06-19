@@ -78,6 +78,7 @@ input[type="checkbox"] {
 	//Removing the default styles, with it you can only control the border style, without it you can control width, height etc.
 	appearance: none;
 	width: 1.8rem;
+	min-width: 1.8rem;
 	height: 1.8rem;
 	border: convert-rem(3px) solid $color-primary;
 	vertical-align: middle;
@@ -98,6 +99,12 @@ input[type="checkbox"] {
 			line-height: 1;
 			content: '\e9a2';
 			position: relative;
+			pointer-events: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			width: 100%;
 		}
 	}
 
@@ -106,25 +113,6 @@ input[type="checkbox"] {
 	}
 }
 // % protected region % [Change checkbox input styles here] end
-
-// % protected region % [Change checkbox input readonly styles here] off begin
-input[type="checkbox"][readonly] {
-	background-color: $grey-0;
-	pointer-events: none;
-	border: convert-rem(3px) solid $grey-4;
-	cursor: not-allowed;
-
-	&:hover,
-	&:focus,
-	&:active {
-		outline: none;
-	}
-
-	&:after {
-		display: none;
-	}
-}
-// % protected region % [Change checkbox input readonly styles here] end
 
 // % protected region % [Change checkbox input readonly and disabled styles here] off begin
 input[type="checkbox"][readonly]+label,
@@ -145,10 +133,28 @@ input[type="checkbox"][disabled] {
 	border: convert-rem(3px) solid $grey-4;
 	cursor: not-allowed;
 
-	&:hover,
-	&:focus,
-	&:active {
-		outline: none;
+
+	&:hover {
+		border: convert-rem(3px) solid $grey-4;
+	}
+
+	&:checked {
+		&:after {
+			color: $color-primary;
+			font-family: $lightning-icon-name;
+			font-weight: 700;
+			font-style: normal;
+			font-size: 1.2rem;
+			line-height: 1;
+			content: '\e9a2';
+			position: relative;
+			pointer-events: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			width: 100%;
+		}
 	}
 }
 // % protected region % [Change checkbox input disabled styles here] end

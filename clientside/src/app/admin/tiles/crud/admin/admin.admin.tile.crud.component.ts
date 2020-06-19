@@ -283,7 +283,8 @@ export class AdminAdminTileCrudComponent implements OnInit {
 			...prop,
 			sortable: true,
 			sourceDirectFromModel: true,
-			valueSource: prop.name
+			valueSource: prop.name,
+			doHide: prop.isSensitive
 		} as HeaderOption;
 	}).filter(opt => opt.name !== 'id').filter(opt => !opt.doHide);
 	// % protected region % [Change your header options required here] end
@@ -876,7 +877,6 @@ export class AdminAdminTileCrudComponent implements OnInit {
 	private prepareReferenceCollections() {
 		// % protected region % [Add any additional code here before the main logic of prepareReferenceCollections] off begin
 		// % protected region % [Add any additional code here before the main logic of prepareReferenceCollections] end
-
 
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] off begin
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] end

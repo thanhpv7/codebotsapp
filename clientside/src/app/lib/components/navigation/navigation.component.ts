@@ -84,7 +84,7 @@ export class NavigationComponent extends AbstractComponent implements OnInit {
 	 * Boolean that is used to specify whether the navigation component is currently expanded.
 	 */
 	@Input()
-	expand: boolean = true; /* edited by thanh.pv */
+	expand: boolean = false;
 
 	/**
 	 * Array of LinkList which is used to show grouped links on the navigation component.

@@ -527,10 +527,8 @@ public class AdminService extends UserService<AdminEntity, AdminRepository, Admi
 
 			// If the entity does not have any password, default back to the old one. Otherwise, hash and use the new
 			// one.
-			if (entity.getPassword() == null) {
-				entity.setPassword(entityToUpdate.getPassword());
-			} else {
-				entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+			if (entity.getPassword() != null) {
+				entityToUpdate.setPassword(passwordEncoder.encode(entity.getPassword()));
 			}
 
 			// TODO: Refactor this to use proper reference handling like below.

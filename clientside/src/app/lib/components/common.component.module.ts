@@ -23,6 +23,7 @@ import {RouterModule} from '@angular/router';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE} from 'ng-pick-datetime';
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import {CommonPipeModule} from '../pipes/common.pipe.module';
 import {ButtonComponent} from './button/button.component';
 import {ButtonGroupComponent} from './buttonGroup/button.group.component';
@@ -100,6 +101,7 @@ import {AccordionComponent, AccordionInfoDirective} from './accordion/accordion.
 		OwlNativeDateTimeModule,
 		ClickOutsideModule,
 		PortalModule,
+		PasswordStrengthMeterModule
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end
 	],

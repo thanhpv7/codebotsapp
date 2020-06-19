@@ -23,4 +23,27 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 <!-- % protected region % [Customise your default title here] end -->
 
 <!-- % protected region % [Add any final HTML structure here] off begin -->
+<div class="dashboard">
+	<div class="dashboard-message">
+		<h3>Welcome!</h3>
+		<p>You are currently on the home page of the admin section. Use this section to manage all data within your application. </p>
+
+		<p>Some of the available options are,<p>
+
+			<section class='option-grid'>
+				<button cb-button [routerLink]="['admin/users/fishnatic']"
+					classes="icon-left" [buttonStyle]="buttonStyle.OUTLINE">
+					Manage User Type Fishnatic
+				</button>
+				<button cb-button [routerLink]="['admin/users/admin']"
+					classes="icon-left" [buttonStyle]="buttonStyle.OUTLINE">
+					Manage User Type Admin
+				</button>
+			</section>
+			<br><br>
+			<p>
+				For all available options, please use the menus on the left.
+			</p>
+	</div>
+</div>
 <!-- % protected region % [Add any final HTML structure here] end -->

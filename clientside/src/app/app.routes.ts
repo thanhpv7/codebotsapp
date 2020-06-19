@@ -24,6 +24,11 @@ import {Routes} from '@angular/router';
  * A list of routes that spans across the application.
  */
 export const appRoutes: Routes = [
+	{
+		path: 'admin',
+		loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+
+	}
 	// % protected region % [Add any additional routes here] off begin
 	// % protected region % [Add any additional routes here] end
 ];

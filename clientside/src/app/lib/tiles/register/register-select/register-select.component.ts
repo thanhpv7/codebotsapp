@@ -18,7 +18,7 @@
 import {Component, ViewContainerRef} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {SimpleModalComponent, ModalDialogService} from 'ngx-modal-dialog';
+import {SimpleModalComponent, ModalDialogService} from '@preeco-privacy/ngx-modal-dialog';
 import {ButtonAccentColour} from '../../../components/button/button.component';
 import {NavigateRoutingAction} from '../../../routing/routing.action';
 

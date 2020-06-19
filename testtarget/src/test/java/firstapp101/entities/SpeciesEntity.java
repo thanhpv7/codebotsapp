@@ -17,6 +17,7 @@
 package firstapp101.entities;
 
 import lombok.*;
+import javax.validation.constraints.NotNull;
 
 import java.util.*;
 
@@ -109,7 +110,7 @@ public class SpeciesEntity extends AbstractEntity {
 	 *
 	 * @param entity the given FishEntity to be added to this entity
 	 */
-	public void addFishSpecies(@NonNull FishEntity entity) {
+	public void addFishSpecies(@NotNull FishEntity entity) {
 		addFishSpecies(entity, true);
 	}
 
@@ -134,7 +135,7 @@ public class SpeciesEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of FishEntity to be added to this entity
 	 */
-	public void addFishSpecies(@NonNull Collection<FishEntity> entities) {
+	public void addFishSpecies(@NotNull Collection<FishEntity> entities) {
 		addFishSpecies(entities, true);
 	}
 
@@ -154,7 +155,7 @@ public class SpeciesEntity extends AbstractEntity {
 	 *
 	 * @param entity the given FishEntity to be set to this entity
 	 */
-	public void removeFishSpecies(@NonNull FishEntity entity) {
+	public void removeFishSpecies(@NotNull FishEntity entity) {
 		this.removeFishSpecies(entity, true);
 	}
 
@@ -164,7 +165,7 @@ public class SpeciesEntity extends AbstractEntity {
 	 * @param entity the given FishEntity to be removed from this entity
 	 * @param reverse whether this entity should be removed from the given entity
 	 */
-	public void removeFishSpecies(@NonNull FishEntity entity, boolean reverse) {
+	public void removeFishSpecies(@NotNull FishEntity entity, boolean reverse) {
 		if (reverse) {
 			entity.unsetSpecies(false);
 		}
@@ -177,7 +178,7 @@ public class SpeciesEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of FishEntity to be removed to this entity
 	 */
-	public void removeFishSpecies(@NonNull Collection<FishEntity> entities) {
+	public void removeFishSpecies(@NotNull Collection<FishEntity> entities) {
 		this.removeFishSpecies(entities, true);
 	}
 
@@ -197,7 +198,7 @@ public class SpeciesEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of FishEntity to be set to this entity
 	 */
-	public void setFishSpecies(@NonNull Collection<FishEntity> entities) {
+	public void setFishSpecies(@NotNull Collection<FishEntity> entities) {
 		setFishSpecies(entities, true);
 	}
 
@@ -207,7 +208,7 @@ public class SpeciesEntity extends AbstractEntity {
 	 * @param entities the given collection of FishEntity to replace the old ones
 	 * @param reverseAdd whether this entity should be added to the given entities
 	 */
-	public void setFishSpecies(@NonNull Collection<FishEntity> entities, boolean reverseAdd) {
+	public void setFishSpecies(@NotNull Collection<FishEntity> entities, boolean reverseAdd) {
 
 		this.unsetFishSpecies();
 		this.fishSpecies = new HashSet<>(entities);

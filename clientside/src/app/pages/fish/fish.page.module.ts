@@ -17,8 +17,8 @@
 
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {appRoutes} from './fish.page.routes';
-import {FishWrappingTileTileModule} from '../../tiles/custom/fishWrappingTile/fish_wrapping_tile.tile.module';
+import {FishPageRoutingModule} from './fish.page.routes';
+import {FishWrappingTileTileModule} from '../../tiles/custom/fish-wrapping-tile/fish-wrapping-tile-tile.module';
 
 
 // % protected region % [Add any additional imports here] off begin
@@ -30,7 +30,7 @@ import {FishWrappingTileTileModule} from '../../tiles/custom/fishWrappingTile/fi
 		// % protected region % [Add any additional declaration here] end
 	],
 	imports: [
-		RouterModule.forChild(appRoutes),
+		FishPageRoutingModule,
 		FishWrappingTileTileModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end

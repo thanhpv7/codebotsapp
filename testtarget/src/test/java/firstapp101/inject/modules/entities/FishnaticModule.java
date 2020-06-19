@@ -105,22 +105,27 @@ public class FishnaticModule extends AbstractModule {
 		newEntity.setCreated(OffsetDateTime.now());
 		newEntity.setModified(OffsetDateTime.now());
 		// % protected region % [Add customisation for first name here] off begin
-		newEntity.setFirstName(mock.strings().get());
+		String randomStringforFirstName = mock.strings().get().substring(0,10);
+		newEntity.setFirstName(randomStringforFirstName);
 		// % protected region % [Add customisation for first name here] end
 		// % protected region % [Add customisation for last name here] off begin
-		newEntity.setLastName(mock.strings().get());
+		String randomStringforLastName = mock.strings().get().substring(0,10);
+		newEntity.setLastName(randomStringforLastName);
 		// % protected region % [Add customisation for last name here] end
 		// % protected region % [Add customisation for username here] off begin
-		newEntity.setUsername(mock.strings().get());
+		String randomStringforUsername = mock.strings().get().substring(0,10);
+		newEntity.setUsername(randomStringforUsername);
 		// % protected region % [Add customisation for username here] end
 		// % protected region % [Add customisation for password here] off begin
-		newEntity.setPassword(mock.strings().get());
+		String randomStringforPassword = mock.strings().get().substring(0,10);
+		newEntity.setPassword(randomStringforPassword);
 		// % protected region % [Add customisation for password here] end
 		// % protected region % [Add customisation for Gender here] off begin
 		newEntity.setGender(GenderEnum.MALE);
 		// % protected region % [Add customisation for Gender here] end
 		// % protected region % [Add customisation for Email here] off begin
-		newEntity.setEmail(mock.strings().get());
+		String randomStringforEmail = mock.strings().get().substring(0,10);
+		newEntity.setEmail(randomStringforEmail);
 		// % protected region % [Add customisation for Email here] end
 		// % protected region % [Add customisation for Is Archived here] off begin
 		newEntity.setIsArchived(mock.bools().get());

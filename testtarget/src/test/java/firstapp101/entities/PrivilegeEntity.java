@@ -17,6 +17,7 @@
 package firstapp101.entities;
 
 import lombok.*;
+import javax.validation.constraints.NotNull;
 
 import java.util.*;
 
@@ -35,15 +36,15 @@ public class PrivilegeEntity extends AbstractEntity {
 	private void initialiseReferences() {
 
 
-		var RolePrivilegesManyMany = new EntityReference();
-			RolePrivilegesManyMany.entityName = "Role";
-			RolePrivilegesManyMany.oppositeName = "Roles";
-			RolePrivilegesManyMany.name = "Privileges";
-			RolePrivilegesManyMany.optional = true;
-			RolePrivilegesManyMany.type = "Many";
-			RolePrivilegesManyMany.oppositeType = "Many";
+		var RolesManyMany = new EntityReference();
+			RolesManyMany.entityName = "Role";
+			RolesManyMany.oppositeName = "Roles";
+			RolesManyMany.name = "Privileges";
+			RolesManyMany.optional = true;
+			RolesManyMany.type = "Many";
+			RolesManyMany.oppositeType = "Many";
 
-		References.add(RolePrivilegesManyMany);
+		References.add(RolesManyMany);
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
@@ -141,7 +142,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 *
 	 * @param entity the given RoleEntity to be added to roles
 	 */
-	public void addRoles(@NonNull RoleEntity entity) {
+	public void addRoles(@NotNull RoleEntity entity) {
 		this.addRoles(entity, true);
 	}
 
@@ -151,7 +152,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 * @param entity the given RoleEntity to be added to roles
 	 * @param reverseAdd whether this entity should be added to the given entity
 	 */
-	public void addRoles(@NonNull RoleEntity entity, boolean reverseAdd) {
+	public void addRoles(@NotNull RoleEntity entity, boolean reverseAdd) {
 		if (!this.roles.contains(entity)) {
 			this.roles.add(entity);
 			if (reverseAdd) {
@@ -166,7 +167,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of RoleEntity to be added into roles
 	 */
-	public void addRoles(@NonNull Collection<RoleEntity> entities) {
+	public void addRoles(@NotNull Collection<RoleEntity> entities) {
 		this.addRoles(entities, true);
 	}
 
@@ -186,7 +187,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 *
 	 * @param entity the given RoleEntity to be set to roles in this entity
 	 */
-	public void removeRoles(@NonNull RoleEntity entity) {
+	public void removeRoles(@NotNull RoleEntity entity) {
 		this.removeRoles(entity, true);
 	}
 
@@ -196,7 +197,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 * @param entity the given RoleEntity to be removed from roles
 	 * @param reverse whether this entity should be removed from the given entity
 	 */
-	public void removeRoles(@NonNull RoleEntity entity, boolean reverse) {
+	public void removeRoles(@NotNull RoleEntity entity, boolean reverse) {
 		if (reverse) {
 			entity.removePrivileges(this, false);
 		}
@@ -209,7 +210,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of RoleEntity to be removed from roles in this entity
 	 */
-	public void removeRoles(@NonNull Collection<RoleEntity> entities) {
+	public void removeRoles(@NotNull Collection<RoleEntity> entities) {
 		this.removeRoles(entities, true);
 	}
 
@@ -229,7 +230,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of RoleEntity to replace the old ones in roles
 	 */
-	public void setRoles(@NonNull Collection<RoleEntity> entities) {
+	public void setRoles(@NotNull Collection<RoleEntity> entities) {
 		this.setRoles(entities, true);
 	}
 
@@ -239,7 +240,7 @@ public class PrivilegeEntity extends AbstractEntity {
 	 * @param entities the given collection of RoleEntity to replace the old ones in roles
 	 * @param reverseAdd whether this entity should be added to the given entities
 	 */
-	public void setRoles(@NonNull Collection<RoleEntity> entities, boolean reverseAdd) {
+	public void setRoles(@NotNull Collection<RoleEntity> entities, boolean reverseAdd) {
 		unsetRoles();
 		this.roles = new HashSet<>(entities);
 		if (reverseAdd) {

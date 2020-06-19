@@ -29,10 +29,11 @@ import {AdminFishnaticTileCrudComponent} from '../../tiles/crud/fishnatic/fishna
  */
 export const appRoutes: Routes = [
 	{
-		path: 'admin/users/fishnatic',
+		path: '',
 		children: [
 			{
 				path: '',
+				pathMatch: 'full',
 				component: AdminFishnaticTileCrudComponent,
 			},
 			{

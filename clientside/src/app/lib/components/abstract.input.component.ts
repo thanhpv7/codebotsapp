@@ -15,8 +15,18 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {HostBinding, Input, OnInit, OnChanges, AfterViewInit, SimpleChanges, Component, Injector, Optional} from '@angular/core';
-import {AbstractComponent} from './abstract.component';
+import {
+	HostBinding,
+	Input,
+	OnInit,
+	OnChanges,
+	AfterViewInit,
+	SimpleChanges,
+	Component,
+	Injector,
+	Optional,
+	Directive
+} from '@angular/core';import {AbstractComponent} from './abstract.component';
 import {FormControl, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
 import {ValidationService} from '../services/validation/validation.service';
 
@@ -76,14 +86,17 @@ export interface AbstractInputConfig {
 	selector: 'p[cb-input-errorMessage]',
 	template: `{{ errorMessage }}`,
 })
-export class InputErrorMessageComponent extends AbstractComponent implements OnChanges{
+export class InputErrorMessageComponent extends AbstractComponent implements OnChanges
+// % protected region % [Add any additional interfaces to implement here] off begin
+// % protected region % [Add any additional interfaces to implement here] end
+{
 
 	/**
 	 * SCSS class of the error message group
 	 */
 	@HostBinding('class')
 	get errorMessageClass() {
-		let classString = this.className + ' input-group__error-text';
+		let classString = this.className;
 
 		// % protected region % [Add any default classes here] off begin
 		// % protected region % [Add any default classes here] end
@@ -154,6 +167,7 @@ export class InputErrorMessageComponent extends AbstractComponent implements OnC
 /**
  * Abstract class used as the base for every input component in the application.
  */
+@Directive()
 export abstract class AbstractInputComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
 	/**
 	 * The class string of the component

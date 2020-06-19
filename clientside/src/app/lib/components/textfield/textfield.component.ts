@@ -60,6 +60,8 @@ export enum TextfieldType {
 	// % protected region % [Add any additional component configurations here] end
 })
 export class TextfieldComponent extends AbstractInputComponent implements OnInit, OnChanges, ControlValueAccessor {
+	public readonly TextfieldType = TextfieldType;
+
 	/**
 	 * Whether the component is an input or an input group
 	 */
@@ -99,6 +101,14 @@ export class TextfieldComponent extends AbstractInputComponent implements OnInit
 	 */
 	@Input()
 	defaultValue = '';
+
+	/**
+	 * Whether to show password strength meter
+	 * Default to be false
+	 * @type {boolean}
+	 */
+	@Input()
+	showPasswordStrengthMeter = false;
 
 	// % protected region % [Add any additional class fields here] off begin
 	// % protected region % [Add any additional class fields here] end

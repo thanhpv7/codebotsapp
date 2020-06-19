@@ -38,9 +38,9 @@ import lombok.extern.slf4j.Slf4j;
 public class CrudStepDef extends AbstractStepDef {
 
 	@Inject
-	private TankEntityFactory tankEntityFactory;
-	@Inject
 	private SpeciesEntityFactory speciesEntityFactory;
+	@Inject
+	private TankEntityFactory tankEntityFactory;
 	@Inject
 	private FishEntityFactory fishEntityFactory;
 	@Inject
@@ -53,23 +53,23 @@ public class CrudStepDef extends AbstractStepDef {
 
 	@Given("I navigate to the {string} backend page")
 	public void crud_backend_navigate(String entityName) throws Exception {
-		adminPageFactory.createCrudPage(entityName).navigate();
+		adminPageFactory.createCrudListPage(entityName).navigate();
 	}
 
 	@Then("I am on the {string} backend page")
 	public void crud_assert_on_backend_page(String entityName) throws Exception {
-		var pageUrl = adminPageFactory.createCrudPage(entityName).pageUrl;
-		webDriverWait.until(webDriver -> webDriver.getCurrentUrl().equals(pageUrl));
+		var pageUrl = adminPageFactory.createCrudListPage(entityName).pageUrl;
+		webDriverWait.until(webDriver -> webDriver.getCurrentUrl().contains(pageUrl));
 	}
 
 	@Given("I click to create a {string}")
 	public void crud_backend_click_create(String entityName) throws Exception {
-		adminPageFactory.createCrudPage(entityName).createButton.click();
+		adminPageFactory.createCrudEditPage(entityName).createButton.click();
 	}
 
 	@Given("I {string} an existing {string}")
 	public void crud_backend_click_create(String crudAction, String entityName) throws Exception {
-		var page = adminPageFactory.createCrudPage(entityName);
+		var page = adminPageFactory.createCrudListPage(entityName);
 
 		// wait for the list to be populated with values
 		webDriverWait.until(x -> page.CrudListItems.size() > 0);
@@ -77,7 +77,7 @@ public class CrudStepDef extends AbstractStepDef {
 		switch (crudAction.toLowerCase()) {
 			case "update":
 				page.EditButtons.get(0).click();
-				var createPage = adminPageFactory.createCrudPage(entityName).getCreatePage();
+				var createPage = adminPageFactory.createCrudEditPage(entityName);
 				var entity = getEntityFactory(entityName).createWithNoRef();
 				createPage.applyEntity(entity);
 				break;
@@ -95,7 +95,7 @@ public class CrudStepDef extends AbstractStepDef {
 
 	@Given("I create an {string} if not exists")
 	public void create_entity_if_not_exist(String entityName) throws Exception {
-		var page = adminPageFactory.createCrudPage(entityName);
+		var page = adminPageFactory.createCrudListPage(entityName);
 
 		try {
 			// wait for the list to be populated with values
@@ -121,7 +121,7 @@ public class CrudStepDef extends AbstractStepDef {
 	private AbstractEntity createValidEntity(String entityName) throws Exception{
 		AbstractEntity entity = getEntityFactory(entityName).createWithNoRef();
 
-		var createPage = adminPageFactory.createCrudPage(entityName).getCreatePage();
+		var createPage = adminPageFactory.createCrudEditPage(entityName);
 		// for each of the required references we will create it
 		for (EntityReference reference : entity.References) {
 			if (!reference.optional) {
@@ -133,16 +133,15 @@ public class CrudStepDef extends AbstractStepDef {
 		return entity;
 	}
 
-	private BaseFactory getEntityFactory(String entityName) throws Exception
-	{
+	private BaseFactory getEntityFactory(String entityName) throws Exception {
 		BaseFactory baseFactory;
 		switch (entityName)
 		{
-			case "Tank":
-				baseFactory = tankEntityFactory;
-				break;
 			case "Species":
 				baseFactory = speciesEntityFactory;
+				break;
+			case "Tank":
+				baseFactory = tankEntityFactory;
 				break;
 			case "Fish":
 				baseFactory = fishEntityFactory;

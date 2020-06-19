@@ -20,10 +20,5 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 
 	<!-- % protected region % [Add any additional HTML structure here] off begin -->
 	<!-- % protected region % [Add any additional HTML structure here] end -->
-
-	<app-admin class="admin" *ngIf="adminView && authenticationService.isAdmin(); else frontend"></app-admin>
-
-	<ng-template #frontend>
-		<app-frontend class="frontend"></app-frontend>
-	</ng-template>
+	<router-outlet></router-outlet>
 </div>

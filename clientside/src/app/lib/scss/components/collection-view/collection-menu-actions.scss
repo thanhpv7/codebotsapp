@@ -51,7 +51,7 @@ Top section of collection - Search bar, filter buttons, grid buttons
 			}
 
 			&.icon-create {
-				@include icon(after, plus);
+				@include lightning-icon(after, plus);
 				display: flex;
 				margin-left: auto;
 				padding: $space-xs $space-lg;

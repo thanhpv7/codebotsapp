@@ -28,7 +28,7 @@ import {AdminDashboardTileComponent} from '../../tiles/adminDashboard/admin_dash
  */
 export const appRoutes: Routes = [
 	{
-		path: 'admin',
+		path: '',
 		component: AdminDashboardTileComponent,
 		canActivate: [
 			AuthenticationGuard,

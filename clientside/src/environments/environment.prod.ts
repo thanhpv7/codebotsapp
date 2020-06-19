@@ -22,7 +22,11 @@ export const environment = {
 
 	// % protected region % [Customize environment properties here] off begin
 	production: true,
-	API_URL: 'http://localhost:8080',
+	/**
+	 * By default, productuion use the same url as server
+	 */
+	API_URL: '',
+	PASSWORD_MIN_LENGTH: 12,
 	// % protected region % [Customize environment properties here] end
 
 	// % protected region % [Add any additional environment properties here] off begin

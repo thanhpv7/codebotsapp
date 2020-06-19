@@ -106,7 +106,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 							// % protected region % [Add any additional error handling logic for 400 here] end
 						case 401:
 							// % protected region % [Add any additional error handling logic for 401 here] off begin
-							this.toastrService.error('You are not authenticated!', 'Unable to perform operation');
 							this.authService.clean();
 
 							if (this.routerState.urls[0] !== 'login') {
@@ -117,6 +116,13 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 									})
 								);
 							}
+
+							if(error.error.error == "token_expired"){
+								this.toastrService.error('Please login again!', 'Your login session is timeout');
+							}else {
+								this.toastrService.error('You are not authenticated!', 'Unable to perform operation');
+							}
+
 							break;
 							// % protected region % [Add any additional error handling logic for 401 here] end
 						case 403:

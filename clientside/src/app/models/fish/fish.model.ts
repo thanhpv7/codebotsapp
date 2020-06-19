@@ -33,12 +33,11 @@ export class FishModel extends AbstractModel {
 	/**
 	 * The fields which are set as searchable in the entity model
 	 * The fields could be used in search in the server side
-	 * The fields would be by default used as search in the crud tile. You could also use this in other tiles for searching
-	 *
-	 * @type {string[]} The name of the fields that are searchable
+	 * The fields would be by default used as search in the crud tile.
+	 * You could also use this in other tiles for searching.
 	 */
-	// TODO add the searchable in the Metamodel
 	static searchFields: string[] = [
+		'name',
 		// % protected region % [Add any additional searchable field names here] off begin
 		// % protected region % [Add any additional searchable field names here] end
 	];
@@ -64,17 +63,17 @@ export class FishModel extends AbstractModel {
 	}
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=2, example=Sally}.
+	 * The fish's name. .
 	 */
 	name: string;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, dataType = "string", position=3, example=Timestamp}.
+	 * The fish's birthday..
 	 */
 	dateOfBirth: Date;
 
 	/**
-	 * {docoDescription=TODO: Get doco description, springFoxDataTypeProperty=, position=4, example=true}.
+	 * Is the fish alive?.
 	 */
 	alive: boolean = false;
 
@@ -83,9 +82,9 @@ export class FishModel extends AbstractModel {
 	 */
 	born: BornEnum;
 
-	tankId: string;
-
 	speciesId: string;
+
+	tankId: string;
 
 	static modelPropGroups: { [s: string]: Group } = {
 		// % protected region % [Add groups for the entity here] off begin
@@ -208,23 +207,6 @@ export class FishModel extends AbstractModel {
 	static getRelations(): { [name: string]: ModelRelation } {
 		return {
 			...super.getRelations(),
-			tank: {
-				type: ModelRelationType.ONE,
-				name: 'tankId',
-				// % protected region % [Customise your label for Tank here] off begin
-				label: 'Tank',
-				// % protected region % [Customise your label for Tank here] end
-				// % protected region % [Customise your display name for Tank here] off begin
-				// TODO change implementation to use OrderBy or create new metamodel property DisplayBy
-				displayName: 'name',
-				// % protected region % [Customise your display name for Tank here] end
-				validators: [
-					// % protected region % [Add other validators for Tank here] off begin
-					// % protected region % [Add other validators for Tank here] end
-				],
-				// % protected region % [Add any additional field for relation Tank here] off begin
-				// % protected region % [Add any additional field for relation Tank here] end
-			},
 			species: {
 				type: ModelRelationType.ONE,
 				name: 'speciesId',
@@ -241,6 +223,23 @@ export class FishModel extends AbstractModel {
 				],
 				// % protected region % [Add any additional field for relation Species here] off begin
 				// % protected region % [Add any additional field for relation Species here] end
+			},
+			tank: {
+				type: ModelRelationType.ONE,
+				name: 'tankId',
+				// % protected region % [Customise your label for Tank here] off begin
+				label: 'Tank',
+				// % protected region % [Customise your label for Tank here] end
+				// % protected region % [Customise your display name for Tank here] off begin
+				// TODO change implementation to use OrderBy or create new metamodel property DisplayBy
+				displayName: 'name',
+				// % protected region % [Customise your display name for Tank here] end
+				validators: [
+					// % protected region % [Add other validators for Tank here] off begin
+					// % protected region % [Add other validators for Tank here] end
+				],
+				// % protected region % [Add any additional field for relation Tank here] off begin
+				// % protected region % [Add any additional field for relation Tank here] end
 			},
 		};
 	}
@@ -296,15 +295,15 @@ export class FishModel extends AbstractModel {
 		const json = typeof data === 'string' ? JSON.parse(data) : data;
 
 		// Incoming one to many
-		if (json.tank) {
-			currentModel.tankId = json.tank.id;
-			returned = _.union(returned, TankModel.deepParse(json.tank));
-		}
-
-		// Incoming one to many
 		if (json.species) {
 			currentModel.speciesId = json.species.id;
 			returned = _.union(returned, SpeciesModel.deepParse(json.species));
+		}
+
+		// Incoming one to many
+		if (json.tank) {
+			currentModel.tankId = json.tank.id;
+			returned = _.union(returned, TankModel.deepParse(json.tank));
 		}
 
 
@@ -330,8 +329,8 @@ export class FishModel extends AbstractModel {
 			this.alive = json.alive;
 			this.born = json.born;
 			this.born = json.born;
-			this.tankId = json.tankId;
 			this.speciesId = json.speciesId;
+			this.tankId = json.tankId;
 			// % protected region % [Add any additional logic here after set the data] off begin
 			// % protected region % [Add any additional logic here after set the data] end
 		}
@@ -347,8 +346,8 @@ export class FishModel extends AbstractModel {
 			dateOfBirth: this.dateOfBirth,
 			alive: this.alive,
 			born: this.born,
-			tankId: this.tankId,
 			speciesId: this.speciesId,
+			tankId: this.tankId,
 			// % protected region % [Add any additional logic here to json] off begin
 			// % protected region % [Add any additional logic here to json] end
 		};
@@ -384,8 +383,8 @@ export class FishModel extends AbstractModel {
 		return _.omit(diff, [
 			'created',
 			'modified',
-			'tankIds',
 			'speciesIds',
+			'tankIds',
 			// % protected region % [Add any other fields to omit here] off begin
 			// % protected region % [Add any other fields to omit here] end
 		]);

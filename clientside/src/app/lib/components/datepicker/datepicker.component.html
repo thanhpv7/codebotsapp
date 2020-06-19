@@ -34,11 +34,12 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 	<span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
 	<owl-date-time #dt2 [pickerType]="type" [disabled]="isDisabled"></owl-date-time>
 
-	<ng-container *ngIf="validationErrors && dirty">
+	<div *ngIf="validationErrors && dirty" class="input-group__error-text">
 		<p cb-input-errorMessage
-			 *ngFor="let error of validationErrors | keyvalue;"
-			 [errorType]="error.key"
-			 [errorValue]="error.value"
-			 [name]="name"></p>
-	</ng-container>
+		   *ngFor="let error of validationErrors | keyvalue;"
+		   [errorType]="error.key"
+		   [errorValue]="error.value"
+		   [name]="name">
+		</p>
+	</div>
 </ng-container>

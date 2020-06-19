@@ -41,8 +41,7 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 
 <!-- CONDITIONAL RENDER OF THE UI ELEMENT FOR EXPANDING VERTICAL NAVIGATION -->
 <ng-container *ngIf="expandable">
-	<!-- edited by thanh.pv -->
-	<a class="{{ expand ? 'icon-collaspe-left expanded' : 'icon-collapse-right collapsed' }} icon-left link-rm-txt-dec expand-icon"
+	<a class="{{ expand ? 'icon-arrow-left expanded' : 'icon-arrow-right collapsed' }} icon-left link-rm-txt-dec expand-icon"
 		(click)="onExpandNavigationClick($event) ">
 	</a>
 </ng-container>
@@ -91,7 +90,6 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 	<a [attr.aria-label]="'accordion of sublinks'"
 		[attr.data-link-index]="linkIndex"
 		class="{{ displayIcons ? link.icon + ' ' + iconPosition : '' }} nav__parent-link {{ link.active ? 'nav__parent-link--active' : '' }}"
-		title="Home page"
 		(click)="onExpandAccordionLinkClick($event, linkIndex, groupIndex)">
 
 		<!-- RENDER SPAN -->
@@ -125,8 +123,6 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 				[ngTemplateOutlet]='renderspan'
 				[ngTemplateOutletContext]="{text:link.label, parent: parent}">
 		</ng-container>
-
-		<div *ngIf="!expand" class="tooltiptext">{{link.label}}</div>
 	</a>
 </ng-template>
 

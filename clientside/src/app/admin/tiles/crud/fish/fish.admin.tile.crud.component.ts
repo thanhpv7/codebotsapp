@@ -289,7 +289,8 @@ export class AdminFishTileCrudComponent implements OnInit {
 			...prop,
 			sortable: true,
 			sourceDirectFromModel: true,
-			valueSource: prop.name
+			valueSource: prop.name,
+			doHide: prop.isSensitive
 		} as HeaderOption;
 	}).filter(opt => opt.name !== 'id').filter(opt => !opt.doHide);
 	// % protected region % [Change your header options required here] end
@@ -893,19 +894,6 @@ export class AdminFishTileCrudComponent implements OnInit {
 		// % protected region % [Add any additional code here before the main logic of prepareReferenceCollections] end
 
 		// Set the observable for incoming references
-		this.modelRelations.tank.stateConfig = {
-			pageIndex: 0,
-			pageSize: this.pageSize,
-			collectionId: this.collectionId
-		} as PassableStateConfig<TankModel>;
-
-		this.store.dispatch(new tankModelAction.InitialiseTankCollectionState(this.modelRelations.tank.stateConfig));
-		this.modelRelations.tank.collection = this.store.select(getTankCollectionModels, this.collectionId);
-		this.addSearchFunction(this.modelRelations.tank, tankModelAction.FetchTankModelsWithQuery);
-
-		this.store.dispatch(new tankModelAction.FetchAllTankModels(this.modelRelations.tank.stateConfig));
-
-		// Set the observable for incoming references
 		this.modelRelations.species.stateConfig = {
 			pageIndex: 0,
 			pageSize: this.pageSize,
@@ -918,6 +906,18 @@ export class AdminFishTileCrudComponent implements OnInit {
 
 		this.store.dispatch(new speciesModelAction.FetchAllSpeciesModels(this.modelRelations.species.stateConfig));
 
+		// Set the observable for incoming references
+		this.modelRelations.tank.stateConfig = {
+			pageIndex: 0,
+			pageSize: this.pageSize,
+			collectionId: this.collectionId
+		} as PassableStateConfig<TankModel>;
+
+		this.store.dispatch(new tankModelAction.InitialiseTankCollectionState(this.modelRelations.tank.stateConfig));
+		this.modelRelations.tank.collection = this.store.select(getTankCollectionModels, this.collectionId);
+		this.addSearchFunction(this.modelRelations.tank, tankModelAction.FetchTankModelsWithQuery);
+
+		this.store.dispatch(new tankModelAction.FetchAllTankModels(this.modelRelations.tank.stateConfig));
 
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] off begin
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] end

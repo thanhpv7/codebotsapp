@@ -15,9 +15,9 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from "@angular/core";
 import {RoleGuard} from '../../lib/guards/role.guard';
-import {FishWrappingTileTileComponent} from '../../tiles/custom/fishWrappingTile/fish_wrapping_tile.tile.component';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -28,15 +28,6 @@ import {FishWrappingTileTileComponent} from '../../tiles/custom/fishWrappingTile
 export const appRoutes: Routes = [
 	{
 		path: '',
-		// % protected region % [Configure component or redirect homepage tile here] off begin
-		redirectTo: 'fish',
-		// % protected region % [Configure component or redirect homepage tile here] end
-		pathMatch: 'full',
-		// % protected region % [Add any additional route configuration for homepage tile here] off begin
-		// % protected region % [Add any additional route configuration for homepage tile here] end
-	},
-	{
-		path: 'fish',
 		children: [
 			{
 				path: '',
@@ -46,7 +37,7 @@ export const appRoutes: Routes = [
 			{
 				path: 'fish-wrapping-tile',
 				// % protected region % [Configure component or redirect for Fish Wrapping Tile here] off begin
-				component: FishWrappingTileTileComponent,
+				loadChildren: () => import('../../tiles/custom/fish-wrapping-tile/fish-wrapping-tile-tile.module').then(m => m.FishWrappingTileTileModule),
 				// % protected region % [Configure component or redirect for Fish Wrapping Tile here] end
 				canActivate: [
 					RoleGuard,
@@ -71,3 +62,13 @@ export const appRoutes: Routes = [
 	// % protected region % [Add any additional routes here] off begin
 	// % protected region % [Add any additional routes here] end
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(appRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class FishPageRoutingModule { }

@@ -132,7 +132,7 @@ export class FileUploadComponent<E extends AbstractModel> extends AbstractCompon
 		// % protected region % [Add any additional ngOnInit logic before the main body here] end
 
 		if (this.injector) {
-			this.formControl = this.injector.get(NgControl, null);
+			this.formControl = this.injector.get(FormControl, null);
 		}
 
 		if (this.model[this.fileField]) {

@@ -16,7 +16,7 @@
  */
 package firstapp101.cucumber.stepdefs.login;
 
-import firstapp101.cucumber.pom.botwritten.page.LoginPage;
+import firstapp101.cucumber.pom.botwritten.page.frontend.LoginPage;
 import firstapp101.cucumber.stepdefs.botwritten.AbstractStepDef;
 import com.google.inject.Inject;
 import io.cucumber.java.en.*;
@@ -48,7 +48,8 @@ public class LoginPageStepDef extends AbstractStepDef {
 
 	@Then("I should see the homepage")
 	public void iShouldSeeTheHomepage() {
-			webDriverWait.until(webDriver -> webDriver.getCurrentUrl().equals(properties.getProperty("selenium.url") + "/fish/fish-wrapping-tile"));
+			webDriverWait.until(webDriver -> webDriver.getCurrentUrl().contains(properties.getProperty("selenium.url") + "/") &&
+					!webDriver.getCurrentUrl().contains("login"));
 	}
 
 	@When("I login with admin account")

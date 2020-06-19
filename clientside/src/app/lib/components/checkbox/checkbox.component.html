@@ -27,13 +27,14 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 
 	<ng-container *ngIf="labelPos === CheckboxLabelPos.RIGHT; then labelGroup">
 	</ng-container>
-	<ng-container *ngIf="validationErrors && dirty">
+	<div *ngIf="validationErrors && dirty" class="input-group__error-text">
 		<p cb-input-errorMessage
-			 *ngFor="let error of validationErrors | keyvalue;"
-			 [errorType]="error.key"
-			 [errorValue]="error.value"
-			 [name]="name"></p>
-	</ng-container>
+		   *ngFor="let error of validationErrors | keyvalue;"
+		   [errorType]="error.key"
+		   [errorValue]="error.value"
+		   [name]="name">
+		</p>
+	</div>
 </ng-container>
 <ng-template #labelGroup>
 	<label *ngIf="isLabelVisible" for="{{ fieldId }}" [attr.aria-describedby]="tooltipId">{{ label }}</label>

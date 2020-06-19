@@ -146,7 +146,8 @@ Styling for basic navigation, vertical navigation and horizontal navigation.
 	flex-direction: row;
 	width: 100%;
 	grid-area: navhorizontal;
-
+	box-shadow: convert-rem(1px) convert-rem(0px) convert-rem(4px) convert-rem(-1px);
+	
 	ul {
 		display: flex;
 		width: auto;

@@ -62,7 +62,7 @@ export class AlertComponent extends Toast {
 	 * Get whether the toaster is disabled
 	 */
 	get disabledTimeOut(): boolean {
-		return this.toastrPackage.config.disableTimeOut;
+		return this.toastrPackage.config.disableTimeOut == true;
 	}
 
 	// % protected region % [Add any additional class fields here] off begin

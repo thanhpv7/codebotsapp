@@ -98,7 +98,7 @@ describe('Testing Frontend Component for logged in user', () => {
 
 			authenticationService = TestBed.get(AuthenticationService);
 			spyOnProperty(authenticationService, 'isLoggedIn').and.returnValue(true);
-			
+
 			// % protected region % [Add custom logic before creating the component for logged user here] off begin
 			// % protected region % [Add custom logic before creating the component for logged user here] end
 
@@ -144,13 +144,22 @@ describe('Testing Frontend Component for logged in user', () => {
 		// % protected region % [Add custom logic before main process of Should not display home page link in page sub links for login user] off begin
 		// % protected region % [Add custom logic before main process of Should not display home page link in page sub links for login user] end
 
-		const homePageLinks = fixture.debugElement.queryAll(By.css('a>span>span')).filter(el => el.nativeElement.textContent.trim() === 'Home');
+		fixture.detectChanges();
 
-		// Name of Home Page should just exists once
-		expect(homePageLinks.length).toBe(1);
+		const homePageLinks = fixture.debugElement.queryAll(By.css('a[href$="/fish"]'));
+
+		// The route of the page marked as home should be '/' not the fully qualified route '/fish'
+		expect(homePageLinks.length).toBe(0);
 
 		// % protected region % [Add custom logic for Should not display home page link in page sub links for login user] off begin
 		// % protected region % [Add custom logic for Should not display home page link in page sub links for login user] end
+	});
+
+	it('Frontend page should have button to logout in side bar', () => {
+		fixture.detectChanges();
+
+		const logoutButton = fixture.debugElement.query(By.css('a.icon-logout'));
+		expect(logoutButton.nativeElement.attributes.href.value).toBe('/logout');
 	});
 
 	// % protected region % [Add any additional testings for not loggedin user here] off begin

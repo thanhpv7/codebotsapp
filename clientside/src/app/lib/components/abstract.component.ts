@@ -15,7 +15,7 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {Input} from '@angular/core';
+import {Input, Directive} from '@angular/core';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -23,6 +23,7 @@ import {Input} from '@angular/core';
 /**
  * Abstract class used as the base for every component in the application.
  */
+@Directive()
 export abstract class AbstractComponent {
 	/**
 	 * Whether the extending class is currently displayed or not.

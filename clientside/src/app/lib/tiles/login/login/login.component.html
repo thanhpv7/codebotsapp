@@ -30,7 +30,7 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 			 [formControlName]="'email'"
 			 [id]="'username'"
 			 [placeholder]="'Enter your email address here'"
-			 [className]="loginFailed || !loginForm.valid ? 'input-group--error' : ''"
+			 [className]="loginFailed ? 'input-group--error' : ''"
 			 [inputType]="TextfieldType.EMAIL">
 	</div>
 
@@ -41,7 +41,7 @@ Any changes out side of "protected regions" will be lost next time the bot makes
 			 [formControlName]="'password'"
 			 [id]="'password'"
 			 [placeholder]="'Enter your password here'"
-			 [className]="!loginForm.valid ? 'input-group--error' : ''"
+			 [className]="loginFailed ? 'input-group--error' : ''"
 			 [inputType]="TextfieldType.PASSWORD">
 	</div>
 

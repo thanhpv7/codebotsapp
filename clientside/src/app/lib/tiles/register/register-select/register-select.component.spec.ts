@@ -23,7 +23,7 @@ import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Store} from '@ngrx/store';
 import {MockStore, provideMockStore} from '@ngrx/store/testing';
-import {ModalDialogModule, ModalDialogService} from 'ngx-modal-dialog';
+import {ModalDialogModule, ModalDialogService} from '@preeco-privacy/ngx-modal-dialog';
 import {RegisterSelectComponent} from './register-select.component';
 import {CommonComponentModule} from '../../../components/common.component.module';
 import {NavigateRoutingAction} from '../../../routing/routing.action';

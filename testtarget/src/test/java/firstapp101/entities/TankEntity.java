@@ -18,6 +18,7 @@ package firstapp101.entities;
 
 import firstapp101.entities.enums.*;
 import lombok.*;
+import javax.validation.constraints.NotNull;
 
 import java.util.*;
 import java.time.*;
@@ -136,7 +137,7 @@ public class TankEntity extends AbstractEntity {
 	 *
 	 * @param entity the given FishEntity to be added to this entity
 	 */
-	public void addFishTank(@NonNull FishEntity entity) {
+	public void addFishTank(@NotNull FishEntity entity) {
 		addFishTank(entity, true);
 	}
 
@@ -161,7 +162,7 @@ public class TankEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of FishEntity to be added to this entity
 	 */
-	public void addFishTank(@NonNull Collection<FishEntity> entities) {
+	public void addFishTank(@NotNull Collection<FishEntity> entities) {
 		addFishTank(entities, true);
 	}
 
@@ -181,7 +182,7 @@ public class TankEntity extends AbstractEntity {
 	 *
 	 * @param entity the given FishEntity to be set to this entity
 	 */
-	public void removeFishTank(@NonNull FishEntity entity) {
+	public void removeFishTank(@NotNull FishEntity entity) {
 		this.removeFishTank(entity, true);
 	}
 
@@ -191,7 +192,7 @@ public class TankEntity extends AbstractEntity {
 	 * @param entity the given FishEntity to be removed from this entity
 	 * @param reverse whether this entity should be removed from the given entity
 	 */
-	public void removeFishTank(@NonNull FishEntity entity, boolean reverse) {
+	public void removeFishTank(@NotNull FishEntity entity, boolean reverse) {
 		if (reverse) {
 			entity.unsetTank(false);
 		}
@@ -204,7 +205,7 @@ public class TankEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of FishEntity to be removed to this entity
 	 */
-	public void removeFishTank(@NonNull Collection<FishEntity> entities) {
+	public void removeFishTank(@NotNull Collection<FishEntity> entities) {
 		this.removeFishTank(entities, true);
 	}
 
@@ -224,7 +225,7 @@ public class TankEntity extends AbstractEntity {
 	 *
 	 * @param entities the given collection of FishEntity to be set to this entity
 	 */
-	public void setFishTank(@NonNull Collection<FishEntity> entities) {
+	public void setFishTank(@NotNull Collection<FishEntity> entities) {
 		setFishTank(entities, true);
 	}
 
@@ -234,7 +235,7 @@ public class TankEntity extends AbstractEntity {
 	 * @param entities the given collection of FishEntity to replace the old ones
 	 * @param reverseAdd whether this entity should be added to the given entities
 	 */
-	public void setFishTank(@NonNull Collection<FishEntity> entities, boolean reverseAdd) {
+	public void setFishTank(@NotNull Collection<FishEntity> entities, boolean reverseAdd) {
 
 		this.unsetFishTank();
 		this.fishTank = new HashSet<>(entities);

@@ -105,7 +105,8 @@ public class RoleModule extends AbstractModule {
 		newEntity.setCreated(OffsetDateTime.now());
 		newEntity.setModified(OffsetDateTime.now());
 		// % protected region % [Add customisation for name here] off begin
-		newEntity.setName(mock.strings().get());
+		String randomStringforName = mock.strings().get().substring(0,10);
+		newEntity.setName(randomStringforName);
 		// % protected region % [Add customisation for name here] end
 
 		// % protected region % [Apply any additional logic for roleWithNoRef after the main body here] off begin

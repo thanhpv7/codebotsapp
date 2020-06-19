@@ -29,10 +29,11 @@ import {AdminTankTileCrudComponent} from '../../tiles/crud/tank/tank.admin.tile.
  */
 export const appRoutes: Routes = [
 	{
-		path: 'admin/entities/tank',
+		path: '',
 		children: [
 			{
 				path: '',
+				pathMatch: 'full',
 				component: AdminTankTileCrudComponent,
 			},
 			{

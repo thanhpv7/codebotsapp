@@ -18,6 +18,7 @@ package firstapp101.entities;
 
 import firstapp101.entities.enums.*;
 import lombok.*;
+import javax.validation.constraints.NotNull;
 
 import java.util.*;
 
@@ -140,7 +141,7 @@ public class UserEntity extends AbstractEntity {
 	 *
 	 * @param entity the given RoleEntity to be added to this entity
 	 */
-	public void addRoles(@NonNull RoleEntity entity) {
+	public void addRoles(@NotNull RoleEntity entity) {
 		addRoles(entity, true);
 	}
 
@@ -165,7 +166,7 @@ public class UserEntity extends AbstractEntity {
 	 *
 	 * @param entities the given entities to be added to this entity
 	 */
-	public void addRoles(@NonNull Collection<RoleEntity> entities) {
+	public void addRoles(@NotNull Collection<RoleEntity> entities) {
 		addRoles(entities, true);
 	}
 
@@ -185,7 +186,7 @@ public class UserEntity extends AbstractEntity {
 	 *
 	 * @param entity the given RoleEntity to be set to this entity
 	 */
-	public void removeRoles(@NonNull RoleEntity entity) {
+	public void removeRoles(@NotNull RoleEntity entity) {
 		this.removeRoles(entity, true);
 	}
 
@@ -195,7 +196,7 @@ public class UserEntity extends AbstractEntity {
 	 * @param entity the give RoleEntity to be removed from this entity
 	 * @param reverse whether this entity should be removed from the given entity
 	 */
-	public void removeRoles(@NonNull RoleEntity entity, boolean reverse) {
+	public void removeRoles(@NotNull RoleEntity entity, boolean reverse) {
 		if (reverse) {
 			entity.removeUsers(this, false);
 		}
@@ -208,7 +209,7 @@ public class UserEntity extends AbstractEntity {
 	 *
 	 * @param entities the given entities to be removed to this entity
 	 */
-	public void removeRoles(@NonNull Collection<RoleEntity> entities) {
+	public void removeRoles(@NotNull Collection<RoleEntity> entities) {
 		this.removeRoles(entities, true);
 	}
 
@@ -228,7 +229,7 @@ public class UserEntity extends AbstractEntity {
 	 *
 	 * @param entities the given entities to be set to this entity
 	 */
-	public void setRoles(@NonNull Collection<RoleEntity> entities) {
+	public void setRoles(@NotNull Collection<RoleEntity> entities) {
 		this.setRoles(entities, true);
 	}
 
@@ -238,7 +239,7 @@ public class UserEntity extends AbstractEntity {
 	 * @param entities the given entities to replace the old ones
 	 * @param reverseAdd whether this entity should be added to the given entities
 	 */
-	public void setRoles(@NonNull Collection<RoleEntity> entities, boolean reverseAdd) {
+	public void setRoles(@NotNull Collection<RoleEntity> entities, boolean reverseAdd) {
 		this.unsetRoles();
 		this.roles = new HashSet<>(entities);
 		if (reverseAdd) {

@@ -106,15 +106,6 @@ public class FishEntity extends AbstractEntity {
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// % protected region % [Update the annotation for Tank here] off begin
-	@ApiModelProperty(notes = "The Tank entities that are related to this entity.")
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	// % protected region % [Update the annotation for Tank here] end
-	private TankEntity tank;
-
-	@Transient
-	private UUID tankId;
-
 	// % protected region % [Update the annotation for Species here] off begin
 	@ApiModelProperty(notes = "The Species entities that are related to this entity.")
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
@@ -123,6 +114,15 @@ public class FishEntity extends AbstractEntity {
 
 	@Transient
 	private UUID speciesId;
+
+	// % protected region % [Update the annotation for Tank here] off begin
+	@ApiModelProperty(notes = "The Tank entities that are related to this entity.")
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	// % protected region % [Update the annotation for Tank here] end
+	private TankEntity tank;
+
+	@Transient
+	private UUID tankId;
 
 	// % protected region % [Add any additional class fields here] off begin
 	// % protected region % [Add any additional class fields here] end
@@ -140,60 +140,6 @@ public class FishEntity extends AbstractEntity {
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Similar to {@link this#setTank(TankEntity, boolean)} but
-	 * default to true for reverse add.
-	 *
-	 * @param entity the given TankEntity to be set to this entity
-	 */
-	public void setTank(@NotNull TankEntity entity) {
-		setTank(entity, true);
-	}
-
-	/**
-	 * Set or update the tank in this entity with single TankEntity.
-	 *
-	 * @param entity the given TankEntity to be set or updated to tank
-	 * @param reverseAdd whether this entity should be set or updated to the given entity
-	 */
-	public void setTank(@NotNull TankEntity entity, boolean reverseAdd) {
-		// % protected region % [Add any additional logic here before the main logic for setTank here] off begin
-		// % protected region % [Add any additional logic here before the main logic for setTank here] end
-
-		if (sameAsFormer(this.tank, entity)) {
-			return;
-		}
-
-		if (this.tank != null) {
-			this.tank.removeFishTank(this, false);
-		}
-		this.tank = entity;
-		if (reverseAdd) {
-			this.tank.addFishTank(this, false);
-		}
-
-		// % protected region % [Add any additional logic here after the main logic for setTank here] off begin
-		// % protected region % [Add any additional logic here after the main logic for setTank here] end
-	}
-
-	/**
-	 * Similar to {@link this#unsetTank(boolean)} but default to true.
-	 */
-	public void unsetTank() {
-		this.unsetTank(true);
-	}
-
-	/**
-	 * Remove Tank in this entity.
-	 *
-	 * @param reverse whether this entity should be removed from the given entity
-	 */
-	public void unsetTank(boolean reverse) {
-		if (reverse && this.tank != null) {
-			this.tank.removeFishTank(this, false);
-		}
-		this.tank = null;
-	}
 	/**
 	 * Similar to {@link this#setSpecies(SpeciesEntity, boolean)} but
 	 * default to true for reverse add.
@@ -247,6 +193,60 @@ public class FishEntity extends AbstractEntity {
 			this.species.removeFishSpecies(this, false);
 		}
 		this.species = null;
+	}
+	/**
+	 * Similar to {@link this#setTank(TankEntity, boolean)} but
+	 * default to true for reverse add.
+	 *
+	 * @param entity the given TankEntity to be set to this entity
+	 */
+	public void setTank(@NotNull TankEntity entity) {
+		setTank(entity, true);
+	}
+
+	/**
+	 * Set or update the tank in this entity with single TankEntity.
+	 *
+	 * @param entity the given TankEntity to be set or updated to tank
+	 * @param reverseAdd whether this entity should be set or updated to the given entity
+	 */
+	public void setTank(@NotNull TankEntity entity, boolean reverseAdd) {
+		// % protected region % [Add any additional logic here before the main logic for setTank here] off begin
+		// % protected region % [Add any additional logic here before the main logic for setTank here] end
+
+		if (sameAsFormer(this.tank, entity)) {
+			return;
+		}
+
+		if (this.tank != null) {
+			this.tank.removeFishTank(this, false);
+		}
+		this.tank = entity;
+		if (reverseAdd) {
+			this.tank.addFishTank(this, false);
+		}
+
+		// % protected region % [Add any additional logic here after the main logic for setTank here] off begin
+		// % protected region % [Add any additional logic here after the main logic for setTank here] end
+	}
+
+	/**
+	 * Similar to {@link this#unsetTank(boolean)} but default to true.
+	 */
+	public void unsetTank() {
+		this.unsetTank(true);
+	}
+
+	/**
+	 * Remove Tank in this entity.
+	 *
+	 * @param reverse whether this entity should be removed from the given entity
+	 */
+	public void unsetTank(boolean reverse) {
+		if (reverse && this.tank != null) {
+			this.tank.removeFishTank(this, false);
+		}
+		this.tank = null;
 	}
 	// % protected region % [Add any additional class methods  here] off begin
 	// % protected region % [Add any additional class methods  here] end

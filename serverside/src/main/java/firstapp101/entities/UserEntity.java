@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
 )
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class UserEntity extends AbstractEntity implements UserDetails {
+public class UserEntity extends AbstractEntity implements UserDetails {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
 	// Attributes

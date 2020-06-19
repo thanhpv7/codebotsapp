@@ -60,8 +60,8 @@ import java.time.OffsetDateTime;
 public class FishService extends AbstractService<FishEntity, FishRepository, FishEntityAudit> {
 
 	private final String[] referenceNamesInFishEntity = {
-		"tank",
 		"species",
+		"tank",
 	};
 
 	// TODO change to service
@@ -630,21 +630,21 @@ public class FishService extends AbstractService<FishEntity, FishRepository, Fis
 		}
 
 		// Incoming One to Many reference
-		if (entity.getTankId() != null) {
-			Optional<TankEntity> tankEntity = this.tankRepository.findById(entity.getTankId());
-			entityToUpdate.setTank(tankEntity.orElseThrow());
-		// TODO add condition check when the id is not set from the request (Partial update)
-		} else {
-			entityToUpdate.unsetTank();
-		}
-
-		// Incoming One to Many reference
 		if (entity.getSpeciesId() != null) {
 			Optional<SpeciesEntity> speciesEntity = this.speciesRepository.findById(entity.getSpeciesId());
 			entityToUpdate.setSpecies(speciesEntity.orElseThrow());
 		// TODO add condition check when the id is not set from the request (Partial update)
 		} else {
 			entityToUpdate.unsetSpecies();
+		}
+
+		// Incoming One to Many reference
+		if (entity.getTankId() != null) {
+			Optional<TankEntity> tankEntity = this.tankRepository.findById(entity.getTankId());
+			entityToUpdate.setTank(tankEntity.orElseThrow());
+		// TODO add condition check when the id is not set from the request (Partial update)
+		} else {
+			entityToUpdate.unsetTank();
 		}
 
 

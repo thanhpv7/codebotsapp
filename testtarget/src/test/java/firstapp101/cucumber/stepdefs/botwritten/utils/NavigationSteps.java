@@ -35,4 +35,13 @@ public class NavigationSteps extends AbstractStepDef {
 	public void navigateToUrl(String url) {
 		NavigationUtils.goToUrl(webDriver, url);
 	}
+
+	@Then("I navigate to {string}")
+	public void navigateToUrlInSite(String url) throws Exception {
+		log.debug("Navigating to url");
+
+		NavigationUtils.goToUrl(webDriver, properties.get("selenium.url") + "/" + url);
+
+		log.debug("Navigated to url");
+	}
 }

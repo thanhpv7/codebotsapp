@@ -19,6 +19,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {CommonComponentModule} from '../../../lib/components/common.component.module';
 import {AdminDashboardTileComponent} from './admin_dashboard.tile.component';
+import { RouterModule } from '@angular/router';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -32,6 +33,7 @@ import {AdminDashboardTileComponent} from './admin_dashboard.tile.component';
 	imports: [
 		CommonModule,
 		CommonComponentModule,
+		RouterModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end
 	],

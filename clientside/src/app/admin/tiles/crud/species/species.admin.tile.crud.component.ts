@@ -286,7 +286,8 @@ export class AdminSpeciesTileCrudComponent implements OnInit {
 			...prop,
 			sortable: true,
 			sourceDirectFromModel: true,
-			valueSource: prop.name
+			valueSource: prop.name,
+			doHide: prop.isSensitive
 		} as HeaderOption;
 	}).filter(opt => opt.name !== 'id').filter(opt => !opt.doHide);
 	// % protected region % [Change your header options required here] end
@@ -901,7 +902,6 @@ export class AdminSpeciesTileCrudComponent implements OnInit {
 		this.addSearchFunction(this.modelRelations.fishSpecies, fishModelAction.FetchFishModelsWithQuery);
 
 		this.store.dispatch(new fishModelAction.FetchAllFishModels(this.modelRelations.fishSpecies.stateConfig));
-
 
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] off begin
 		// % protected region % [Add any additional code here after the main logic of prepareReferenceCollections] end

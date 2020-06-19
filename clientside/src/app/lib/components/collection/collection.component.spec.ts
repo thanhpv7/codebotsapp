@@ -21,10 +21,10 @@ import {async, ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {CollectionComponent, HeaderOption} from './collection.component';
-import {TankModel} from '../../../models/tank/tank.model';
-import {TankDataFactory} from '../../utils/factories/tank-data-factory';
 import {SpeciesModel} from '../../../models/species/species.model';
 import {SpeciesDataFactory} from '../../utils/factories/species-data-factory';
+import {TankModel} from '../../../models/tank/tank.model';
+import {TankDataFactory} from '../../utils/factories/tank-data-factory';
 import {FishModel} from '../../../models/fish/fish.model';
 import {FishDataFactory} from '../../utils/factories/fish-data-factory';
 import {AdminModel} from '../../../models/admin/admin.model';
@@ -40,325 +40,6 @@ import {CommonComponentModule} from '../common.component.module';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
-
-describe('Collection component against Tank', () => {
-
-	let fixture: ComponentFixture<CollectionComponent<TankModel>>;
-	let collectionComponent: CollectionComponent<TankModel>;
-
-	let tankDataFactory: TankDataFactory;
-	let models: TankModel[];
-	let modelProperties: ModelProperty[];
-
-	let defaultHeaderOptions: HeaderOption[];
-
-	beforeAll(() => {
-		// % protected region % [Add any additional setup in beforeAll before the main body here for entity.Name] off begin
-		// % protected region % [Add any additional setup in beforeAll before the main body here for entity.Name] end
-
-		tankDataFactory = new TankDataFactory();
-
-		modelProperties = TankModel.getProps();
-
-		defaultHeaderOptions =  modelProperties.map(prop => {
-			return {
-				...prop,
-				sortable: true,
-				sourceDirectFromModel: true,
-				valueSource: prop.name
-			} as HeaderOption;
-		});
-
-		// % protected region % [Add any additional setup in beforeAll after the main body here for Tank] off begin
-		// % protected region % [Add any additional setup in beforeAll after the main body here for Tank] end
-	});
-
-	beforeEach(async(() => {
-		models = tankDataFactory.createAll();
-
-		TestBed.configureTestingModule({
-			imports: [
-				CommonModule,
-				FormsModule,
-				ReactiveFormsModule,
-				CommonComponentModule
-			],
-			// % protected region % [Add any additional configurations here for Collection component against Tank] off begin
-			// % protected region % [Add any additional configurations here for Collection component against Tank] end
-		}).compileComponents().then(() => {
-			fixture = TestBed.createComponent<CollectionComponent<TankModel>>(CollectionComponent);
-			collectionComponent = fixture.debugElement.componentInstance;
-		});
-	}));
-
-	afterEach(() => {
-		(fixture.nativeElement as HTMLElement).remove();
-	});
-
-	it('should create the collection component', () => {
-		expect(collectionComponent).toBeTruthy();
-	});
-
-	it('should have no items selected when first viewed', () => {
-		// % protected region % [Add any additional logic before main process of 'should have no items selected when first viewed' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic before main process of 'should have no items selected when first viewed' here for Collection component against Tank] end
-
-		collectionComponent.models = models;
-		collectionComponent.headerOptions = defaultHeaderOptions;
-		fixture.detectChanges();
-
-		const selectAllInputEl: HTMLInputElement = fixture
-			.debugElement
-			.query(By.css('.input-group.input-group-inline.input-group__checkbox.collection__list--select-all > input[type="checkbox"]'))
-			.nativeElement;
-
-		expect(selectAllInputEl.checked).toBeFalsy(`'Select All' is checked`);
-
-		const checkboxEls: HTMLInputElement[] = fixture
-			.debugElement
-			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'))
-			.map(el => el.nativeElement as HTMLInputElement);
-
-		const allChecked = checkboxEls.map(el => el.checked).reduce((prev, currentValue) => {
-			return prev && currentValue;
-		});
-		expect(allChecked).toBeFalsy('Not all checkboxes are deselected');
-
-		// % protected region % [Add any additional logic for 'should have no items selected when first viewed' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic for 'should have no items selected when first viewed' here for Collection component against Tank] end
-	});
-
-	it('should select all items when \'Select All\' is checked', fakeAsync(() => {
-		// % protected region % [Add any additional logic before main process of 'should select all items when 'Select All' is checked' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic before main process of 'should select all items when 'Select All' is checked' here for Collection component against Tank] end
-
-		collectionComponent.models = models;
-		collectionComponent.headerOptions = defaultHeaderOptions;
-
-		fixture.detectChanges();
-		tick();
-
-		fixture
-			.debugElement
-			.query(By.css('.input-group.input-group-inline.input-group__checkbox.collection__list--select-all > input[type="checkbox"]'))
-			.nativeElement
-			.click();
-
-		fixture.detectChanges();
-		tick();
-
-		expect(collectionComponent.selectedModels.size).toBe(models.length, 'Not all checkboxes are checked');
-
-		fixture.detectChanges();
-
-		const checkboxEls: HTMLInputElement[] = fixture
-			.debugElement
-			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox > input[type="checkbox"]'))
-			.map(el => el.nativeElement as HTMLInputElement);
-
-		const allChecked = checkboxEls.map(el => el.checked).reduce((prev, currentValue) => prev && currentValue);
-
-		expect(allChecked).toBeTruthy('Not all checkboxes are selected');
-
-		const multipleItemsActionBar: HTMLElement = fixture
-			.debugElement
-			.query(By.css('.collection__select-options'))
-			.nativeElement;
-
-		expect(multipleItemsActionBar.hidden).toBeFalsy('Multiple items action bar not showing when select all');
-
-		const selectText: HTMLElement = fixture
-			.debugElement
-			.query(By.css('.collection__select-options > p.crud__selection-count'))
-			.nativeElement;
-
-		expect(selectText.innerText).toBe('10 selected', 'Select number not showing correctly');
-
-		// % protected region % [Add any additional logic for 'should select all items when 'Select All' is checked' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic for 'should select all items when 'Select All' is checked' here for Collection component against Tank] end
-
-	}));
-
-	it('should check \'Select All\' when all checkboxes are checked',  fakeAsync(() => {
-		// % protected region % [Add any additional logic before main process of 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic before main process of 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] end
-
-		collectionComponent.models = models;
-		collectionComponent.headerOptions = defaultHeaderOptions;
-
-		fixture.detectChanges();
-		tick();
-
-		const checkboxes: DebugElement[] = fixture
-			.debugElement
-			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
-		const checkboxEls: HTMLInputElement[] = checkboxes.map(checkbox => checkbox.nativeElement as HTMLInputElement);
-
-		checkboxEls.forEach(checkbox => checkbox.click());
-
-		fixture.detectChanges();
-		tick();
-
-		fixture.detectChanges();
-
-		expect(collectionComponent.selectedModels.size).toBe(collectionComponent.models.length, 'Not all checkboxes are checked');
-
-		const allChecked = checkboxEls.map(el => el.checked).reduce((prev, currentValue) => prev && currentValue);
-
-		expect(allChecked).toBeTruthy('Not all checkboxes are selected');
-
-		const multipleItemsActionBar: HTMLElement = fixture
-			.debugElement
-			.query(By.css('.collection__select-options'))
-			.nativeElement;
-
-		expect(multipleItemsActionBar.hidden).toBeFalsy('Multiple items action bar not showing when select all');
-
-		const selectText: HTMLElement = fixture
-			.debugElement
-			.query(By.css('.collection__select-options > p.crud__selection-count'))
-			.nativeElement;
-
-		expect(selectText.innerText).toBe(`${collectionComponent.models.length} selected`, 'Select number not showing correctly');
-
-		const selectAllEl: HTMLInputElement = fixture
-			.debugElement
-			.query(By.css('.input-group.input-group-inline.input-group__checkbox.collection__list--select-all > input[type="checkbox"]'))
-			.nativeElement;
-
-		expect(selectAllEl.checked).toBeTruthy('\'Select All\' checkbox is not selected when all rows of the current page are selected');
-
-		// % protected region % [Add any additional logic for 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic for 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] end
-	}));
-
-	it('should select the correct row', () => {
-		// % protected region % [Add any additional logic before main process of 'should select the correct row' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic before main process of 'should select the correct row' here for Collection component against Tank] end
-
-		collectionComponent.models = models;
-		collectionComponent.headerOptions = defaultHeaderOptions;
-		fixture.detectChanges();
-
-		const checkboxes: DebugElement[] = fixture
-			.debugElement
-			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
-		const checkboxEls: HTMLInputElement[] = checkboxes.map(checkbox => checkbox.nativeElement as HTMLInputElement);
-
-		// Random row to select
-		const rowIndex = 2;
-		const checkbox: DebugElement = checkboxes[rowIndex];
-		const checkboxEl: HTMLInputElement = checkbox.nativeElement;
-
-		checkboxEl.click();
-		fixture.detectChanges();
-
-		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
-
-		const unselectedCheckboxes: boolean[] = checkboxEls
-			.filter(checkbox => !checkbox.checked)
-			.map(checkbox => checkbox.checked);
-
-		expect(unselectedCheckboxes).toEqual(new Array(collectionComponent.models.length - 1).fill(false), 'Some other checkboxes are selected');
-
-		const multipleItemsActionBar: HTMLElement = fixture
-			.debugElement
-			.query(By.css('.collection__select-options'))
-			.nativeElement;
-
-		expect(multipleItemsActionBar.hidden).toBeFalsy('Multiple items action bar not showing when select all');
-
-		const selectText: HTMLElement = fixture
-			.debugElement
-			.query(By.css('.collection__select-options > p.crud__selection-count'))
-			.nativeElement;
-
-		expect(selectText.innerText).toBe('1 selected', 'Select number not showing correctly');
-
-		// % protected region % [Add any additional logic for 'should select the correct row' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic for 'should select the correct row' here for Collection component against Tank] end
-	});
-
-	it('should keep selection when switch between grid and list', fakeAsync(() => {
-		// % protected region % [Add any additional logic before main process of 'should keep selection when switch between grid and list' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic before main process of 'should keep selection when switch between grid and list' here for Collection component against Tank] end
-
-		collectionComponent.models = models;
-		collectionComponent.headerOptions = defaultHeaderOptions;
-
-		fixture.detectChanges();
-		tick();
-
-		// Random row to select
-		const rowIndex = Math.floor(Math.random() * 10);
-		let checkboxes: DebugElement[] = fixture
-			.debugElement
-			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
-
-		let checkbox: DebugElement = checkboxes[rowIndex];
-		let checkboxEl: HTMLInputElement = checkbox.nativeElement;
-
-		checkbox.nativeElement.click();
-
-		fixture.detectChanges();
-		tick();
-
-		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
-
-		// Switch to grid view
-		const gridButton = fixture.debugElement.query(By.css('.btn.icon-grid'));
-		gridButton.nativeElement.click();
-
-		fixture.detectChanges();
-		tick();
-		fixture.detectChanges();
-
-		checkboxes = fixture
-			.debugElement
-			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
-
-		checkbox = checkboxes[rowIndex];
-		checkboxEl = checkbox.nativeElement;
-
-		// The checkbox is still selected and display correctly
-		let selectText: HTMLElement = fixture
-			.debugElement
-			.query(By.css('.collection__select-options > p.crud__selection-count'))
-			.nativeElement;
-		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
-		expect(selectText.innerText).toBe('1 selected', 'Select number not showing correctly');
-
-
-		// Change back to list
-		const listButton = fixture.debugElement.query(By.css('.btn.icon-list'));
-		listButton.nativeElement.click();
-
-		fixture.detectChanges();
-		tick();
-		fixture.detectChanges();
-
-		checkboxes = fixture
-			.debugElement
-			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
-
-		checkbox = checkboxes[rowIndex];
-		checkboxEl = checkbox.nativeElement;
-
-		// The checkbox is still selected
-		selectText = fixture
-			.debugElement
-			.query(By.css('.collection__select-options > p.crud__selection-count'))
-			.nativeElement;
-		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
-		expect(selectText.innerText).toBe('1 selected', 'Select number not showing correctly');
-
-		// % protected region % [Add any additional logic for 'should keep selection when switch between grid and list' here for Collection component against Tank] off begin
-		// % protected region % [Add any additional logic for 'should keep selection when switch between grid and list' here for Collection component against Tank] end
-	}));
-
-	// % protected region % [Add any additional tests here for Collection component against Tank] off begin
-	// % protected region % [Add any additional tests here for Collection component against Tank] end
-});
 
 describe('Collection component against Species', () => {
 
@@ -677,6 +358,325 @@ describe('Collection component against Species', () => {
 
 	// % protected region % [Add any additional tests here for Collection component against Species] off begin
 	// % protected region % [Add any additional tests here for Collection component against Species] end
+});
+
+describe('Collection component against Tank', () => {
+
+	let fixture: ComponentFixture<CollectionComponent<TankModel>>;
+	let collectionComponent: CollectionComponent<TankModel>;
+
+	let tankDataFactory: TankDataFactory;
+	let models: TankModel[];
+	let modelProperties: ModelProperty[];
+
+	let defaultHeaderOptions: HeaderOption[];
+
+	beforeAll(() => {
+		// % protected region % [Add any additional setup in beforeAll before the main body here for entity.Name] off begin
+		// % protected region % [Add any additional setup in beforeAll before the main body here for entity.Name] end
+
+		tankDataFactory = new TankDataFactory();
+
+		modelProperties = TankModel.getProps();
+
+		defaultHeaderOptions =  modelProperties.map(prop => {
+			return {
+				...prop,
+				sortable: true,
+				sourceDirectFromModel: true,
+				valueSource: prop.name
+			} as HeaderOption;
+		});
+
+		// % protected region % [Add any additional setup in beforeAll after the main body here for Tank] off begin
+		// % protected region % [Add any additional setup in beforeAll after the main body here for Tank] end
+	});
+
+	beforeEach(async(() => {
+		models = tankDataFactory.createAll();
+
+		TestBed.configureTestingModule({
+			imports: [
+				CommonModule,
+				FormsModule,
+				ReactiveFormsModule,
+				CommonComponentModule
+			],
+			// % protected region % [Add any additional configurations here for Collection component against Tank] off begin
+			// % protected region % [Add any additional configurations here for Collection component against Tank] end
+		}).compileComponents().then(() => {
+			fixture = TestBed.createComponent<CollectionComponent<TankModel>>(CollectionComponent);
+			collectionComponent = fixture.debugElement.componentInstance;
+		});
+	}));
+
+	afterEach(() => {
+		(fixture.nativeElement as HTMLElement).remove();
+	});
+
+	it('should create the collection component', () => {
+		expect(collectionComponent).toBeTruthy();
+	});
+
+	it('should have no items selected when first viewed', () => {
+		// % protected region % [Add any additional logic before main process of 'should have no items selected when first viewed' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic before main process of 'should have no items selected when first viewed' here for Collection component against Tank] end
+
+		collectionComponent.models = models;
+		collectionComponent.headerOptions = defaultHeaderOptions;
+		fixture.detectChanges();
+
+		const selectAllInputEl: HTMLInputElement = fixture
+			.debugElement
+			.query(By.css('.input-group.input-group-inline.input-group__checkbox.collection__list--select-all > input[type="checkbox"]'))
+			.nativeElement;
+
+		expect(selectAllInputEl.checked).toBeFalsy(`'Select All' is checked`);
+
+		const checkboxEls: HTMLInputElement[] = fixture
+			.debugElement
+			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'))
+			.map(el => el.nativeElement as HTMLInputElement);
+
+		const allChecked = checkboxEls.map(el => el.checked).reduce((prev, currentValue) => {
+			return prev && currentValue;
+		});
+		expect(allChecked).toBeFalsy('Not all checkboxes are deselected');
+
+		// % protected region % [Add any additional logic for 'should have no items selected when first viewed' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic for 'should have no items selected when first viewed' here for Collection component against Tank] end
+	});
+
+	it('should select all items when \'Select All\' is checked', fakeAsync(() => {
+		// % protected region % [Add any additional logic before main process of 'should select all items when 'Select All' is checked' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic before main process of 'should select all items when 'Select All' is checked' here for Collection component against Tank] end
+
+		collectionComponent.models = models;
+		collectionComponent.headerOptions = defaultHeaderOptions;
+
+		fixture.detectChanges();
+		tick();
+
+		fixture
+			.debugElement
+			.query(By.css('.input-group.input-group-inline.input-group__checkbox.collection__list--select-all > input[type="checkbox"]'))
+			.nativeElement
+			.click();
+
+		fixture.detectChanges();
+		tick();
+
+		expect(collectionComponent.selectedModels.size).toBe(models.length, 'Not all checkboxes are checked');
+
+		fixture.detectChanges();
+
+		const checkboxEls: HTMLInputElement[] = fixture
+			.debugElement
+			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox > input[type="checkbox"]'))
+			.map(el => el.nativeElement as HTMLInputElement);
+
+		const allChecked = checkboxEls.map(el => el.checked).reduce((prev, currentValue) => prev && currentValue);
+
+		expect(allChecked).toBeTruthy('Not all checkboxes are selected');
+
+		const multipleItemsActionBar: HTMLElement = fixture
+			.debugElement
+			.query(By.css('.collection__select-options'))
+			.nativeElement;
+
+		expect(multipleItemsActionBar.hidden).toBeFalsy('Multiple items action bar not showing when select all');
+
+		const selectText: HTMLElement = fixture
+			.debugElement
+			.query(By.css('.collection__select-options > p.crud__selection-count'))
+			.nativeElement;
+
+		expect(selectText.innerText).toBe('10 selected', 'Select number not showing correctly');
+
+		// % protected region % [Add any additional logic for 'should select all items when 'Select All' is checked' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic for 'should select all items when 'Select All' is checked' here for Collection component against Tank] end
+
+	}));
+
+	it('should check \'Select All\' when all checkboxes are checked',  fakeAsync(() => {
+		// % protected region % [Add any additional logic before main process of 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic before main process of 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] end
+
+		collectionComponent.models = models;
+		collectionComponent.headerOptions = defaultHeaderOptions;
+
+		fixture.detectChanges();
+		tick();
+
+		const checkboxes: DebugElement[] = fixture
+			.debugElement
+			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
+		const checkboxEls: HTMLInputElement[] = checkboxes.map(checkbox => checkbox.nativeElement as HTMLInputElement);
+
+		checkboxEls.forEach(checkbox => checkbox.click());
+
+		fixture.detectChanges();
+		tick();
+
+		fixture.detectChanges();
+
+		expect(collectionComponent.selectedModels.size).toBe(collectionComponent.models.length, 'Not all checkboxes are checked');
+
+		const allChecked = checkboxEls.map(el => el.checked).reduce((prev, currentValue) => prev && currentValue);
+
+		expect(allChecked).toBeTruthy('Not all checkboxes are selected');
+
+		const multipleItemsActionBar: HTMLElement = fixture
+			.debugElement
+			.query(By.css('.collection__select-options'))
+			.nativeElement;
+
+		expect(multipleItemsActionBar.hidden).toBeFalsy('Multiple items action bar not showing when select all');
+
+		const selectText: HTMLElement = fixture
+			.debugElement
+			.query(By.css('.collection__select-options > p.crud__selection-count'))
+			.nativeElement;
+
+		expect(selectText.innerText).toBe(`${collectionComponent.models.length} selected`, 'Select number not showing correctly');
+
+		const selectAllEl: HTMLInputElement = fixture
+			.debugElement
+			.query(By.css('.input-group.input-group-inline.input-group__checkbox.collection__list--select-all > input[type="checkbox"]'))
+			.nativeElement;
+
+		expect(selectAllEl.checked).toBeTruthy('\'Select All\' checkbox is not selected when all rows of the current page are selected');
+
+		// % protected region % [Add any additional logic for 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic for 'should check 'Select All' when all checkboxes are checked' here for Collection component against Tank] end
+	}));
+
+	it('should select the correct row', () => {
+		// % protected region % [Add any additional logic before main process of 'should select the correct row' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic before main process of 'should select the correct row' here for Collection component against Tank] end
+
+		collectionComponent.models = models;
+		collectionComponent.headerOptions = defaultHeaderOptions;
+		fixture.detectChanges();
+
+		const checkboxes: DebugElement[] = fixture
+			.debugElement
+			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
+		const checkboxEls: HTMLInputElement[] = checkboxes.map(checkbox => checkbox.nativeElement as HTMLInputElement);
+
+		// Random row to select
+		const rowIndex = 2;
+		const checkbox: DebugElement = checkboxes[rowIndex];
+		const checkboxEl: HTMLInputElement = checkbox.nativeElement;
+
+		checkboxEl.click();
+		fixture.detectChanges();
+
+		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
+
+		const unselectedCheckboxes: boolean[] = checkboxEls
+			.filter(checkbox => !checkbox.checked)
+			.map(checkbox => checkbox.checked);
+
+		expect(unselectedCheckboxes).toEqual(new Array(collectionComponent.models.length - 1).fill(false), 'Some other checkboxes are selected');
+
+		const multipleItemsActionBar: HTMLElement = fixture
+			.debugElement
+			.query(By.css('.collection__select-options'))
+			.nativeElement;
+
+		expect(multipleItemsActionBar.hidden).toBeFalsy('Multiple items action bar not showing when select all');
+
+		const selectText: HTMLElement = fixture
+			.debugElement
+			.query(By.css('.collection__select-options > p.crud__selection-count'))
+			.nativeElement;
+
+		expect(selectText.innerText).toBe('1 selected', 'Select number not showing correctly');
+
+		// % protected region % [Add any additional logic for 'should select the correct row' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic for 'should select the correct row' here for Collection component against Tank] end
+	});
+
+	it('should keep selection when switch between grid and list', fakeAsync(() => {
+		// % protected region % [Add any additional logic before main process of 'should keep selection when switch between grid and list' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic before main process of 'should keep selection when switch between grid and list' here for Collection component against Tank] end
+
+		collectionComponent.models = models;
+		collectionComponent.headerOptions = defaultHeaderOptions;
+
+		fixture.detectChanges();
+		tick();
+
+		// Random row to select
+		const rowIndex = Math.floor(Math.random() * 10);
+		let checkboxes: DebugElement[] = fixture
+			.debugElement
+			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
+
+		let checkbox: DebugElement = checkboxes[rowIndex];
+		let checkboxEl: HTMLInputElement = checkbox.nativeElement;
+
+		checkbox.nativeElement.click();
+
+		fixture.detectChanges();
+		tick();
+
+		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
+
+		// Switch to grid view
+		const gridButton = fixture.debugElement.query(By.css('.btn.icon-grid'));
+		gridButton.nativeElement.click();
+
+		fixture.detectChanges();
+		tick();
+		fixture.detectChanges();
+
+		checkboxes = fixture
+			.debugElement
+			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
+
+		checkbox = checkboxes[rowIndex];
+		checkboxEl = checkbox.nativeElement;
+
+		// The checkbox is still selected and display correctly
+		let selectText: HTMLElement = fixture
+			.debugElement
+			.query(By.css('.collection__select-options > p.crud__selection-count'))
+			.nativeElement;
+		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
+		expect(selectText.innerText).toBe('1 selected', 'Select number not showing correctly');
+
+
+		// Change back to list
+		const listButton = fixture.debugElement.query(By.css('.btn.icon-list'));
+		listButton.nativeElement.click();
+
+		fixture.detectChanges();
+		tick();
+		fixture.detectChanges();
+
+		checkboxes = fixture
+			.debugElement
+			.queryAll(By.css('.input-group.input-group-block.input-group__checkbox:not(.collection__list--select-all) > input[type="checkbox"]'));
+
+		checkbox = checkboxes[rowIndex];
+		checkboxEl = checkbox.nativeElement;
+
+		// The checkbox is still selected
+		selectText = fixture
+			.debugElement
+			.query(By.css('.collection__select-options > p.crud__selection-count'))
+			.nativeElement;
+		expect(checkboxEl.checked).toBeTruthy('Checkbox is not checked when selected');
+		expect(selectText.innerText).toBe('1 selected', 'Select number not showing correctly');
+
+		// % protected region % [Add any additional logic for 'should keep selection when switch between grid and list' here for Collection component against Tank] off begin
+		// % protected region % [Add any additional logic for 'should keep selection when switch between grid and list' here for Collection component against Tank] end
+	}));
+
+	// % protected region % [Add any additional tests here for Collection component against Tank] off begin
+	// % protected region % [Add any additional tests here for Collection component against Tank] end
 });
 
 describe('Collection component against Fish', () => {

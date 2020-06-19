@@ -17,8 +17,8 @@
 
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {appRoutes} from './tank.page.routes';
-import {TankWrappingTileTileModule} from '../../tiles/custom/tankWrappingTile/tank_wrapping_tile.tile.module';
+import {TankPageRoutingModule} from './tank.page.routes';
+import {TankWrappingTileTileModule} from '../../tiles/custom/tank-wrapping-tile/tank-wrapping-tile-tile.module';
 
 
 // % protected region % [Add any additional imports here] off begin
@@ -30,7 +30,7 @@ import {TankWrappingTileTileModule} from '../../tiles/custom/tankWrappingTile/ta
 		// % protected region % [Add any additional declaration here] end
 	],
 	imports: [
-		RouterModule.forChild(appRoutes),
+		TankPageRoutingModule,
 		TankWrappingTileTileModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end

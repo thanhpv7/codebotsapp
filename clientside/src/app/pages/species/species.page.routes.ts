@@ -15,9 +15,9 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from "@angular/core";
 import {RoleGuard} from '../../lib/guards/role.guard';
-import {SpeciesWrappingTileTileComponent} from '../../tiles/custom/speciesWrappingTile/species_wrapping_tile.tile.component';
 
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
@@ -27,7 +27,7 @@ import {SpeciesWrappingTileTileComponent} from '../../tiles/custom/speciesWrappi
  */
 export const appRoutes: Routes = [
 	{
-		path: 'species',
+		path: '',
 		children: [
 			{
 				path: '',
@@ -37,7 +37,7 @@ export const appRoutes: Routes = [
 			{
 				path: 'species-wrapping-tile',
 				// % protected region % [Configure component or redirect for Species Wrapping Tile here] off begin
-				component: SpeciesWrappingTileTileComponent,
+				loadChildren: () => import('../../tiles/custom/species-wrapping-tile/species-wrapping-tile-tile.module').then(m => m.SpeciesWrappingTileTileModule),
 				// % protected region % [Configure component or redirect for Species Wrapping Tile here] end
 				canActivate: [
 					RoleGuard,
@@ -62,3 +62,13 @@ export const appRoutes: Routes = [
 	// % protected region % [Add any additional routes here] off begin
 	// % protected region % [Add any additional routes here] end
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(appRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class SpeciesPageRoutingModule { }

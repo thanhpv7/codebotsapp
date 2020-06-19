@@ -123,8 +123,8 @@ public class FishEntityListener {
 	 * @param entity The entity to clean
 	 */
 	protected void removeAllReferences(FishEntity entity) {
-		entity.unsetTank();
 		entity.unsetSpecies();
+		entity.unsetTank();
 	}
 
 	// % protected region % [Add any additional class methods here] off begin

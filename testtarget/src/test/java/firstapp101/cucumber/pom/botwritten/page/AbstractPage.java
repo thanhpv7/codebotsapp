@@ -36,10 +36,15 @@ import java.util.Properties;
  */
 @Slf4j
 public abstract class AbstractPage {
-	protected final WebDriver webDriver;
-	protected final Properties properties;
-	protected final AdminPageFactory adminPageFactory;
-	public final String pageUrl;
+
+	protected WebDriver webDriver;
+
+	protected Properties properties;
+
+	/**
+	 * Url of the page
+	 */
+	public String pageUrl;
 
 	// This is used to track circular cascade dependencies and prevent infinite recursion
 	protected static final Stack<String> pageRedirectStack = new Stack<>();
@@ -48,39 +53,19 @@ public abstract class AbstractPage {
 	// % protected region % [Add any additional class fields here] end
 
 	protected AbstractPage(
-			// % protected region % [Add any additional constructor parameters here] off begin
-			// % protected region % [Add any additional constructor parameters here] end
 			@NonNull WebDriver webDriver,
 			@NonNull Properties properties,
-			AdminPageFactory adminPageFactory,
 			@NonNull String pageUrlSlug
 	) {
-		// % protected region % [Add any additional constructor logic before the main body here] off begin
-		// % protected region % [Add any additional constructor logic before the main body here] end
 
 		this.webDriver = webDriver;
 		this.properties = properties;
-		this.adminPageFactory = adminPageFactory;
 		this.pageUrl = properties.get("selenium.url") + "/" + pageUrlSlug;
 
 		PageFactory.initElements(webDriver, this);
 
-		// % protected region % [Add any additional constructor logic after the main body here] off begin
-		// % protected region % [Add any additional constructor logic after the main body here] end
-	}
-
-	protected AbstractPage(
-			@NonNull WebDriver webDriver,
-			@NonNull Properties properties,
-			@NonNull String pageUrlSlug
-	) {
-
-		this(webDriver, properties, null, pageUrlSlug);
-
-		PageFactory.initElements(webDriver, this);
-
-		// % protected region % [Add any additional constructor logic after the main body here for constructor with three params] off begin
-		// % protected region % [Add any additional constructor logic after the main body here for constructor with three params] end
+		// % protected region % [Add any additional constructor logic after the main body here for constructor with two params] off begin
+		// % protected region % [Add any additional constructor logic after the main body here for constructor with two params] end
 	}
 
 	protected AbstractPage(
@@ -88,7 +73,10 @@ public abstract class AbstractPage {
 			@NonNull Properties properties
 	) {
 
-		this(webDriver, properties, null, "");
+		this.webDriver = webDriver;
+		this.properties = properties;
+
+		PageFactory.initElements(webDriver, this);
 
 		// % protected region % [Add any additional constructor logic after the main body here for constructor with two params] off begin
 		// % protected region % [Add any additional constructor logic after the main body here for constructor with two params] end
@@ -124,4 +112,3 @@ public abstract class AbstractPage {
 	// % protected region % [Add any additional class methods here] off begin
 	// % protected region % [Add any additional class methods here] end
 }
-

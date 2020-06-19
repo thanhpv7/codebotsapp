@@ -17,16 +17,21 @@
 				"build": {
 					"builder": "@angular-devkit/build-angular:browser",
 					"options": {
+						"aot": true,
 						"outputPath": "../serverside/src/main/resources/static",
 						"index": "src/index.html",
 						"main": "src/main.ts",
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
 						"assets": [
+							// % protected region % [Add any additional assets here] off begin
+							// % protected region % [Add any additional assets here] end
 							"src/favicon.ico",
 							"src/assets"
 						],
 						"styles": [
+							// % protected region % [Add any additional styles here] off begin
+							// % protected region % [Add any additional styles here] end
 							"src/styles.scss",
 							"node_modules/@ng-select/ng-select/themes/default.theme.css",
 							"node_modules/ng-pick-datetime/assets/style/picker.min.css"
@@ -118,6 +123,9 @@
 				}
 			}
 		}
+	},
+	"cli": {
+		"analytics": false
 	},
 	"defaultProject": "clientside"
 }

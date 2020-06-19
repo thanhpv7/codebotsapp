@@ -21,6 +21,9 @@ Compile all of harmony
 // Abstract Imports
 @import 'abstracts/import-abstracts.scss';
 
+//Import animations
+@import 'animations/motion.scss';
+
 // Elements - These are modules of each individual element
 @import "elements/import-elements.scss";
 

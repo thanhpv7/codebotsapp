@@ -17,6 +17,7 @@
 package firstapp101.entities;
 
 import lombok.*;
+import javax.validation.constraints.NotNull;
 
 
 // % protected region % [Import any additional imports here] off begin

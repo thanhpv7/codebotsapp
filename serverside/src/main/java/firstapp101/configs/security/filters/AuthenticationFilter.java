@@ -19,6 +19,8 @@ package firstapp101.configs.security.filters;
 import firstapp101.configs.security.services.AuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -86,18 +88,22 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
 		// % protected region % [Add any additional logic for attemptAuthentication before checking for authentication details here] end
 
 		// Get the authentication detail of the current user.
-		Authentication authentication = authService.getAuthentication(request);
-		if (authentication == null) {
-			// % protected region % [Add any additional logic for attemptAuthentication before throwing exception on missing authentication details here] off begin
-			// % protected region % [Add any additional logic for attemptAuthentication before throwing exception on missing authentication details here] end
+		try{
+			Authentication authentication = authService.getAuthentication(request);
+			if (authentication == null) {
+				// % protected region % [Add any additional logic for attemptAuthentication before throwing exception on missing authentication details here] off begin
+				// % protected region % [Add any additional logic for attemptAuthentication before throwing exception on missing authentication details here] end
 
-			return ANONYMOUS_USER;
+				return ANONYMOUS_USER;
+			}
+
+			// % protected region % [Add any additional logic for attemptAuthentication before returning the authentication details here] off begin
+			// % protected region % [Add any additional logic for attemptAuthentication before returning the authentication details here] end
+
+			return authentication;
+		} catch(ExpiredJwtException e) {
+			throw new InsufficientAuthenticationException("Token Expired", e);
 		}
-
-		// % protected region % [Add any additional logic for attemptAuthentication before returning the authentication details here] off begin
-		// % protected region % [Add any additional logic for attemptAuthentication before returning the authentication details here] end
-
-		return authentication;
 	}
 
 	/**
@@ -134,15 +140,21 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
 		// % protected region % [Add any additional logic for unsuccessfulAuthentication before the main body here] end
 
 		SecurityContextHolder.clearContext();
-		authService.removeAuthentication(request);
 
 		// % protected region % [Add any additional logic for unsuccessfulAuthentication before modifying the response here] off begin
 		// % protected region % [Add any additional logic for unsuccessfulAuthentication before modifying the response here] end
 
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode rootNode = mapper.createObjectNode();
-		rootNode.put("error_description", "The username/password combination is invalid.");
-		rootNode.put("error", "invalid_grant");
+
+		if (failed.getCause() instanceof ExpiredJwtException) {
+			rootNode.put("error_description", "The login is timeout");
+			rootNode.put("error", "token_expired");
+		} else {
+			rootNode.put("error_description", "The username/password combination is invalid.");
+			rootNode.put("error", "invalid_grant");
+		}
+
 		response.getWriter().write(mapper.writeValueAsString(rootNode));
 
 		response.setContentType("application/json");

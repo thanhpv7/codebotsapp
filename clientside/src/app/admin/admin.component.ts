@@ -15,7 +15,7 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {ToastContainerDirective, ToastrService} from 'ngx-toastr';
 import {Link, LinkList, NavigationPosition} from '../lib/enums/navigation';
@@ -39,6 +39,9 @@ export class AdminComponent implements OnInit {
 
 	@ViewChild(ToastContainerDirective, { static: true })
 	toastContainer: ToastContainerDirective;
+
+	@HostBinding('class')
+	className = 'admin';
 
 	// % protected region % [Customise or remove the default navigation bar variables] off begin
 	navBarLinks: LinkList[] = [];
@@ -68,23 +71,23 @@ export class AdminComponent implements OnInit {
 
 		// % protected region % [Customise or remove the default navigation bar links for entities] off begin
 		let entitySubLinks = [
-				new Link('Fish', [], 'icon-book', 'admin/entities/fish'),
-				new Link('Tank', [], 'icon-book', 'admin/entities/tank'),
-				new Link('Species', [], 'icon-book', 'admin/entities/species'),
+				new Link('Fish', [], 'icon-book', '/admin/entities/fish'),
+				new Link('Species', [], 'icon-book', '/admin/entities/species'),
+				new Link('Tank', [], 'icon-book', '/admin/entities/tank'),
 		];
 		// % protected region % [Customise or remove the default navigation bar links for entities] end
 
 		// % protected region % [Customise or remove the default navigation bar links for users] off begin
 		let userSubLinks = [
-			new Link('Fishnatic', [], 'icon-book', 'admin/users/fishnatic'),
-			new Link('Admin', [], 'icon-book', 'admin/users/admin'),
+			new Link('Fishnatic', [], 'icon-book', '/admin/users/fishnatic'),
+			new Link('Admin', [], 'icon-book', '/admin/users/admin'),
 		];
 		// % protected region % [Customise or remove the default navigation bar links for users] end
 
 		// % protected region % [Customise or remove the default navigation bar links] off begin
 		this.navBarLinks.push(
 			new LinkList([
-				new Link('Admin Dashboard', [], 'icon-home', 'admin')
+				new Link('Admin Dashboard', [], 'icon-home', '/admin')
 			]),
 			new LinkList([
 				new Link('Entities', entitySubLinks, 'icon-book'),
@@ -92,7 +95,7 @@ export class AdminComponent implements OnInit {
 			]),
 			new LinkList([
 				new Link('Help', [], 'icon-help', 'docs'),
-				new Link('Logout', [], 'icon-logout', 'logout')
+				new Link('Logout', [], 'icon-logout', '/logout')
 			])
 		);
 		// % protected region % [Customise or remove the default navigation bar links] end

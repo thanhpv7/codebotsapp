@@ -24,15 +24,28 @@ Upload component allows image upload or file upload.
 // % protected region % [Change upload styles here] off begin
 .upload {
 	width: 100%;
-	margin: $space-sm;
+	margin-bottom: $space-sm;
+	display: flex;
+	align-items: flex-start;
 
 	.input-group {
+		max-width: 250px;
 		margin: 0;
+		grid-template-areas:
+			"label tooltip"
+			"input input"
+			"btn btn"
+			"drag drag"
+			"validation validation";
+
+		label {
+			margin-bottom: $space-xxs;
+		}
 
 		input {
 			visibility: hidden;
 			padding: $space-lg 0rem;
-			@include icon(after, upload);
+			@include lightning-icon(after, upload);
 			position: relative;
 			cursor: pointer;
 
@@ -72,6 +85,11 @@ Upload component allows image upload or file upload.
 			}
 		}
 
+
+		.btn {
+			grid-area: btn;
+		}
+
 		&.input-group--empty {
 			label {
 				&:after {
@@ -81,47 +99,110 @@ Upload component allows image upload or file upload.
 		}
 	}
 
-	.preview {
+	.upload__drag-area {
+		margin-top: $space-xxs;
+		background-color: $grey-0;
+		height: 195px;
+		width: 100%;
+		border: convert-rem(2px) dashed $black;
+		grid-area: drag;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-		.file {
-			@include icon(before, file);
-			@include fadeIn($animation-time);
+		&.active {
+			border-style: solid;
+		}
+
+		&:before {
+			content: 'Drag file here';
+			font-weight: $text-bold;
+		}
+	}
+
+	&.readonly {
+		flex-direction: column;
+		.preview {
+			margin: $space-sm  0;
+			width: convert-rem(250px);
+		}
+	}
+}
+
+.preview {
+	border: convert-rem(1px) solid $grey-1;
+	margin: $space-md;
+
+	.file {
+		@include icon(before, file);
+
+		&:before {
+			grid-area: file;
+			margin-right: 0;
+			background-color: $grey-1;
+			padding: $space-xs;
+			font-size: 4rem;
+			height: convert-rem(160px);
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			margin-bottom: $space-sm;
+		}
+
+	}
+
+
+	.file,
+	.image {
+		@include fadeIn($animation-time);
+		display: grid;
+		grid-template-areas: 'file file'
+			'name delete';
+		padding: $space-sm;
+
+		img {
+			grid-area: file;
+			margin-bottom: $space-sm;
+			height: convert-rem(160px);
+			max-width: 200px;
+			width: 100%;
+			text-align: center;
+			object-fit: contain;
+		}
+
+		p {
+			grid-area: name;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			text-decoration: none;
+			overflow: hidden;
+			min-width: 10rem;
+			max-width: 10rem;
+			margin-bottom: 0;
 			display: flex;
 			align-items: center;
-			position: relative;
+			margin-right: 0 $space-xs;
+		}
+
+		a {
+			&:before {
+				margin-right: $space-xs;
+			}
+		}
+
+		.btn {
+			grid-area: delete;
+			margin-left: $space-sm;
 			padding: $space-xs;
-			margin: $space-xs;
 
 			&:before {
 				margin-right: 0;
-				background-color: $grey-1;
-				padding: $space-xs;
 			}
 
-			p {
-				white-space: nowrap;
-				text-overflow: ellipsis;
+			&:hover,
+			&:active {
 				text-decoration: none;
-				overflow: hidden;
-				min-width: 10rem;
-				max-width: 10rem;
-				margin-right: 0 $space-xs;
-			}
-
-			a {
-				&:before {
-					margin-right: $space-xs;
-				}
-			}
-
-			.btn {
-				padding: 0;
-				margin-left: $space-sm;
-				&:hover,
-				&:active {
-					text-decoration: none;
-					border-bottom: none;
-				}
+				border-bottom: none;
 			}
 		}
 	}

@@ -16,4 +16,16 @@
  */
 
 // % protected region % [Add any additional SCSS structure here] off begin
+.option-grid {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: center;
+
+}
+
+button {
+	margin: 1em 1em !important;
+	flex-grow: 1 !important;
+}
 // % protected region % [Add any additional SCSS structure here] end
