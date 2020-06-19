@@ -17,7 +17,19 @@
 
 import {Component} from '@angular/core';
 
-// % protected region % [Add any additional imports here] off begin
+// % protected region % [Add any additional imports here] on begin
+import {ElementRef, ViewChild} from '@angular/core';
+import {Chart} from 'chart.js';
+import {Store} from '@ngrx/store';
+import {
+	getFishCollectionModels,
+	getFishCollectionState
+} from '../../../models/fish/fish.model.selector';
+import {Observable} from 'rxjs';
+import {FishModel} from '../../../models/fish/fish.model';
+import * as modelAction from '../../../models/fish/fish.model.action';
+import {QueryOperation} from '../../../lib/services/http/interfaces';
+import { FishModelState } from 'src/app/models/fish/fish.model.state';
 // % protected region % [Add any additional imports here] end
 
 @Component({
@@ -26,7 +38,138 @@ import {Component} from '@angular/core';
 	styleUrls: ['./stats-tile.component.scss']
 })
 export class StatsTileComponent {
-	// % protected region % [Add any additional class fields here] off begin
+	// % protected region % [Add any additional class fields here] on begin
+	aliveFishes: Observable<FishModel[]>;
+	aliveFishesCount: number = 0;
+	aliveFishesId = 'alive-fish';
+
+	deadFishes: Observable<FishModel[]>;
+	deadFishesCount: number = 0;
+	deadFishesId = 'dead-fish';
+
+	constructor(
+		private readonly store: Store<{ model: FishModelState }>,
+	) {
+
+		this.store.dispatch(new modelAction.InitialiseFishCollectionState({
+			collectionId: this.aliveFishesId
+		}));
+
+		this.aliveFishes = this.store.select(getFishCollectionModels, this.aliveFishesId);
+
+		this.store.dispatch(new modelAction.FetchFishModelsWithQuery({
+				queryParams: {
+					pageIndex: 0,
+					pageSize: 1000,
+					where: [
+						[
+							{
+								path: 'fishAlive',
+								operation: QueryOperation.EQUAL,
+								value: 'true'
+							}
+						]
+					]
+
+				},
+				collectionId: this.aliveFishesId
+			},
+		));
+
+
+		this.store.select(getFishCollectionState, this.aliveFishesId).subscribe(collectionStatus => {
+			this.aliveFishesCount = collectionStatus.collectionCount;
+			this.updateChart();
+		});
+
+		// Get Dead Fish
+		this.store.dispatch(new modelAction.InitialiseFishCollectionState({
+			collectionId: this.deadFishesId
+		}));
+
+		this.aliveFishes = this.store.select(getFishCollectionModels, this.deadFishesId);
+
+		this.store.dispatch(new modelAction.FetchFishModelsWithQuery({
+				queryParams: {
+					pageIndex: 0,
+					pageSize: 1000,
+					where: [
+						[
+							{
+								path: 'fishAlive',
+								operation: QueryOperation.EQUAL,
+								value: 'false'
+							}
+						]
+					]
+
+				},
+				collectionId: this.deadFishesId
+			},
+		));
+
+
+		this.store.select(getFishCollectionState, this.deadFishesId).subscribe(collectionStatus => {
+			this.deadFishesCount = collectionStatus.collectionCount;
+			this.updateChart();
+		});
+
+	}
+
+	updateChart() {
+		if (this.chart) {
+			this.chart.data.datasets[0].data = [
+				this.aliveFishesCount,
+				this.deadFishesCount,
+			];
+			this.chart.update();
+		}
+	}
+
+
+
+	@ViewChild('canvas')
+	canvasEl: ElementRef;
+
+	chart: Chart;
+
+	ngAfterViewInit() {
+		const ctx = (this.canvasEl.nativeElement as HTMLCanvasElement).getContext('2d');
+
+		this.chart = new Chart(ctx, {
+			// The type of chart we want to create
+			type: 'bar',
+
+			// The data for our dataset
+			data: {
+				labels: ['Alive', 'Dead'],
+				datasets: [{
+					label: 'Fish count',
+					backgroundColor: 'rgb(255, 99, 132)',
+					borderColor: 'rgb(255, 99, 132)',
+					data: [this.aliveFishesCount, this.deadFishesCount]
+				}]
+			},
+			// Configuration options go here
+			options: {
+				title: {
+					text: 'Fish Count',
+					display: true
+				},
+				scales: {
+					xAxes: [{
+						display: true
+					}],
+					yAxes: [{
+						display: true,
+						ticks: {
+							beginAtZero: true
+						}
+					}],
+				}
+			}
+		});
+	}
 	// % protected region % [Add any additional class fields here] end
 
 	// % protected region % [Add any additional class methods here] off begin

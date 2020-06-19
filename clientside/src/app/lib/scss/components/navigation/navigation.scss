@@ -432,5 +432,18 @@ Styling for basic navigation, vertical navigation and horizontal navigation.
 }
 // % protected region % [Change mobile navigation styles here] end
 
-// % protected region % [Add additional navigation styles here] off begin
+// % protected region % [Add additional navigation styles here] on begin
+.nav {
+	ul {
+		li {
+
+			a {
+				// color: $white;
+			}
+
+			// @import "sublinks-navigation.scss";
+		}
+	}
+}
+// @import "expanded-navigation.scss";
 // % protected region % [Add additional navigation styles here] end

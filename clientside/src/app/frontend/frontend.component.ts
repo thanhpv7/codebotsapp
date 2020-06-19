@@ -78,9 +78,9 @@ export class FrontendComponent implements OnInit {
 
 		// % protected region % [Customise or remove the default navigation bar links for entities] off begin
 		let entityLinks = [
-				new Link('Fish', [], 'icon-book', '/fish'),
+				new Link('Fish', [], 'icon-fish', '/fish'),
 				new Link('Species', [], 'icon-book', '/species'),
-				new Link('Tank', [], 'icon-book', '/tank'),
+				new Link('Tank', [], 'icon-tank', '/tank'),
 				new Link('Stats', [], 'icon-book', '/stats'),
 		];
 		// % protected region % [Customise or remove the default navigation bar links for entities] end

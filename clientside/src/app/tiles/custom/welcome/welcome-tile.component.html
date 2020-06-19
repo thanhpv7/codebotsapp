@@ -15,5 +15,16 @@ This file is bot-written.
 Any changes out side of "protected regions" will be lost next time the bot makes any changes.
 -->
 
-<!-- % protected region % [Add any additional HTML structure here] off begin -->
+<!-- % protected region % [Add any additional HTML structure here] on begin -->
+<div class="welcome-tile">
+	<h2> Welcome to Fishnatics </h2>
+
+		<a cb-button [routerLink]="['/fish']">Fish</a><br>
+		<a cb-button [routerLink]="['/species']">Species</a><br>
+		<a cb-button [routerLink]="['/tank']">Tank</a><br>
+		<a cb-button [routerLink]="['/stats']">Stats</a>
+
+	<h2>Stats</h2>
+	<cb-stats-tile></cb-stats-tile>
+</div>
 <!-- % protected region % [Add any additional HTML structure here] end -->

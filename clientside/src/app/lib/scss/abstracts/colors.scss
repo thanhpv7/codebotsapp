@@ -111,5 +111,11 @@ $color-support-purple-dark: darken($color-support-purple, $color-shades);
 $color-support-purple-bg: rgba($color-support-purple, $color-alpha);
 // % protected region % [Set colour shades] end
 
-// % protected region % [Add additional colours here] off begin
+// % protected region % [Add additional colours here] on begin
+//$color-primary: rgb(34, 9, 87);
+//$color-secondary: rgb(44, 145, 212);
+//
+//$color-brand-01: rgb(0, 41, 250);
+//$color-brand-02: rgb(92, 115, 242);
+//$color-brand-03: rgb(130, 159, 217);
 // % protected region % [Add additional colours here] end
