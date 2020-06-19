@@ -25,7 +25,10 @@ import java.time.*;
 import java.util.Optional;
 import java.util.List;
 
-// % protected region % [Import any additional imports here] off begin
+// % protected region % [Import any additional imports here] on begin
+import com.google.common.collect.Lists;
+import com.querydsl.core.types.Predicate;
+import firstapp101.entities.QFishEntity;
 // % protected region % [Import any additional imports here] end
 
 /**
