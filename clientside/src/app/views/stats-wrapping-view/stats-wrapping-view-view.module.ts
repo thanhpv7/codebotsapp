@@ -19,6 +19,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { StatsWrappingViewViewRoutingModule } from './stats-wrapping-view-view-routing.module';
 import { StatsWrappingViewViewComponent } from './stats-wrapping-view-view.component';
+import {StatsTileModule} from '../../tiles/custom/stats/stats-tile.module';
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
 
@@ -31,6 +32,7 @@ import { StatsWrappingViewViewComponent } from './stats-wrapping-view-view.compo
 	imports: [
 		CommonModule,
 		StatsWrappingViewViewRoutingModule,
+		StatsTileModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end
 	],

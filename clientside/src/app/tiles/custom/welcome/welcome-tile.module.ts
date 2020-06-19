@@ -17,29 +17,23 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { WelcomeWrappingViewViewRoutingModule } from './welcome-wrapping-view-view-routing.module';
-import { WelcomeWrappingViewViewComponent } from './welcome-wrapping-view-view.component';
-import {WelcomeTileModule} from '../../tiles/custom/welcome/welcome-tile.module';
+import { WelcomeTileComponent } from './welcome-tile.component';
 // % protected region % [Add any additional imports here] off begin
 // % protected region % [Add any additional imports here] end
 
 @NgModule({
 	declarations: [
-		WelcomeWrappingViewViewComponent
+		WelcomeTileComponent,
 		// % protected region % [Add any additional declaration here] off begin
 		// % protected region % [Add any additional declaration here] end
 	],
 	imports: [
 		CommonModule,
-		WelcomeWrappingViewViewRoutingModule,
-		WelcomeTileModule,
 		// % protected region % [Add any additional module imports here] off begin
 		// % protected region % [Add any additional module imports here] end
 	],
 	exports: [
-		WelcomeWrappingViewViewComponent,
-		// % protected region % [Add any additional exports here] off begin
-		// % protected region % [Add any additional exports here] end
+		WelcomeTileComponent,
 	],
 	providers: [
 		// % protected region % [Add any additional providers here] off begin
@@ -48,5 +42,5 @@ import {WelcomeTileModule} from '../../tiles/custom/welcome/welcome-tile.module'
 	// % protected region % [Add any additional module configurations here] off begin
 	// % protected region % [Add any additional module configurations here] end
 })
-export class WelcomeWrappingViewViewModule {
+export class WelcomeTileModule {
 }
