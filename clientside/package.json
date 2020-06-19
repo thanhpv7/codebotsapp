@@ -64,8 +64,9 @@
 			" protected region % [Configure the package versions here] end "
 		],
 		"//": [
-			" protected region % [Add custom dependencies here] off begin "
+			" protected region % [Add custom dependencies here] on begin "
 		],
+		"chart.js": "~2.8.0",
 		"//": [
 			" protected region % [Add custom dependencies here] end "
 		]
