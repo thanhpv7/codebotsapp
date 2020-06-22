@@ -25,7 +25,9 @@ import java.time.*;
 import java.util.Optional;
 import java.util.List;
 
-// % protected region % [Import any additional imports here] off begin
+// % protected region % [Import any additional imports here] on begin
+import firstapp101.entities.QTankEntity;
+import org.apache.commons.collections4.IterableUtils;
 // % protected region % [Import any additional imports here] end
 
 /**
@@ -81,6 +83,15 @@ public interface TankRepository extends AbstractRepository<TankEntity> {
 	 */
 	List<TankEntity> findByClean(@NotNull CleanEnum clean);
 
-	// % protected region % [Add any additional class methods here] off begin
+	// % protected region % [Add any additional class methods here] on begin
+	default List findTankEntitiesBeforeLastCleanedAndStatus(@NotNull OffsetDateTime lastCleanDate, @NotNull CleanEnum status) {
+		QTankEntity tankEntity = QTankEntity.tankEntity;
+		return IterableUtils.toList(this.findAll(tankEntity.lastCleaned.before(lastCleanDate)
+						.and(tankEntity.clean.ne(status)
+								.or(tankEntity.clean.isNull())
+						)
+				)
+		);
+	}
 	// % protected region % [Add any additional class methods here] end
 }

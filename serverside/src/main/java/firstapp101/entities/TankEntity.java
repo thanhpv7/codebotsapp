@@ -279,6 +279,9 @@ public class TankEntity extends AbstractEntity {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-	// % protected region % [Add any additional class methods  here] off begin
+	// % protected region % [Add any additional class methods  here] on begin
+	public void markTankAsDirty() {
+		this.clean = CleanEnum.DIRTY;
+	}
 	// % protected region % [Add any additional class methods  here] end
 }

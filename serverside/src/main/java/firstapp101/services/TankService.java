@@ -720,6 +720,19 @@ public class TankService extends AbstractService<TankEntity, TankRepository, Tan
 
 
 
-	// % protected region % [Add any additional class methods here] off begin
+	// % protected region % [Add any additional class methods here] on begin
+	/**
+	 * Search for all animals that have a status that is not overdue and a
+	 * VetVisitDate that is greater than 2 weeks old.
+	 *
+	 * @return List of all Animals that match that are ready to be marked as
+	 * overdue.
+	 */
+	public List<TankEntity> findByCleanToBeOverdue() {
+		return this.repository.findTankEntitiesBeforeLastCleanedAndStatus(
+				OffsetDateTime.now().minusWeeks(2).withHour(0).withMinute(0).withSecond(0).withNano(0),
+				CleanEnum.DIRTY
+		);
+	}
 	// % protected region % [Add any additional class methods here] end
 }

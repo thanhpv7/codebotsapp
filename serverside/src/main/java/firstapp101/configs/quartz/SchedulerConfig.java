@@ -37,8 +37,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-// % protected region % [Add any additional imports here] off begin
+// % protected region % [Add any additional imports here] on begin
 import firstapp101.jobs.SimpleJob;
+import firstapp101.jobs.TankCheckJob;
 // % protected region % [Add any additional imports here] end
 
 @Configuration
@@ -97,7 +98,7 @@ public class SchedulerConfig {
 		return factory;
 	}
 
-	// % protected region % [Add trigger and job details here] off begin
+	// % protected region % [Add trigger and job details here] on begin
 	@Bean
 	public JobDetailFactoryBean simpleJobDetail() {
 		return JobHelpers.createJobDetail(
@@ -110,6 +111,20 @@ public class SchedulerConfig {
 	@Bean
 	public SimpleTriggerFactoryBean simpleJobTrigger(@Qualifier("simpleJobDetail") JobDetail jobDetail) {
 		return JobHelpers.createSimpleTrigger(jobDetail, Frequency.MINUTE.getMillis() * 2); // Run every two minutes
+	}
+
+	@Bean
+	public JobDetailFactoryBean tankCheckJobDetail() {
+		return JobHelpers.createJobDetail(
+				TankCheckJob.class,
+				TankCheckJob.getName(),
+				TankCheckJob.getDescription()
+		);
+	}
+
+	@Bean
+	public SimpleTriggerFactoryBean tankCheckJobTrigger(@Qualifier("tankCheckJobDetail") JobDetail jobDetail) {
+		return JobHelpers.createSimpleTrigger(jobDetail, Frequency.SECOND.getMillis() * 20); // Run every 2 minutes
 	}
 	// % protected region % [Add trigger and job details here] end
 }
