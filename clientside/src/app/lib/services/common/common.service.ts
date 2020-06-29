@@ -41,7 +41,7 @@ export class CommonService {
 		for (let i = 0; i < array.length; i++) {
 			let line = (i + 1) + '';
 			for (let index in headerList) {
-				let head = headerList[index].displayName;
+				let head = headerList[index].name;
 
 				line += ',' + array[i][head];
 			}
