@@ -37,7 +37,8 @@ import {FilterQuestion} from '../../../../lib/components/collection/collection-f
 import {CrudTileMode} from '../fish-tile-crud.component';
 import {RouterState} from '../../../../models/model.state';
 
-// % protected region % [Add any additional imports here] off begin
+// % protected region % [Add any additional imports here] on begin
+import {CommonService} from '../../../../lib/services/common/common.service';
 // % protected region % [Add any additional imports here] end
 
 /**
@@ -353,13 +354,6 @@ export class FishTileCrudListComponent implements OnInit {
 			isAdditional: false
 		},
 		{
-			label: MultipleItemActionEnum.Archive,
-			icon: 'archivable',
-			iconPos: IconPosition.LEFT,
-			showIcon: true,
-			isAdditional: false
-		},
-		{
 			label: MultipleItemActionEnum.Delete,
 			icon: 'bin-delete',
 			iconPos: IconPosition.LEFT,
@@ -380,6 +374,29 @@ export class FishTileCrudListComponent implements OnInit {
 	];
 
 	// % protected region % [Add any additional class fields here] off begin
+	jsonData =  [
+		{
+			name: "Anil Singh",
+			age: 33,
+			average: 98,
+			approved: true,
+			description: "I am active blogger and Author."
+		},
+		{
+			name: 'Reena Singh',
+			age: 28,
+			average: 99,
+			approved: true,
+			description: "I am active HR."
+		},
+		{
+			name: 'Aradhya',
+			age: 4,
+			average: 99,
+			approved: true,
+			description: "I am engle."
+		},
+	];
 	// % protected region % [Add any additional class fields here] end
 
 	constructor(
@@ -387,7 +404,8 @@ export class FishTileCrudListComponent implements OnInit {
 		private readonly routerStore: Store<{ router: RouterState }>,
 		private readonly activatedRoute: ActivatedRoute,
 		private authenticationService: AuthenticationService,
-		// % protected region % [Add any additional constructor parameters here] off begin
+		// % protected region % [Add any additional constructor parameters here] on begin
+		private commonService: CommonService,
 		// % protected region % [Add any additional constructor parameters here] end
 	) {
 		// % protected region % [Add any additional constructor logic before the main body here] off begin
@@ -526,6 +544,14 @@ export class FishTileCrudListComponent implements OnInit {
 				// % protected region % [Add any additional logic after deleted the selected entities here] off begin
 				// % protected region % [Add any additional logic after deleted the selected entities here] end
 			}
+		} else if (event.actionName === MultipleItemActionEnum.Export) {
+			debugger;
+			// var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
+			// FileSaver.saveAs(file);
+			console.log(event.payload.selectedModels);
+			console.log(this.modelProperties);
+			// this.commonService.downloadFile(this.jsonData, 'data');
+			this.commonService.downloadFile(event.payload.selectedModels, 'data', this.modelProperties);
 		}
 
 		// % protected region % [Add any additional onMultipleItemsActionClicked logic after the main body here] off begin
