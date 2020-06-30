@@ -15,7 +15,7 @@
  * Any changes out side of "protected regions" will be lost next time the bot makes any changes.
  */
 
-import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -27,18 +27,23 @@ import * as modelAction from '../../../../models/fish/fish.model.action';
 import {FishModelState} from '../../../../models/fish/fish.model.state';
 import {AuthenticationService} from '../../../../lib/services/authentication/authentication.service';
 import {FishModel} from '../../../../models/fish/fish.model';
-import {
-	getFishCollectionModels,
-	getFishCollectionCount
-} from '../../../../models/fish/fish.model.selector';
+import {getFishCollectionCount, getFishCollectionModels} from '../../../../models/fish/fish.model.selector';
 import {IconPosition} from '../../../../lib/components/button/button.component';
-import {OrderBy, PassableStateConfig, QueryOperation, QueryParams, Where, Expand} from '../../../../lib/services/http/interfaces';
+import {
+	Expand,
+	OrderBy,
+	PassableStateConfig,
+	QueryOperation,
+	QueryParams,
+	Where
+} from '../../../../lib/services/http/interfaces';
 import {FilterQuestion} from '../../../../lib/components/collection/collection-filter.component';
 import {CrudTileMode} from '../fish-tile-crud.component';
 import {RouterState} from '../../../../models/model.state';
-
 // % protected region % [Add any additional imports here] on begin
 import {CommonService} from '../../../../lib/services/common/common.service';
+import {FishService} from "../../../../services/fish/fish.service";
+import {__await} from "tslib";
 // % protected region % [Add any additional imports here] end
 
 /**
@@ -80,6 +85,7 @@ enum ItemActionEnum {
  */
 enum MultipleItemActionEnum {
 	// % protected region % [Customise what multiple items actions show here] off begin
+	ExportALL = 'Export All',
 	Export = 'Export',
 	Archive = 'Archive',
 	Delete = 'Delete',
@@ -347,6 +353,13 @@ export class FishTileCrudListComponent implements OnInit {
 	 */
 	multipleItemsActions: Action[] = [
 		{
+			label: MultipleItemActionEnum.ExportALL,
+			icon: 'export ALL',
+			iconPos: IconPosition.LEFT,
+			showIcon: true,
+			isAdditional: false
+		},
+		{
 			label: MultipleItemActionEnum.Export,
 			icon: 'export',
 			iconPos: IconPosition.LEFT,
@@ -373,30 +386,6 @@ export class FishTileCrudListComponent implements OnInit {
 		// % protected region % [Add any additional filter questions for the collection here] end
 	];
 
-	// % protected region % [Add any additional class fields here] off begin
-	jsonData =  [
-		{
-			name: "Anil Singh",
-			age: 33,
-			average: 98,
-			approved: true,
-			description: "I am active blogger and Author."
-		},
-		{
-			name: 'Reena Singh',
-			age: 28,
-			average: 99,
-			approved: true,
-			description: "I am active HR."
-		},
-		{
-			name: 'Aradhya',
-			age: 4,
-			average: 99,
-			approved: true,
-			description: "I am engle."
-		},
-	];
 	// % protected region % [Add any additional class fields here] end
 
 	constructor(
@@ -406,6 +395,7 @@ export class FishTileCrudListComponent implements OnInit {
 		private authenticationService: AuthenticationService,
 		// % protected region % [Add any additional constructor parameters here] on begin
 		private commonService: CommonService,
+		protected readonly fishService: FishService,
 		// % protected region % [Add any additional constructor parameters here] end
 	) {
 		// % protected region % [Add any additional constructor logic before the main body here] off begin
@@ -545,13 +535,14 @@ export class FishTileCrudListComponent implements OnInit {
 				// % protected region % [Add any additional logic after deleted the selected entities here] end
 			}
 		} else if (event.actionName === MultipleItemActionEnum.Export) {
-			debugger;
-			// var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
-			// FileSaver.saveAs(file);
-			console.log(event.payload.selectedModels);
-			console.log(this.modelProperties);
-			// this.commonService.downloadFile(this.jsonData, 'data');
 			this.commonService.downloadFile(event.payload.selectedModels, 'data', this.modelProperties);
+		} else if (event.actionName === MultipleItemActionEnum.ExportALL) {
+			let queryParams1 = this.queryParams;
+			queryParams1.pageIndex = 0;
+			queryParams1.pageSize = this.fishsCount;
+			this.fishService.getWithQuery(queryParams1).subscribe(result => {
+				this.commonService.downloadFile(result.targetModels, 'data', this.modelProperties);
+			});
 		}
 
 		// % protected region % [Add any additional onMultipleItemsActionClicked logic after the main body here] off begin

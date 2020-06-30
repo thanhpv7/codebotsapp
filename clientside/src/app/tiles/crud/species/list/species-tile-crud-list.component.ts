@@ -37,7 +37,8 @@ import {FilterQuestion} from '../../../../lib/components/collection/collection-f
 import {CrudTileMode} from '../species-tile-crud.component';
 import {RouterState} from '../../../../models/model.state';
 
-// % protected region % [Add any additional imports here] off begin
+// % protected region % [Add any additional imports here] on begin
+import {CommonService} from '../../../../lib/services/common/common.service';
 // % protected region % [Add any additional imports here] end
 
 /**
@@ -353,13 +354,6 @@ export class SpeciesTileCrudListComponent implements OnInit {
 			isAdditional: false
 		},
 		{
-			label: MultipleItemActionEnum.Archive,
-			icon: 'archivable',
-			iconPos: IconPosition.LEFT,
-			showIcon: true,
-			isAdditional: false
-		},
-		{
 			label: MultipleItemActionEnum.Delete,
 			icon: 'bin-delete',
 			iconPos: IconPosition.LEFT,
@@ -387,7 +381,8 @@ export class SpeciesTileCrudListComponent implements OnInit {
 		private readonly routerStore: Store<{ router: RouterState }>,
 		private readonly activatedRoute: ActivatedRoute,
 		private authenticationService: AuthenticationService,
-		// % protected region % [Add any additional constructor parameters here] off begin
+		// % protected region % [Add any additional constructor parameters here] on begin
+		private commonService: CommonService,
 		// % protected region % [Add any additional constructor parameters here] end
 	) {
 		// % protected region % [Add any additional constructor logic before the main body here] off begin
@@ -526,6 +521,8 @@ export class SpeciesTileCrudListComponent implements OnInit {
 				// % protected region % [Add any additional logic after deleted the selected entities here] off begin
 				// % protected region % [Add any additional logic after deleted the selected entities here] end
 			}
+		}else if (event.actionName === MultipleItemActionEnum.Export) {
+			this.commonService.downloadFile(event.payload.selectedModels, 'data', this.modelProperties);
 		}
 
 		// % protected region % [Add any additional onMultipleItemsActionClicked logic after the main body here] off begin

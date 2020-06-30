@@ -28,7 +28,6 @@ export class CommonService {
 	}
 
 	ConvertToCSV(objArray, headerList: ModelProperty[]) {
-		debugger;
 		let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
 		let str = '';
 		let row = 'S.No,';
