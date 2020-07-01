@@ -353,13 +353,6 @@ export class TankTileCrudListComponent implements OnInit {
 			isAdditional: false
 		},
 		{
-			label: MultipleItemActionEnum.Archive,
-			icon: 'archivable',
-			iconPos: IconPosition.LEFT,
-			showIcon: true,
-			isAdditional: false
-		},
-		{
 			label: MultipleItemActionEnum.Delete,
 			icon: 'bin-delete',
 			iconPos: IconPosition.LEFT,
