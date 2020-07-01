@@ -30,6 +30,7 @@ export const environment = {
 	// % protected region % [Customize environment properties here] end
 
 	// % protected region % [Add any additional environment properties here] off begin
+	MAX_EXPORT_RECORD: 1000,
 	// % protected region % [Add any additional environment properties here] end
 };
 

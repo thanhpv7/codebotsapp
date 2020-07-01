@@ -44,6 +44,7 @@ import {RouterState} from '../../../../models/model.state';
 import {CommonService} from '../../../../lib/services/common/common.service';
 import {FishService} from "../../../../services/fish/fish.service";
 import {__await} from "tslib";
+import {environment} from "../../../../../environments/environment.prod";
 // % protected region % [Add any additional imports here] end
 
 /**
@@ -539,7 +540,12 @@ export class FishTileCrudListComponent implements OnInit {
 		} else if (event.actionName === MultipleItemActionEnum.ExportALL) {
 			let queryParams1 = this.queryParams;
 			queryParams1.pageIndex = 0;
-			queryParams1.pageSize = this.fishsCount;
+			debugger;
+			if (this.fishsCount < environment.MAX_EXPORT_RECORD) {
+				queryParams1.pageSize = this.fishsCount;
+			} else {
+				queryParams1.pageSize = environment.MAX_EXPORT_RECORD;
+			}
 			this.fishService.getWithQuery(queryParams1).subscribe(result => {
 				this.commonService.downloadFile(result.targetModels, 'data', this.modelProperties);
 			});
